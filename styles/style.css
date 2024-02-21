@@ -1,0 +1,168 @@
+body {
+  background-color: ash;
+  margin-left: 50;
+  padding: 20;
+  font-family: script fonts;
+}
+
+@font-face {
+  font-family: "script-fonts";
+  src: url("./Norse-Bold.otf");
+}
+
+.content {
+
+  display: flex;
+}
+
+/* Image Section */
+
+.image-section {
+  background-color: black;
+  background-position: center;
+  background-size: cover;
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: white;
+  text-align: center;
+}
+
+a {
+  color: black;
+}
+
+.banner img {
+  height: 50px;
+  width:  500px;
+  position:absolute-left;
+  top:0;
+  left:0;
+  margin-right: -300px;
+  margin-left: -300px;
+
+}
+
+.banner h2{
+  margin: 300px;
+}
+
+.attribution {
+  font-size: 0.5rem;
+}
+
+/* Text Section */
+label,input{
+  display:flex;
+  flex-direction:column;
+  margin-left: 500px;
+  color: blue;
+}
+.text-section {
+  flex: 15;
+  font-size: 10;
+  padding-bottom: 50px;
+  background-color:grey;
+  display: flex;
+  flex-direction: column;
+}
+
+.text-section > p {
+  font-size: 20px;
+  margin-left: var(--right-space);
+  font-weight: 10px;
+  max-width: 80%;
+  margin-bottom: 10px;
+  margin-left: 200px;
+  padding-left: 80PX;
+ 
+}
+
+.inputs-section {
+  color: green;
+  background-color: black;
+  padding-top: 32px;
+  padding-bottom: 16px;
+  padding-left: 80PX;
+  }
+
+.inputs-section label {
+  font-size: 0.7rem;
+  padding: 6px 10p;
+  letter-spacing: 0.2rem;
+  margin-bottom: 1px;
+  margin-left: 250px;
+}
+
+.inputs-section input {
+  box-sizing: border-box;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 5px 10px;
+  width: 100%;
+  font-size: 0.7rem;
+  margin-right: 100px;
+  margin-left: -10px;
+  margin: top 50px;
+}
+
+.inputs-section h3 {
+  font-size: 1.0rem;
+  font-weight: 400;
+  margin-top: 0;
+  margin-bottom: 24px;
+}
+
+.inputs > div {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 84px;
+  row-gap: 18px;
+  margin-bottom: 18px;
+}
+
+.inputs label {
+  display: block;
+}
+
+input.focus {
+  border: 1px solid;
+  box-shadow: 2px 1px 2px 2pxgba blueviolet;
+}
+
+input.error {
+  border: 1px solid blue;
+}
+
+.error-message {
+  margin-top: 0;
+  font-size: 0.8rem;
+  color: red;
+  margin-left: 170px;
+}
+
+#create-account {
+  margin-left: var(--left-space);
+  margin-top: 10px;
+  border: none;
+  background-color:black;
+  padding: 5px 10px 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  color: white;
+  font-weight: 500;
+  font-size: 1.0rem;
+}
+
+p.log-in {
+  font-weight: 400;
+  font-size: 1rem;
+  margin-top: 10px;
+}
+
+.log-in a {
+  color:pink;
+  font-weight: bold;
+  text-decoration: none;
+}
