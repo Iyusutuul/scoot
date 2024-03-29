@@ -129,7 +129,7 @@ header *{
   bottom: -30px;
   box-shadow: 1px 1px 2px rgb(0 0 200 / 0.4);
   border-radius: 2px;
-  transition: 1.0s;
+  transition: 0.0s;
  }
 
  nav ul li a:hover::after{
@@ -351,4 +351,8 @@ height: 800px;
     float: none;
     display: block;
   }
+}
+.sign_in{
+  margin-left: 500px;
+  cursor: pointer
 }

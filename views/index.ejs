@@ -1,0 +1,69 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" href="styles/login.css">
+        <title>Login Scoot</title>
+    </head>
+<body>
+    <div id="header">
+        <div style="background-color: #0093E9;
+        background-image: linear-gradient(160deg, #133950 0%, #19ddc6 100%);" class="rect_2"></div>
+                <div style="background: orangered; border-radius: 10px;" class="rect_3"></div>
+                <h3 href="#"class="formheading">datahu&#160<i style="padding-bottom: -20px; margin-top:-100px; margin-left: -12px;;
+                background-color: orangered;border-radius: 10px;color:
+                 white;">&#160</i><span><i style="color: rgb(232, 56, 46);"></i>
+                </h3>
+            </div>
+    <div class="contain">                  
+        <nav>
+            <ul>
+                <li><a style="position:absolute; margin: -30px 0px 0px 50px" href="/signup">Sign Up</a></li>
+            </ul>  
+        </nav>
+        <div> 
+        <% if (message) {%>
+            <div class=" alert_error"><%= message %></div>
+        <% } %>
+    </div> 
+<form action="/dashboard" method="POST"> 
+    <div >
+        
+    </div>
+    <div class="loginform">              
+        <div class="container">
+            <div class="inputs">
+                <label for="email">
+                    <input style="margin-top: 40px;" type="email"
+                    id="email" name="email" required="" maxlength="64" placeholder="Email" 
+                    >
+                    </label></div>
+                <div>
+            <label for="password"><b></b>
+                <input type="password" name="password" id="password" required="" 
+                placeholder="Password" minlenth="4" 
+                onfocus="this.value = this.value=='Password'?'':this.value;" 
+                onblur="this.value = this.value==''?'Password':this.value;">
+                </label></div>
+            </div>
+        <div class="login_button">
+            <input style="margin: 30px 0px 0px -30px;
+                padding: 10px 0px;width: 240px;
+                background-image: linear-gradient(160deg, #133950 0%, #19ddc6 100%);;
+                border-radius: 3px;
+                border:transparent;
+                color: white;
+                cursor: pointer;
+                font-size: 18px;
+                font-weight: 500;" type="submit" value="Login">
+            </div><br><br><br><br>
+            <div style ="margin-top: -40px;
+                        font-size:85%; color: white">
+                        Dont have an account?&#160 Click Sign Up!
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+</html>

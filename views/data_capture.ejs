@@ -16,82 +16,63 @@
                 </h3>
             </div>
     <div class="contain">                  
-        <nav>
-            <ul>
-                <li><a style="position:absolute; margin: -40px 0px 0px 50px" href="/signup">Log In</a></li>
-            </ul>  
-        </nav>
+        
     </div> 
 <form action="/signup" method="POST">   
-    <div> 
-        <% if (message) {%>
-            <div class="alert_error"><%= message %></div>
-        <% } %>
-        <% if (message_success) {%>
-            <div class="alert_success"><%= message_success %></div>
-        <% } %>
-    </div> 
+        
+       
     <div class="loginform">              
         <div class="container">
             <div class="inputs">
                 <div>
                     <label for="firstname">
                         <input style="margin-top: -50px;" type="text"
-                        id="firstname" name="firstname" required="" maxlength="20" placeholder="First Name" >
+                        id="firstname" name="firstname" required="" maxlength="20" placeholder="Application Type" >
                         </label>
+                            </div>
+                            <div>
+                                <label for="firstname">
+                                    <input style="margin-top: -50px;" type="text"
+                                    id="firstname" name="firstname" required="" maxlength="20" placeholder="Application Type" >
+                                    </label>
+                                        </div>
                             </div>
                                 <div>
                                     <label for="lastname">
                                     <input style="margin-top: -10px;" type="text" id="lastname" 
-                                name="lastname" required="" maxlength="20" placeholder="Last Name" >
+                                name="lastname" required="" maxlength="20" placeholder="Terminal Type" >
                             </label>
                         </div>
                     <div>
-                        <label for="location">
+                        <label for="sim type">
                             <input style="margin-top: 0px;" type="text" id="location" 
-                            name="location" required="" maxlength="25" placeholder="Location" >
+                            name="sim_ty" required="" maxlength="25" placeholder="Sim Type" >
                             </label>
                                 </div>
                                     <div>
-                                        <label for="mobile_num">
+                                        <label for="sim serial">
                                         <input style="margin-top: 20px;" type="tel"
-                                        id="mobile_num" name="mobile_num" maxlength="11" placeholder="Mobile_Number" required>
+                                        id="mobile_num" name="mobile_num" maxlength="11" placeholder="Sim Serial" required>
                                     </label>
                                 </div>
-                                <div>
-                            <label for="email">
-                                <input style="margin-top: 0px;" type="email"
-                                id="email" name="email" required="" maxlength="64" placeholder="Email">
-                            </label>
-                        </div>
+                              
                         <div>
                             <label for="dispatcher_id">
                                 <input style="margin-top: 20px;" type="text"
-                                id="dispatcher_id" name="dispatcher_id"  maxlength="11" placeholder="NIN Number" required>
+                                id="dispatcher_id" name="dispatcher_id"  maxlength="11" placeholder="Terminal Serial" required>
                             </label>
                         </div>
-                        <div>                                                  
-                            <label for="password"><b></b>
-                                <input type="password" name="password" id="password" required
-                                placeholder="Password" minlenth="4" 
-                                onfocus="this.value = this.value=='Password'?'':this.value;" 
-                                onblur="this.value = this.value==''?'Password':this.value;">
-                            </label>
-                        </div>  
-                                                           
+                        
+                                 <div>                         
                             <label for="confirm_password"><b></b>
                                 <input type="password" name="confirm_password" id="confirm_password" required
-                                placeholder="Confirm Password" placeholder="enter password again" minlenth="4">
+                               placeholder="Terminal Status" minlenth="4">
                             </label>
                         </div>
                     </div>
                 <div class="login_button">
-                    <input type="submit" value="Sign Up">
+                    <input type="submit" value="Submit">
                     </div><br><br>  <br>
-                    <div style ="
-                    font-size:85%; color: white">
-                    Already have an account? Click Log In!
-                    </div>
                     </div>
                 </div>
             </div>

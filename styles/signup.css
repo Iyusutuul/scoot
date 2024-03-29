@@ -78,17 +78,27 @@ header *{
  margin-top: 50px;
  margin-left: 500px;
 }
+.alert_success{
+  width: 65.9%;
+  background-color: yellow;
+  color: white;
+  font-size: 200px;
+  padding: 10px 10px;
+  padding-left: -10px;
+  margin-top: -10px;
+  margin-left: -100px;
+
+}
 .alert_error{
-  width: 1165%;
-  font-family:cursive;
-  background-color:red;
+  width: 65.9%;
+  background-color: red;
   color: white;
   font-size: 20px;
   padding: 10px 10px;
-  padding-left: 40px;
-  margin-top: 80px;
-  margin-left: -600px;
-  
+  padding-left: -5px;
+  margin-top: -10px;
+  margin-left: -100px;
+  text-align: center;
 }
 /***targets the logo text position***/
 .formheading{
@@ -130,8 +140,10 @@ header *{
   position: relative;
   color: white;
   font-size: 15px;
-  font-weight:500;
+  font-weight: 500;
+  padding: 10px 10px;
  }
+
  nav ul li a:after{
   color: orange;
   content: '';
@@ -192,15 +204,13 @@ body{
        /*** controls all the input boxes appearance **/
         .loginform input{
         width: 100%;
-        margin-top: 30px;
         margin-bottom: -10px; 
         border: 0.1px solid green;
         padding: 15px 20px;
         font-size: 15px;
         font-weight: 400;
         color: black;
-        background-color: white;
-        text-align: center;
+        text-align: cleft;
         }
         
         .loginform :hover {
@@ -215,20 +225,38 @@ body{
         }
    
 		/* targets the place holder texts ****/
-        input[type="email"]::placeholder {
+        input[type="text"]::placeholder {
         text-align: left;
-       
+       margin: -50px;
         font-size: 12px;
         }
+        input[type="email"]::placeholder {
+            text-align: left;
+            font-size: 12px;
+            }
+            input[type="tel"]::placeholder {
+                text-align: left;
+                font-size: 12px;
+                }
+                
         input[type="password"]::placeholder {
-        text-align: left;
-      
+        text-align: left;   
         font-size: 12px;
         }
 		
 		/* positions the login button on the inline-axis ****/
-		.login_button{
+		input[type="submit"]{
+    background-image: linear-gradient(160deg, #133950 0%, #19ddc6 100%);
 		width: 50%;
-		height: 20%;
-		margin-left: 25%;	
+    text-align: center;
+		color: white;
+    cursor: pointer;
+    display: inline-block;
+    border: transparent;
+    margin: 30px 0px -60px 0px;	
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 10px 50px;
+    border-radius: 3px;
     }
