@@ -1,4 +1,5 @@
-const express= require('express');
+require('dotenv').config();
+const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan')
@@ -9,17 +10,18 @@ const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
 
 const app = express(); //create express object
+
+const { storage } = require('./storage/storage');
+const multer = require('multer');
+const upload = multer({ storage });
+
+//.env configurations
 dotenv.config({path: './.env'})  
   
    // Database connection
 const db = require('./lib/dbconfig')
                
-db.connect(function (err) {
-                if (err) {
-                return console.error('error: ' + err.message);
-                }
-                console.log('Connected to the MySQL server.');
-                })
+
 //specify port number     
 app.set('port', process.env.PORT || 8080);
 
@@ -30,7 +32,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(logger('dev'));
 //configure express to receive form values as json
 app.use(express.json());
-app.use(bodyParser.urlencoded({ extended: false}));
+app.use(express.urlencoded({ extended: true}));
 app.use(cookieParser());
 app.use('/styles', express.static(path.join(__dirname, 'styles'))); //Function to serve css files
 //function to render images like logo etc 
@@ -50,8 +52,10 @@ app.use(flash());
 
 //GET/display login page
 app.get("/", (req,res) =>{
+      const firstname = req.flash('name')
       const message = req.flash('message')
-        res.render("index",{message});
+      
+        res.render("index",{message,firstname});
         });
 //authenticate user     
 app.post("/dashboard", function(req,res) {
@@ -71,29 +75,43 @@ app.post("/dashboard", function(req,res) {
                                 req.session.email = email;
                                 res.render('dashboard');
                         } else {   
-                                message = 'Incorrect email or password!!'
+                                message = 'Incorrect Email or Password!!'
                                 res.render('index',{message: message});
                                 };
                         });
                         }    
         });
   
-app.get("/signup",(req,res)=>{
-        message = '';
-        message_success = '';
-        res.render("signup")
-});
-    
 app.get('/capture', (req,res)=>{
         res.render("data_capture")
 });
 
+app.get('/visits', (req,res)=>{
+        message = req.flash('message');
+        message = ''
+        res.render('daily_visits',{message})
+})
+//get index page
+app.get('/login', (req,res)=>{
+        res.render('index')
+})
+//get sign-up page
+app.get("/signup",(req,res)=>{
+        const firstname = req.flash('name')
+        
+        message = '';
+        message_success = '';
+        res.render('signup', { firstname })
+});
+
 app.post('/signup',(req,res)=>{
-         message = '';
-         message_success = '';
 
         const {firstname,lastname,location,mobile_num,
-        email,dispatcher_id,password, confirm_password} = req.body
+                email,dispatcher_id,password, confirm_password} = req.body
+
+
+        message = '';
+        message_success = '';
         
         db.query('SELECT email FROM users WHERE email= ?',[email],async(error,result)=>{
       
@@ -118,12 +136,36 @@ app.post('/signup',(req,res)=>{
                         console.log(error)
                 }
                 else {
-                 message_success = 'User Registered, now you can Login';
-                 res.render('index',{message_success: message_success});
+                req.flash('name', req.body.firstname)
+                message_success = 'Registration Successful, Click Login';
+                res.render('signup',{message_success: message_success});
         }
 })
         })
+});
+
+app.post('/visits', upload.single('image'), (req, res) => {
+        console.log(req.file);
+        res.send('Done');
 })
+
+// app.post('/visits', (req,res)=>{
+//         const {pdo_ref, merchant_name,merchant_address,terminal_id,status} = req.body
+//         message_success = ''
+
+//         db.query('INSERT INTO daily_visits SET?', {pdo_ref:pdo_ref, merchant_name:merchant_name, merchant_address:merchant_address,
+//                 terminal_id: terminal_id, status: status},(error,result)=>{
+//                 if (error) {
+//                 console.log(error)
+//         }
+//         else {
+//                 req.flash('message_success', req.body.firstname)
+//                 message_success = 'Record has been successfully saved';
+//                 res.render('daily_visits', {message_success: message_success});
+//                 };
+//         });
+// });
+
 
 //create connection
 app.listen(8080 , ()=> {

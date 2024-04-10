@@ -75,9 +75,11 @@ header *{
 }
 /**targets just the links***/
 .contain{
- margin: 8px 20px;
+ margin: 150px 10px;
 }
-
+#header h3 {
+  margin-top: -50px;
+}
 /***targets the logo text position***/
 .formheading{
   background-color: orangered;
@@ -104,10 +106,15 @@ header *{
 }
 /*targets the descriptive links container behaviour*/
  nav ul li{
+ border-radius: 5px;
   display: inline-block;
   list-style: none;
-  margin: -10px 15px;
+  margin-top: 120px;
+  margin: 0px 20px;
   text-align: center;
+  background-color: #cb2d3d;
+  border: 5px rgba(241, 0, 173, 0.865) solid ;
+  padding: 70px 15px;
   
  }
 /**targets the link texts itself**/
@@ -353,6 +360,6 @@ height: 800px;
   }
 }
 .sign_in{
-  margin-left: 500px;
+  
   cursor: pointer
 }

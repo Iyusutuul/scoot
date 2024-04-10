@@ -3,68 +3,65 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width">
         <link rel="stylesheet" href="styles/signup.css">
-        <title>Data Capture Portal</title>
+        <title>Login Scoot</title>
     </head>
 <body>
     <div id="header">
         <div style="background-color: #0093E9;
         background-image: linear-gradient(160deg, #133950 0%, #19ddc6 100%);" class="rect_2"></div>
                 <div style="background: orangered; border-radius: 10px;" class="rect_3"></div>
-                <h3 href="#"class="formheading">&#160&#160&#160arena&#160&#160&#160<i style="padding-bottom: -20px; margin-top:-100px; margin-left: -12px;;
+                <h3 href="#"class="formheading">datahu&#160<i style="padding-bottom: -20px; margin-top:-100px; margin-left: -12px;;
                 background-color: orangered;border-radius: 10px;color:
                  white;">&#160</i><span><i style="color: rgb(232, 56, 46);"></i>
                 </h3>
             </div>
-    <div class="contain">                     
-    </div> 
-<form action="/signup" method="POST">   
-        
-       
+                  
+<form action="/signup" method="POST">         
     <div class="loginform">              
         <div class="container">
             <div class="inputs">
-                
+                <div>
+                    <label for="firstname">
+                        <input style="margin-top: -50px;" type="text"
+                        id="firstname" name="firstname" required="" maxlength="20" placeholder="Application Type" >
+                        </label>
+                            </div>
                             <div>
-                                <label for="application_type">
+                                <label for="firstname">
                                     <input style="margin-top: -50px;" type="text"
-                                    id="application_type" name="application_type" required="" maxlength="20" placeholder="Application Type" >
+                                    id="firstname" name="firstname" required="" maxlength="20" placeholder="Application Type" >
                                     </label>
                                         </div>
                             </div>
                                 <div>
-                                    <label for="term_type">
-                                    <input style="margin-top: -10px;" type="text" id="term_type" 
-                                name="term_type" required="" maxlength="20" placeholder="Terminal Type" >
+                                    <label for="lastname">
+                                    <input style="margin-top: -10px;" type="text" id="lastname" 
+                                name="lastname" required="" maxlength="20" placeholder="Terminal Type" >
                             </label>
                         </div>
                     <div>
-                        <label for="sim_type">
-                            <input style="margin-top: 0px;" type="text" id="sim_type" 
-                            name="sim_type" required="" maxlength="25" placeholder="Sim Type" >
+                        <label for="sim type">
+                            <input style="margin-top: 0px;" type="text" id="location" 
+                            name="sim_ty" required="" maxlength="25" placeholder="Sim Type" >
                             </label>
                                 </div>
                                     <div>
-                                        <label for="sim_serial">
+                                        <label for="sim serial">
                                         <input style="margin-top: 20px;" type="tel"
-                                        id="sim_serial" name="sim_serial" maxlength="11" placeholder="Sim Serial" required>
+                                        id="mobile_num" name="mobile_num" maxlength="11" placeholder="Sim Serial" required>
                                     </label>
                                 </div>
                               
                         <div>
-                            <label for="term_serial">
+                            <label for="dispatcher_id">
                                 <input style="margin-top: 20px;" type="text"
-                                id="term_serial" name="term_serial"  maxlength="11" placeholder="Terminal Serial" required>
+                                id="dispatcher_id" name="dispatcher_id"  maxlength="11" placeholder="Terminal Serial" required>
                             </label>
                         </div>
-                        <div>
-                            <label for="status">
-                                <input style="margin-top: 20px;" type="text"
-                                id="status" name="status"  maxlength="1" placeholder="Status(1- OK, 2- NOK, 3-RET, 4-DENIED, 5-NAL)" required>
-                            </label>
-                        </div>
+                        
                                  <div>                         
-                            <label for="pdo_ref"><b></b>
-                                <input type="password" name="pdo_ref" id="pdo_ref" required
+                            <label for="confirm_password"><b></b>
+                                <input type="password" name="confirm_password" id="confirm_password" required
                                 maxlength="11" placeholder="PDO Reference_Number" minlenth="4">
                             </label>
                         </div>
