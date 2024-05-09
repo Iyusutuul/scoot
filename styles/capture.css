@@ -42,6 +42,7 @@ body{
   width: 100%;
 }
 .rect_2{
+  
   width: 100%;
   border: 0;
     position:absolute;
@@ -50,6 +51,7 @@ body{
     right: 0;
 }
 .rect_3{
+  height: 60px;
   position: absolute;
   height: 5px;
   top: -40px;
@@ -75,44 +77,36 @@ header *{
 }
 /**targets the button link and the divs behaviour***/
 .contain{
- margin-top: 50px;
- margin-left: 500px;
-}
-.alert_success{
-  width: 1165%;
-  background-color: greenyellow;
-  color: white;
-  font-size: 20px;
-  padding: 10px 10px;
-  margin-top: -10px;
-  margin-left: -300px;
-  display:flex;
+  height:400px;
+  width: 200px;
+  margin: 70px 100px;
+  border-right: 2px solid gainsboro;
  
+  justify-content: center;
 }
 #header h3 {
   margin-top: -50px;
 }
-.alert_error{
-  width: 1165%;
-  font-family:cursive;
+.alert_success{
+  width: 65.9%;
+  background-color: greenyellow;
   color: white;
   font-size: 17px;
   padding: 10px 10px;
-  padding-left: 40px;
-  margin-top: 60px;
-  margin-left: -600px;
-  background-color: red;
+  padding-left: 30px;
+  margin-top: -20px;
+  margin-left: -100px;
 }
-.alert_success{
-  width: 1165%;
-  background-color:lemonchiffon;
-  color: green;
+.alert_error{
+  width: 65.9%;
+  background-color: red;
+  color: white;
   font-size: 17px;
-  text-align: center;
   padding: 10px 10px;
-  margin-top: 60px;
-  margin-left: -600px;
-  border-radius: 10px;
+  padding-left: -5px;
+  margin-top: -10px;
+  margin-left: -100px;
+  text-align: center;
 }
 /***targets the logo text position***/
 .formheading{
@@ -142,20 +136,25 @@ header *{
 }
 /*targets the descriptive links container behaviour*/
  nav ul li{
-  display: inline-block;
+  border-radius: 10px;
+  display: block;
   list-style: none;
-  margin: -10px 15px;
-  text-align: center;
-  
+  margin: 5px 10px;
+  text-align: left; 
+  padding: 5px 10px;
+  padding-inline-start: 55px;
+  border-bottom: 2px solid #a29897;
  }
 /**targets the link texts itself**/
  nav ul li a{
   text-decoration: none;
   position: relative;
   color: white;
-  font-size: 15px;
-  font-weight:500;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 10px 10px;
  }
+
  nav ul li a:after{
   color: orange;
   content: '';
@@ -163,7 +162,7 @@ header *{
   height: 5px;
   position: absolute;
   left: 0;
-  bottom: -10px;
+  bottom: -30px;
   box-shadow: 1px 1px 2px rgb(0 0 200 / 0.4);
   border-radius: 2px;
   transition: 0.1s;
@@ -186,7 +185,7 @@ header *{
   }
 
 body{
-  background-image: linear-gradient(160deg, #133950 50%, #060a0a 100%);
+  background-image: linear-gradient(160deg, #133950 0%, #060a0a 100%);
       opacity: 0.9;
       align-items: center;
       justify-content: center;
@@ -204,7 +203,7 @@ body{
             text-align: center;
             top: 150px;
             position: fixed;
-            left: 35%;
+            left: 36.5%;
         }
        
         .logo {
@@ -213,19 +212,18 @@ body{
             top: 100px;
             left: 50%;
         }
-       /*** controls all the input boxes appearance **/
+       /*** controls the general appearance of input boxes**/
         .loginform input{
         width: 100%;
-        margin-top: 30px;
         margin-bottom: -10px; 
-        border: 2px solid gray;
-        border-radius: 5px;
-        padding: 15px 20px;
-        font-size: 15px;
+        border: 1px solid rgb(206, 62, 9);
+        border-radius: 10px;
+        padding: 10px 30px;
+        font-size: 13px;
         font-weight: 400;
-        color: white;
-        background-color: black;
-        text-align: center;
+        color: aqua;
+        text-align: left;
+        background-color: #060a0a;
         }
         
         .loginform :hover {
@@ -240,19 +238,40 @@ body{
         }
    
 		/* targets the place holder texts ****/
-        input[type="email"]::placeholder {
+        input[type="text"]::placeholder {
         text-align: left;
-        color: #fff;
+        margin: -50px;
+        color: gainsboro;
         font-size: 12px;
         }
+        input[type="email"]::placeholder {
+            text-align: left;
+            font-size: 12px;
+            }
+            input[type="tel"]::placeholder {
+                text-align: left;
+                font-size: 12px;
+                color: gainsboro;
+                }
+                
         input[type="password"]::placeholder {
-        text-align: left;
-        color: #fff;
+        text-align: left;   
         font-size: 12px;
         }
 		
 		/* positions the login button on the inline-axis ****/
-		.login_button{
+		input[type="submit"]{
+    background-color: orangered;
 		width: 100%;
-		height: 20%;
+    text-align: center;
+		color: white;
+    cursor: pointer;
+    display: inline-block;
+    border: 2px solid palevioletred;
+    margin: 30px 0px -60px 0px;	
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 10px 50px;
+    border-radius: 10px;
     }

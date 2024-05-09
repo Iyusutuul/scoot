@@ -11,7 +11,7 @@ const storage = new CloudinaryStorage({
     cloudinary,
     params: {
         folder: 'unifiedPayments',
-     
+        allowedFormats: ['jpeg','png','jpg'],
     }
 });
 

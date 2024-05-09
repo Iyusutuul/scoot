@@ -1,0 +1,41 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" href="styles/login.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+        <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>"
+        <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+        <title>Administrator</title>
+    </head>
+<body>
+    <div id="header">
+        <div style="background-color: #0093E9;
+        background-image: linear-gradient(160deg, #133950 0%, #19ddc6 100%);" class="rect_2"></div>
+                <div style="background: orangered; border-radius: 10px;" class="rect_3"></div>
+                <h3 href="#"class="formheading">&#160&#160&#160Crata&#160&#160&#160<i 
+                    style=" padding-bottom: -200px; margin-top:-100px; margin-left: -12px;;
+                    background-color: orangered;border-radius: 10px;color:
+                  white;">&#160</i><span><i style="color: rgb(232, 56, 46);"></i>
+                </h3>
+            </div>
+    <div class="contain">                  
+        <nav>
+            <ul>
+                <li><a style="position:absolute; margin: -30px 0px 0px -120px" href="/signup">Sign Up</a></li>
+                <li><a style="position:absolute; margin: -30px 0px 0px 0px" href="/views/admin/indexAdmin.ejs">Admin Home</a></li>
+            </ul>  
+        </nav>
+        <div> 
+        <% if (message) {%>
+            <div class="alert_error"><%= message %></div>
+        <% } %>
+        <% if (message_success) {%>
+            <div class="alert_success"><%= message_success %></div>
+        <% } %>
+    </div> 
+<form action="/dashboard" method="POST"> 
+
+        </form>
+    </body>
+</html>

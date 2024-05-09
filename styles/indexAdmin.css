@@ -186,7 +186,7 @@ header *{
   }
 
 body{
-  background-image: linear-gradient(160deg, #133950 50%, #060a0a 100%);
+  background-image: linear-gradient(160deg, #133950 50%, #060a0a 10%);
       opacity: 0.9;
       align-items: center;
       justify-content: center;

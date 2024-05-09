@@ -212,8 +212,8 @@ body{
         padding: 15px 20px;
         font-size: 15px;
         font-weight: 400;
-        color: white;
-        text-align: cleft;
+        color: aqua;
+        text-align: left;
         background-color: #060a0a;
         }
         
@@ -231,7 +231,8 @@ body{
 		/* targets the place holder texts ****/
         input[type="text"]::placeholder {
         text-align: left;
-       margin: -50px;
+        margin: -50px;
+        color: white;
         font-size: 12px;
         }
         input[type="email"]::placeholder {
@@ -241,6 +242,7 @@ body{
             input[type="tel"]::placeholder {
                 text-align: left;
                 font-size: 12px;
+                color: white;
                 }
                 
         input[type="password"]::placeholder {
