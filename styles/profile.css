@@ -74,7 +74,7 @@ header *{
 .contain{
 height: 400px;
 width: 200px;
-margin: 70px 100px;
+margin: 50px 100px;
 border-radius: 5px;
 justify-content: center;
 }
@@ -124,7 +124,7 @@ nav ul li{
   padding: 10 0px;
   position: relative;
   color: gainsboro;
-  font-size: 15px;
+  font-size: 14px;
   font-weight:600;
  }
  nav ul li:hover{

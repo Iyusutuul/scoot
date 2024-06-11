@@ -28,7 +28,7 @@ body{
   margin:0;
 }
 .rect_1{
-  width: 80%;
+  width: 100%;
   height: 5px;
     position: absolute;
     top: 0;
@@ -74,7 +74,8 @@ header *{
 .contain{
 height:400px;
 width: 200px;
-margin: 70px 100px;
+margin: 50px 100px;
+
 }
 
 /***targets the logo text position***/
@@ -121,13 +122,14 @@ padding-inline-start: 45px;
   padding: 10 0px;
   position: relative;
   color: gainsboro;
-  font-size: 15px;
+  font-size: 14px;
   font-weight:600;
  }
  nav ul li:hover{
+  background-color: #a29897;
   color: orangered;
   cursor: pointer;
-  border-bottom: 2px solid #ff0844;
+  border: 2px solid #ff0844;
  }
  nav ul li a:hover{
   
@@ -171,17 +173,17 @@ padding-inline-start: 45px;
   align-items: center;
   font-family: Lucida Sans Unicode;
   text-align: left;
-  top: 150px;
+  top: 130px;
   position: fixed;
-  left: 36.5%;
+  left: 32%;
 }
 
  .loginform input{
   width: 100%;
-  margin-bottom: 0px; 
-  border: 1px solid gray;
-  border-radius: 5px;
-  padding: 10px 30px;
+  margin-bottom: 5px; 
+  border: 1px solid aqua;
+  border-radius: 2px;
+  padding: 5px 30px;
   font-size: 13px;
   font-weight: 400;
   color: aqua;
@@ -192,7 +194,7 @@ padding-inline-start: 45px;
   input[type="text"]::placeholder {
     text-align: left;
     margin: -50px;
-    color: gainsboro;
+    
     font-size: 12px;
     }
     input[type="email"]::placeholder {
@@ -226,196 +228,14 @@ cursor: pointer;
 padding: 10px 50px;
 border-radius: 10px;
 }
-/* Style the navigation bar */
-.button { 
-  text-decoration: none;
-  left: 1300px;
-  top: 15px;
-  right: 0px;
-  display: flex;
-  position: absolute;
-  text-align: center;
-  }
-
-.elderly{
-  font-family: inherit;
-margin:0;
-padding: o;
-}
-.elderly img{
+div.preview-images > img {
+  width: 30%;
+  height: 200%;
+  margin-top: -4000px;
+  margin-left: 450px;
   position: relative;
-}
-/****Our Mission***/
-.myDiv {
-  text-align: center;
-  height: 400px;
-  margin-top: -4px;
-  padding-top: 20px;
-  background-image: linear-gradient(to right, #ff0844 50%, #ffb199 100%);
-  letter-spacing: 1px;
-  font-family: inherit;
-}
-
-.vertical_text_1 {
-  line-height: 3.rem;
-  position: absolute;
-  font-family: inherit;
-  font-size: 40px;
-  font-weight:bold;
-  top: 200px;
-  left: 80px;
-  color: #fff;
-  padding: 8px;
 
   
-}
-.vertical_text_2{
-  position: absolute;
-  line-height: 1.0rem;
-  font-weight:100;
-  font-size: 17px;
-  top: 250px;
-  left: 100px;
-  color: whitesmoke;
-  font-family: 'myriad-pro';
-  opacity: .9;
-}
-.get_started{
-  position: absolute;
-  top: 500px;
-  left: 170px;
-  line-height: 3.5px;
-  background-color: orangered;
-  opacity: 0.8;
-  padding: 10px 17px;
-  text-align: center;
-  color: white;
-  display:inline-block;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: 200;
-}
-.sub-title{
-  text-align: center;
-  font-weight:400;
-  margin: 30px 0;
-  padding-bottom: 30px;
-  font-size: 30px; 
-  color: white;
-}
-.myDiv p{
-  text-align: center;
-  font-size: 20px;
-  font-weight: 100;
-  color: white;
-}
-.projection {
-  background-color: white;
-  color: whitesmoke;
-}
-.projection h1 {
-  color: #fa8128;
-  padding: 10px 0;
-  text-align: center;
-  font: 400 1.125rem / 1.5rem;
-  font-weight: 600;
-  font-size: 30px; 
-}
-.circle {
-  width: 200px;
-  height: 200px;
-  line-height: 200px;
-  vertical-align: middle; 
-  display: inline-block;
-  border-radius: 50%;
-  font-size: 65px;
-  font-weight: 800;
-  color: #fff;
-  text-align: center;
-  background: orange;
-  margin: 10px 0px 20px 0;
-  margin-inline-start: 70px;
-  justify-content: space-between;
-  margin-inline-end: 30px;
-}
-.circle-text p{
-  font-size: 14px;
-  color: black
-}
-.circle span {
-  font-size: 50px;
-}
-.text-content {
-  position: absolute;
-  top: 20%;
-  left: 10%;
-  transform: translate(-50px,-50px);
-  color: burlywood; 
-  font-size: 1.5rem;
-}
-.impact-list{
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  grid-gap: 30px;
-}
-.impact-list div{
-  background-color: ash;
-  padding: 0px 0px 0 25px;
-  font-size: 16px;
-  font-weight: 300;
-  font-family: Lucida Sans Unicode;
-}
-.impact-list div i{
-  font-size: 20px;
-  margin-bottom: 20px;
-  transition: background 0.5s, transform 0.5s;
-}
-.impact-list div h2{
-font-size: 20px;
-font-weight: bold;
-margin-bottom: 10px;
-text-align: center;
-}
-.impact-list div a{
-  text-decoration: none;
-  color: #fff;
-  font-size: 12px;
-  margin-top: 10px;
-  display: inline-block;
-}
-  
-/*********Our Services********/
-.services-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  grid-gap: 15px;
-}
-.services {
-  height: 250px;
-  position: relative;
-  overflow: hidden;
-  justify-content: center;
-  cursor: pointer;
- 
-}
-.services img {
-  width: 250px;
-  height: 350px;
-  opacity: 0.9;
-  position: relative;
-  box-shadow:
-  inset 2px 2px 3px rgba(255, 255, 255, 0.6),
-  inset -2px -2px 3px rgba(0, 0, 2220, 0.6);
-}
-
-.across_text {
-  width:250px;
-  bottom: 0;
-  background: rgba(150, 6, 28, 0.6);
-  position: absolute;
-  text-align: center;
-  color: white;
-  padding: 30px 0;
 }
 /***container for services***/
 .container {

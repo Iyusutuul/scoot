@@ -12,7 +12,19 @@ const storage = new CloudinaryStorage({
     params: {
         folder: 'unifiedPayments',
         allowedFormats: ['jpeg','png','jpg'],
-    }
+        moderation: "manual",
+        overwrite: false,
+        public_id:(req, file) => file.originalname,
+        limits: [ 5 * 1024* 1024],
+        use_filename: true,
+        unique_filename: false,
+         
+        transformation: [{
+            width:250,
+            height:300,
+        }]
+    },
+
 });
 
-module.exports = { storage };
+module.exports = { cloudinary, storage };

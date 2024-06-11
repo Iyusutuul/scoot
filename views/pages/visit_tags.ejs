@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width", initial-scale="1.0">
+        <title>Arhena-Daily Visits</title>
+        <link rel="stylesheet" href="styles/visit_main.css" type="text/css" media="all">
+        <script src="js/jquery.js" defer></script>
+        <script src="https://kit.fontawesome.com/6bb208eccf.js" 
+        crossorigin="anonymous"></script>
+       <style> 
+       div.preview-images > img {
+          width: 70%;
+          height: 70%;
+          margin-top: -4000px;
+          margin-left: 450px;
+          position: relative;}
+        </style>
+      </head>
+<header>
+    <%- include('./partials/header'); %>
+</header>
+      <div id="header">
+          <div class="contain">                  
+            <nav>
+              <ul>
+                <li><a href="/profile">Profile</a></li>
+                  <li><a href="#">Roadmap</a></li>
+                    <li><a  href="/capture">Data Capture</a></li>
+                      <li style="border-bottom: 2px solid orangered;"><a style="color: orangered" 
+                        href="/visits ">> Visitation</a></li>
+                          <li><a href="">Wallet</a></li>                                  
+                        <li><a href="/dashboard">Dashboard</a></li>           
+                      <% if (msg_success) {%>
+                    <div class="alert_success"><%= msg_success %></div>
+                  <% } %>
+                <form action="/visits" method="POST" enctype="multipart/form-data">
+              <div class="loginform">              
+            <div class="inputs">
+          <div>
+        <label for="merchant_name">
+      <input style="margin-top: 0px;" type="text"
+    id="merchant_name" name="merchant_name" required="" maxlength="50" placeholder="Merchant Name" >
+  </label>
+    </div> 
+          <!-- <div>
+              <label for="merchantAddress">
+                <input style="margin-top: 0px;" type="text" id="merchantAddress" 
+                  name="merchant_address" required="" maxlength="100" placeholder="Merchant Address" >
+                    </label>
+                      </div> -->
+                        <div>
+                          <label for="terminal_id">
+                            <input style="margin-top: 0px;" type="text" id="terminal_id" 
+                              name="terminal_id" required="" maxlength="10" placeholder="Terminal ID" >
+                            </label>
+                          </div>
+                        <div> 
+                     <label for="status">
+                  <input style="margin-top: 0px;" type="text"
+                id="status" name="status"  maxlength="10" placeholder="Status(1- OK, 2- NOK, 3-RET, 4-DENIED, 5-NAL)" required>
+              </label>
+            </div> 
+          <div>
+            <label for="reference">
+              <input style="margin-top: 0px;" type="text"
+                id="reference" name="reference" maxlength="11" placeholder="PDO_Reference" required>
+                  </label>
+                    </div>  
+                      <div class="field">
+                        <label for="Tags">
+                          <div class="ui fluid multiple search selection dropdown" id="tag">
+                            <input name="reference" type="hidden">
+                              <i class="dropdown icon"></i>
+                            <div clas="default text">Tags</div>
+                          <div class="menu">
+                        <div class="item" data-value="CAL_PDO001">CAL_PDO001</div>
+                      <div class="item" data-value="CAL_PDO001">CAL_PDO002</div>
+                    </div>
+                  </div>
+                </div>                                      
+              <section class="section"><br>
+            <div>
+          <label for="image" style="color: #fff;">Upload image here:</label><br><br>
+            <input name="image" type="file" class="input-files" accept="image/*">
+              </div>
+                <div class="thumbnails"></div>
+                  <div class="ui teal progress" class="progress">
+                    <div class="bar"></div>
+                      </div><br>
+                        </section>
+                          <button type="submit" class="upload"  id="create-account" 
+                          style="background-color: orangered; padding: 10px 13px; cursor: pointer;
+                          border: 2px rgba(241, 0, 173, 0.865) solid ; color: white;">POST</button>
+                        </form>
+                      <div class="row"> 
+                    <div class="col-sm-12">
+                  <div class="preview-images"></div>
+                </div>
+              <!-- script to show img preview --->
+            <div>
+          <%- include('./partials/scripts'); %>
+        </div>   
+    </body>
+</html>

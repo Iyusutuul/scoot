@@ -1,6 +1,6 @@
+const cloudinary = require('cloudinary'); 
 require('dotenv').config();
 const express = require('express');
-const user = require('./routes/user');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan')
@@ -13,6 +13,10 @@ const ejs = require('ejs');
 
 const app = express(); //create express object
 
+// const uploadMiddleware = require("./uploadMiddleware");
+// const upload = uploadMiddleware("UP/PDO");
+
+// UPLOAD METHOD 2
 const { storage } = require('./storage/storage');
 const multer = require('multer');
 const upload = multer({ storage });
@@ -34,7 +38,8 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(logger('dev'));
 //configure express to receive form values as json
 app.use(express.json());
-app.use(express.urlencoded({ extended: true}));
+app.use(bodyParser.urlencoded({ extended: true}));
+app.use(bodyParser.json())
 app.use(cookieParser());
 app.use('/styles', express.static(path.join(__dirname, 'styles'))); //Function to serve css files
 //function to render images like logo etc 
@@ -43,6 +48,7 @@ app.use (express.static('/views'));
 
 app.use(session({
         secret: 'secret',
+        secure: 'true',
         resave: true,
         saveUninitialized: true,
         cookie: {maxAge: 600000}
@@ -50,7 +56,30 @@ app.use(session({
 
 app.use(flash());
 
-//! Routes start //htttp://localhost:3000/
+//! Routes start //htttp://localhost:8080/
+// Middleware to check if the user is authenticated
+const isAuthenticated = (req, res, next) => {
+        if (req.session.loggedin) {
+            // User is authenticated, allow access to the requested route
+            next();
+        } else {
+            // User is not authenticated, redirect to the login page
+            res.redirect('/'); // Adjust the URL to your login page
+        }
+    };
+    
+    app.get('/logout', (req, res) => {
+        // Clear the session or any user-related data
+        req.session.destroy((err) => {
+            if (err) {
+                console.error('Error destroying session:', err);
+            } else {
+                // Redirect the user to a login page or any other appropriate page
+                res.redirect('/');
+            }
+        });
+    });
+
 
 //GET/display login page
 app.get("/", (req,res) =>{
@@ -58,11 +87,12 @@ app.get("/", (req,res) =>{
         message = '';
         message_success= ''; 
         
-        res.render("index");
+        res.render("pages/index");
         });
 //authenticate user     
-app.post("/dashboard", function(req,res) {
+app.post("/dashboard", (req,res)=>{
         message = '';
+        message_success = '';
         const email = req?.body?.email;
         const password = req?.body?.password;
         
@@ -80,22 +110,24 @@ app.post("/dashboard", function(req,res) {
                                 req.session.user = result[0];
                                 console.log(result[0])
                                 req.session.email = email;
-                                res.render('dashboard');
+                                res.render('pages/dashboard');
                         } else {   
                                 message = 'Incorrect Email or Password!!'
-                                res.render('index',{message: message});
+                                res.render('pages/index',{message: message});
+                                console.log(req.body)
+                                return
                                 };
                         });
                         }    
         });
   
-app.get('/dashboard', (req,res)=>{
+app.get('/dashboard', isAuthenticated, (req,res)=>{
         message = '';
         message_success = '';
-        res.render("dashboard")
+        res.render("pages/dashboard")
 });
-app.get('/capture', (req,res)=>{
-        res.render("datacapture")
+app.get('/capture', isAuthenticated, (req,res)=>{
+        res.render("pages/datacapture")
 });
 
 app.post('/capture', (req,res)=>{
@@ -113,23 +145,25 @@ app.post('/capture', (req,res)=>{
               }
               else {
                 msg = "Data successfully stored"
-                res.render('datacapture',{msg: msg});
+                res.render('pages/datacapture',{msg: msg});
               };
        });
 };
 });
 
-app.get('/profile', (req,res)=>{
+app.get('/profile', isAuthenticated, (req,res)=>{
+        message='';
+        message_success = '';
         
         var userId = req.session.userId;
         if (userId == null){
-                res.render("index");
+                res.render("pages/index");
                 return
         }
 
         var sql="SELECT * FROM `users` WHERE `id` = '"+userId+"'";
         db.query(sql, function(err,result){
-                res.render('user_profile',{data:result});
+                res.render('pages/user_profile',{data:result});
         });
 });
 
@@ -139,7 +173,7 @@ app.get("/signup",(req,res)=>{
         
         message = '';
         message_success = '';
-        res.render('signup', { reference })
+        res.render('pages/signup', { reference })
 });
 
 
@@ -155,13 +189,13 @@ app.post('/signup',(req,res)=>{
       
         if(result.length) {
                 message = 'Email is already in use';
-                return res.render('signup',{message:message})      
+                return res.render('pages/signup',{message:message})      
                 }
                 
                 
                 else if (password !== confirm_password) {
                 message = 'Passwords do not match!';
-                return res.render('signup',{message:message})
+                return res.render('pages/signup',{message:message})
         }
          
                 const saltRounds = 10;
@@ -177,7 +211,7 @@ app.post('/signup',(req,res)=>{
                 else {
                 req.flash('name', req.body.firstname)
                 message_success = 'Registration Successful, Please Login';
-                res.render('index',{message_success: message_success});
+                res.render('pages/index',{message_success: message_success});
         }
 })
         })
@@ -187,11 +221,7 @@ app.post('/signup',(req,res)=>{
 app.get('/visits', (req,res)=>{
         message = req.flash('message');
         msg_success = ''
-        res.render('dailyvisits',{msg_success})
-});
-
-app.get('/indexAdmin', (req,res)=>{
-        res.render('indexAdmin')
+        res.render('pages/dailyvisits',{msg_success})
 });
 
 //  app.post('/visits', (req,res)=>{
@@ -219,9 +249,34 @@ app.get('/indexAdmin', (req,res)=>{
 //  };
 //  });
 
-app.post('/visits', upload.single('image'), (req, res) => {
-        console.log(req.file);
-         res.send('Done');
+app.get('/indexAdmin', (req,res)=>{
+        var q = req.query.q;
+        var callback = function(result){
+               
+                var searchValue = '';
+                if(q){
+                        searchValue = q;
+                }
+
+        res.render('indexAdmin',{posts:result.resources, searchValue:searchValue});
+        };
+        if(q){
+                cloudinary.api.resources(callback,
+                        {
+                        type:'upload', prefix: q});
+                } else {
+                        cloudinary.api.resources(callback);
+                };
+               
+                });
+       
+ app.post('/visits', upload.single('image'), (req, res) => {
+ // if (!req.file) {
+//         // No file was uploaded
+//         return res.status(500).json({ error: "No file uploaded" });
+//       }
+ console.log(req.file);
+ res.send('File upload Successful');
 })
  
 //create connection

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width", initial-scale="1.0">
+        <title>Arhena dashboard</title>
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" 
+        crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="styles/dashboard.css" type="text/css" media="all">
+        <script src="js/jquery.js" defer></script>
+    <script src="https://kit.fontawesome.com/6bb208eccf.js" crossorigin="anonymous"></script>
+</head> 
+<body style="background-color: gainsboro;">
+    <header>
+    <%- include('./partials/header'); %>
+  </header>    
+  <div class="contain">                  
+    <nav>
+        <ul>
+            <li><a style="position:absolute; margin: -30px 0px 0px 0px" href="/indexAdmin">Administrator</a></li>
+        </ul>  
+    </nav>
+    <h3 class="ui center aligned icon header">Administrator</h3>
+    <main>
+            <div class="ui grid container">
+                <div class="ui two column centered grid">
+                    <form class="ui form">
+                        <div clss="column">
+                        <div class="field">
+                            <input name="q" type="text" placeholder="Search"
+                            value="<%= searchValue %>" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="ui four column centered grid">
+            <% posts.forEach(function(post,index) { %>
+                <div class="column">
+                    <div class="ui card">
+                        <div class="image">
+                            <img src="<%= post.url %>" style="max-height:150px">
+                        </div>
+                        <div class="content">
+                            <a class="header"><%= post.public_id %></a>
+                            <div class="meta">
+                                <span class="date">
+                                    <i class="calendar icon"></i>
+                                    <%= post.created_at %>
+                                </span>
+                            </div>
+                            <div class="description">
+                        Dimension: <%= post.width %> X 
+                    <%= post.height %>
+                </div>
+            </div>
+        <div class="extra content"></div>
+            <form action="/admin/destroy" method="post"
+                style="display: inline" id="destroy_form<%= index %>">
+                <input type="hidden" name="image_id" value="<%= post.public_id %>">
+                    <a onclick="document.getElementById('destroy_form<%= index %>').submit();
+                    return false;">
+                        <i class="remove icon"></i>Remove</a>
+                    </form>
+                    <a href="/edit/<%= post.public_id %>">
+                        <i class="edit icon"></i>Edit
+                    </a>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    </div>
+</body>
+</html>  
