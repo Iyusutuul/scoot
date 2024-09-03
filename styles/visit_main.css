@@ -5,36 +5,18 @@
   box-sizing: border-box;
 }
 
-.slidein {
-  animation-duration: 10s;
-  animation-name: slidein;
-  animation-iteration-count: 3;
-  animation-direction: alternate;
-}
-
-@keyframes slidein {
-  from {
-    margin-left: 100%;
-    width: 300%;
-  }
-
-  to {
-    margin-left: 0%;
-    width: 100%;
-  }
-}
-
 body{
   margin:0;
+  overflow-y: hidden;
+  overflow-x: hidden;
 }
 .rect_1{
   width: 100%;
   height: 5px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 10;
-  
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
 }
 /************sets image width on mixed color navbar****/
 .rect_1 img{
@@ -43,99 +25,95 @@ body{
 .rect_2{
   width: 100%;
   border: 0;
-    position:absolute;
-    top: 5px;
-    left: 50;
-    right: 0;
-}
-.rect_3{
-  position: absolute;
-  height: 5px;
-  top: 3.5%;
+  position:absolute;
+  /*top: 5px;*/
+  left: 50;
   right: 0;
-  left: 6.5%;
-  width: 2%;
-  border-radius: 5px;
+  margin-top: -20px;
 }
+
 /***targets both the logo and the links on the left***/
-#header{
-  position: relative;
-  top: 0;
-  left: 0;
-  right: 0;
-  display: flex;
-  align-items: center;
-}
-header *{
-  display: inline-block;
-  background-color: #181717;
-}
+
+
 /**targets just the links***/
 .contain{
-height:400px;
-width: 200px;
-margin: 50px 100px;
-
+height: 700px;
+width: 180px;
+background-color: rgba(0, 0, 0, 0.075);
+box-shadow: 1px 1px 2px rgba(185, 222, 221, 0.4);
 }
-
+.alert_success{
+margin-top: -35px;
+margin-left: 80px;
+width: 50%;
+background-color: rgb(133, 193, 44);
+color: white;
+font-size: 13px;
+padding: 5px 10px;
+border-radius: 5px;
+}
 /***targets the logo text position***/
 .formheading{
-  background-color: orangered;
-  background-image: linear-gradient(45deg, #fefefe,#a29897);
+  background-color: orange;
+  background-image: orange;
   background-size: 100%;
   -webkit-background-clip: text;
   -moz-background-clip: text;
   -webkit-text-fill-color: transparent;
   -moz-text-fill-color: transparent;
-  padding-left: 10px;
   font-family: system-ui, -apple-system, BlinkMacSystemFont,
    'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
     'Helvetica Neue', sans-serif;
-  font-size: 25px;
+  font-size: 20px;
   font-weight: bold;
   position: relative;
   display: flex;
-  padding-top: 17px;
-  margin-left: 1px;
+  margin-top: 5px;
+  padding-top: 1px;
+  color: red;
+padding-left: 10px;
   
 }
 .formheading i{
   color: orangered;
   font-size: 20px;
 }
-nav {
-  margin-top: 30px;
+nav{
+  margin-top: 0px;
+  padding-top: 63px;
 }
-/*targets the link elements surrounding in contain*/
+/*targets the links in the contain */
 nav ul li{
-border-radius: 5px;
-display: block;
-list-style: none;
-margin: 10px 10px;
-text-align: left; 
-padding: 5px 10px;
-padding-inline-start: 45px;  
+  display: block;
+  list-style: none;
+  margin: 0px 0px;
+  padding: 7px 35px;
+  align-items: center; 
  }
-/**targets the link elements **/
+/**targets the link texts itself**/
  nav ul li a{
+  margin: auto;
+  border-collapse:collapse;
   text-decoration: none;
-  padding: 10 0px;
   position: relative;
-  color: gainsboro;
+  color: #fefefe;
   font-size: 14px;
-  font-weight:600;
+  font-weight:500;
+  padding: 5px 0px;/* trick effect makes the links move forward on hover*/
  }
  nav ul li:hover{
-  background-color: #a29897;
-  color: orangered;
   cursor: pointer;
-  border: 2px solid #ff0844;
+  padding-left: 40px;
+  background: #133950 100%;
+  cursor: pointer;
  }
  nav ul li a:hover{
-  
-  color: orangered;
   cursor: pointer;
+  color: whitesmoke;
+  background: #133950 100%;
+  width: 180px;
  }
+ /*
  nav ul li a:after{
   color: orange;
   content: '';
@@ -146,55 +124,58 @@ padding-inline-start: 45px;
   left: 0;
   bottom: -30px;
   box-shadow: 1px 1px 2px rgb(0 0 200 / 0.4);
-  border-radius: 2px;
   transition: 0.0s;
- }
+ }*/
 
- /**nav ul li a:hover::after{
-  width: 100%;
-  top: 30px;
-  opacity: 0.7;
- }) */
-
- .alert_success{
-  width: 150%;
-  
-  color: gainsboro;
-  font-size: 16px;
-  text-align: center;
-  padding: 5px 5px;
-  margin-top: -325px;
-  margin-left: 400px;
-  border-radius: 10px;
+.error{
+font-size: 14px;
 }
+#status_error{
+  color: orange;
+  background-color: whitesmoke;
+  opacity: 0.5;
+}
+#fileInput_error{
+  color: orange;
+  background-color: white;
+}
+
+ nav ul li a:hover::after{
+  //width: 100%;
+  //top: 30px;
+  //opacity: 0.7;
+ }
+ 
  .loginform{
   width: 350px;
-  height: 200px;
-  align-items: center;
-  font-family: Lucida Sans Unicode;
-  text-align: left;
-  top: 130px;
+  padding: 5px;
+  top: 100px;
   position: fixed;
-  left: 32%;
+  left: 30%;
 }
 
  .loginform input{
+  border: 1px solid gainsboro;
   width: 100%;
+  height: 30px;
   margin-bottom: 5px; 
-  border: 1px solid aqua;
-  border-radius: 2px;
-  padding: 5px 30px;
-  font-size: 13px;
-  font-weight: 400;
-  color: aqua;
+  border-radius: 3px;
+  padding: 3px 15px;
+  font-size: 12px;
+  font-weight: 500;
+  color: black;
   text-align: left;
-  background-color: #023737;
-  }
+  background-color: white;
+ }
+ .loginform input:hover{
+  border: 1px solid rgb(196, 189, 189);
+ 
+ }
   /* targets the place holder texts ****/
   input[type="text"]::placeholder {
     text-align: left;
     margin: -50px;
-    
+    color: gainsboro;
     font-size: 12px;
     }
     input[type="email"]::placeholder {
@@ -212,41 +193,30 @@ padding-inline-start: 45px;
     font-size: 12px;
     }
 
+    input[type="password"]::placeholder {
+      text-align: left;   
+      font-size: 12px;
+      }
+
 /* positions the login button on the inline-axis ****/
-input[type="submit"]{
-background-color: orangered;
-width: 100%;
+button[type="submit"]{
+background-color: orange;
+width: 50%;
 text-align: center;
 color: white;
 cursor: pointer;
 display: inline-block;
-border: 2px solid palevioletred;
-margin: 30px 0px -60px 0px;	
+border: 1px solid aqua;
+box-shadow: 1px 10px 12px rgba(74, 92, 83, 0.744);
+margin-left: 25%;
 font-size: 15px;
 font-weight: 600;
 cursor: pointer;
 padding: 10px 50px;
 border-radius: 10px;
 }
-div.preview-images > img {
-  width: 30%;
-  height: 200%;
-  margin-top: -4000px;
-  margin-left: 450px;
-  position: relative;
 
-  
-}
 /***container for services***/
-.container {
-background: #cb2d3d;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to right, #ef473a, #cb2d3e);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to right, #181717, #cb2d3e); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-margin-left: 500px;
-margin-top: -300px;
-
-}
-
 
 /* Current/active navbar link */
 .active {
@@ -254,7 +224,7 @@ margin-top: -300px;
 }
 
 /* Add responsiveness - will automatically display the navbar vertically instead of horizontally on screens less than 500 pixels */
-@media screen and (min-width: 57px) {
+@media screen and (min-width: 570px) {
   .navbar a {
     float: none;
     display: block;

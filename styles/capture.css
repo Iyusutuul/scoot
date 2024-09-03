@@ -94,7 +94,7 @@ header *{
   font-size: 17px;
   padding: 10px 10px;
   padding-left: 30px;
-  margin-top: -20px;
+  margin-top: -90px;
   margin-left: -100px;
 }
 .alert_error{
@@ -110,7 +110,7 @@ header *{
 }
 /***targets the logo text position***/
 .formheading{
-  background-color: orangered;
+  background-color: orange;
   background-image: linear-gradient(45deg, #fefefe,#a29897);
   background-size: 100%;
   -webkit-background-clip: text;
@@ -130,7 +130,7 @@ header *{
   
 }
 .formheading i{
-  color: orangered;
+  color: orange;
   font-size: 20px;
   border-radius: 20px;
 }
@@ -142,17 +142,17 @@ header *{
   margin: 5px 10px;
   text-align: left; 
   padding: 5px 10px;
-  padding-inline-start: 55px;
+
   border-bottom: 2px solid #a29897;
  }
 /**targets the link texts itself**/
  nav ul li a{
   text-decoration: none;
   position: relative;
-  color: white;
+  color: aqua;
   font-size: 14px;
   font-weight: 500;
-  padding: 10px 10px;
+ 
  }
 
  nav ul li a:after{
@@ -170,7 +170,8 @@ header *{
 
  nav ul li a:hover::after{
   width: 100%;
-  background-color: orangered; 
+  background-color: whitesmoke; 
+  color: white;
  }
 
 /* Style the navigation bar */
@@ -193,7 +194,7 @@ body{
       position: fixed;  
     }
        a{
-        color: orangered
+        color: orange
        } 
         .loginform{
             width: 350px;
@@ -207,7 +208,7 @@ body{
         }
        
         .logo {
-            color:orangered;
+            color:orange;
             position: fixed;
             top: 100px;
             left: 50%;
@@ -261,8 +262,8 @@ body{
 		
 		/* positions the login button on the inline-axis ****/
 		input[type="submit"]{
-    background-color: orangered;
-		width: 100%;
+    background-color: orange;
+		width: 100px;
     text-align: center;
 		color: white;
     cursor: pointer;

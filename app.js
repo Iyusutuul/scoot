@@ -3,6 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
+
 const logger = require('morgan')
 const dotenv = require ('dotenv');
 const session = require('express-session');
@@ -19,6 +20,7 @@ const app = express(); //create express object
 // UPLOAD METHOD 2
 const { storage } = require('./storage/storage');
 const multer = require('multer');
+const { v4: uuidv4 } = require('uuid');
 const upload = multer({ storage });
 
 //.env configurations
@@ -49,14 +51,15 @@ app.use (express.static('/views'));
 app.use(session({
         secret: 'secret',
         secure: 'true',
-        resave: true,
-        saveUninitialized: true,
-        cookie: {maxAge: 600000}
+        resave: false,
+        saveUninitialized: false,
+        cookie: {maxAge: 1000000}
 }));
 
 app.use(flash());
 
 //! Routes start //htttp://localhost:8080/
+
 // Middleware to check if the user is authenticated
 const isAuthenticated = (req, res, next) => {
         if (req.session.loggedin) {
@@ -83,19 +86,26 @@ const isAuthenticated = (req, res, next) => {
 
 //GET/display login page
 app.get("/", (req,res) =>{
-    
-        message = '';
+        const message = req.query.message || '';
         message_success= ''; 
         
-        res.render("pages/index");
+        res.render("pages/corporatelogin",{message});
         });
+
+app.get("/supervisor", (req,res) =>{
+        res.render("admin/supervisorDash")
+})
+
+app.get("/viewpending", (req,res) =>{
+        res.render("pages/pending_tasks")
+})
+
 //authenticate user     
 app.post("/dashboard", (req,res)=>{
-        message = '';
+        let message = '';
         message_success = '';
-        const email = req?.body?.email;
-        const password = req?.body?.password;
-        
+        const { email,password } = req.body
+       
 
         if (email && password)
         {
@@ -110,10 +120,11 @@ app.post("/dashboard", (req,res)=>{
                                 req.session.user = result[0];
                                 console.log(result[0])
                                 req.session.email = email;
-                                res.render('pages/dashboard');
+                                res.redirect('/dashboard');
                         } else {   
                                 message = 'Incorrect Email or Password!!'
-                                res.render('pages/index',{message: message});
+                               
+                                res.redirect(303, `/?message=${encodeURIComponent(message)}`);
                                 console.log(req.body)
                                 return
                                 };
@@ -127,37 +138,44 @@ app.get('/dashboard', isAuthenticated, (req,res)=>{
         res.render("pages/dashboard")
 });
 app.get('/capture', isAuthenticated, (req,res)=>{
-        res.render("pages/datacapture")
+        const msg = req.query.msg || '';
+        res.render("pages/datacapture",{msg})
 });
 
 app.post('/capture', (req,res)=>{
-
-        msg = '';
-
+        let msg = 'Data Capture Successful';
+        
         if (req.method == "POST"){
-        const {application_type,term_type,term_serial,sim_type,sim_serial,status,reference} = req.body
+        const {application_type ,term_type,term_serial,sim_type,sim_serial,status,reference} = req.body
 
-              db.query('INSERT INTO datacapture SET?',
-              {application_type:application_type, term_type:term_type, term_serial:term_serial,
-              sim_type:sim_type, sim_serial:sim_serial, status: status,reference: reference},(error, result)=>{
-                if(error){
-                console.log(error)
-              }
+        const query = 'INSERT IGNORE INTO datacapture SET ?';
+        const values = { application_type, term_type, term_serial, sim_type,
+                         sim_serial, status, reference};
+
+                         db.query(query, values, (err, result) => {
+                                if (err) {
+                                  console.error('Database error:', err);
+                                  return res.status(500).send('Error saving record');
+                                }
               else {
-                msg = "Data successfully stored"
-                res.render('pages/datacapture',{msg: msg});
+                msg = "Data Capture Successful"
+                res.redirect(303, `/capture?msg=${encodeURIComponent(msg)}`);
+                console.log(req.body);
               };
+              
+             
        });
 };
 });
 
+//display profile page
 app.get('/profile', isAuthenticated, (req,res)=>{
         message='';
         message_success = '';
         
         var userId = req.session.userId;
         if (userId == null){
-                res.render("pages/index");
+                res.render("pages/corporatelogin");
                 return
         }
 
@@ -211,75 +229,134 @@ app.post('/signup',(req,res)=>{
                 else {
                 req.flash('name', req.body.firstname)
                 message_success = 'Registration Successful, Please Login';
-                res.render('pages/index',{message_success: message_success});
+                res.render('pages/corporatelogin',{message_success: message_success});
         }
 })
-        })
+         })
 });
 
+app.post('/visits', upload.single('image'), async (req, res) => {
+    const { merchant_name, merchant_address, terminal_id, status } = req.body;
+    const file = req.file;
 
-app.get('/visits', (req,res)=>{
-        message = req.flash('message');
-        msg_success = ''
-        res.render('pages/dailyvisits',{msg_success})
-});
+    if (!file) {
+        console.error('No file uploaded');
+        return res.status(400).send('No file uploaded');
+    }
 
-//  app.post('/visits', (req,res)=>{
-//          msg_success = '';
-//          message = '';
+    try {
+        // Upload file to Cloudinary
+        const result = await cloudinary.uploader.upload(file.path);
 
-//          if(req.method == "POST"){
+        // Get the Cloudinary URL of the uploaded file
+        const image_url = result.secure_url;
 
-//                  const reference = req?.body?.reference;
-//                  const merchant_name = req?.body?.merchant_name;
-//                  const merchant_address = req?.body?.merchant_address;
-//                  const terminal_id = req?.body?.terminal_id;
-//                  const status = req?.body?.status;
-                
-//          db.query('INSERT IGNORE INTO dailyvisits SET?',{reference: reference, merchant_name:merchant_name, merchant_address:merchant_address,
-//                  terminal_id: terminal_id, status: status},(error,result)=>{
-//                  if (error) {
-//                  console.log(error)
-//          }
-//          else {                 req.flash('message_success', req.body.firstname)
-//                 msg_success = 'Success, Record saved!!! ';
-//                res.render('dailyvisits', {msg_success: msg_success});
-//                 };
-//         });
-//  };
-//  });
+     
 
-app.get('/indexAdmin', (req,res)=>{
-        var q = req.query.q;
-        var callback = function(result){
-               
-                var searchValue = '';
-                if(q){
-                        searchValue = q;
-                }
-
-        res.render('indexAdmin',{posts:result.resources, searchValue:searchValue});
+        // Insert data into the database
+        const query = 'INSERT IGNORE INTO dailyvisits SET ?';
+        const values = { 
+            merchant_name, 
+            merchant_address, 
+            terminal_id, 
+            status, 
+            image_url, 
+            tags: JSON.stringify(req.body.tags) 
         };
-        if(q){
-                cloudinary.api.resources(callback,
-                        {
-                        type:'upload', prefix: q});
-                } else {
-                        cloudinary.api.resources(callback);
-                };
-               
-                });
+
+        db.query(query, values, (error) => {
+            if (error) {
+                console.error('Database error:', error);
+                return res.status(500).send('Error saving record');
+            }
+
+            const msg_success = 'Success, Record saved!!!';
+            console.log('File uploaded to Cloudinary:', image_url);
+            res.redirect(`/visits?msg_success=${encodeURIComponent(msg_success)}`);
+        });
+    } catch (err) {
+        console.error('Cloudinary upload error:', err);
+        res.status(500).send('Error uploading file to Cloudinary');
+    }
+});
+
+app.get('/visits', isAuthenticated, (req,res)=>{
+        const msg_success = req.query.msg_success || '';
+        res.render('pages/dailyvisits', {msg_success});
+});
+  
+  app.get('/indexAdmin', (req, res) => {
+        var q = req.query.q;
+        var nextCursor = req.query.next_cursor; // For pagination
+        var callback = function(result) {
+            var searchValue = '';
+            if (q) {
+                searchValue = q;
+            }
+    
+            res.render('admin/indexAdmins', { 
+                posts: result.resources, 
+                searchValue: searchValue,
+                nextCursor: result.next_cursor // Pass the next cursor for pagination
+            });
+        };
+    
+        var options = {
+            max_results: 300 // Adjust this value based on desired page size
+        };
+    
+        if (q) {
+            options.type = 'upload';
+            options.prefix = q;
+        }
+    
+        if (nextCursor) {
+            options.next_cursor = nextCursor;
+        }
+    
+        cloudinary.api.resources(callback, options);
+    });
+    
+    app.get('/loadMoreImages', (req, res) => {
+        var nextCursor = req.query.next_cursor;
+        var q = req.query.q;
+        var callback = function(result) {
+            res.json({
+                posts: result.resources,
+                nextCursor: result.next_cursor
+            });
+        };
+    
+        var options = {
+            max_results: 50 // Adjust this value based on desired page size
+        };
+    
+        if (q) {
+            options.type = 'upload';
+            options.prefix = q;
+        }
+    
+        if (nextCursor) {
+            options.next_cursor = nextCursor;
+        }
+    
+        cloudinary.api.resources(callback, options);
+    });
+    
+app.get('/pdoPerformance', (req,res)=>{
+        res.render("admin/performanceChart")
+    });
        
- app.post('/visits', upload.single('image'), (req, res) => {
- // if (!req.file) {
-//         // No file was uploaded
-//         return res.status(500).json({ error: "No file uploaded" });
-//       }
- console.log(req.file);
- res.send('File upload Successful');
-})
+//  app.post('/visits', upload.single('image'), (req, res) => {
+//   if (!req.file) {
+//          // No file was uploaded
+//          return res.status(500).json({ error: "No file uploaded" });
+//        }
+//  console.log(req.file);
+//  res.send('File upload Successful');
+// })
  
 //create connection
 app.listen(8080 , ()=> {
-console.log(`Server is running`) 
+console.log(`Server is running on port 8080`) 
 });                                                            

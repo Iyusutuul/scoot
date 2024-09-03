@@ -1,0 +1,94 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" href="styles/logins.css">
+        <title>Crata-Login Page</title>
+    </head>
+     <style>
+        .button {
+          display: inline-block;
+          padding: 10px 10px;
+          color: white;
+          text-align: center;
+          text-decoration: none;
+          border-radius: 5px;
+          transition: transform 0.2s ease;
+        }
+        
+        .button:hover {
+          transform: scale(1.1);
+          background-color: red;
+        }
+        </style>
+<body style="background: #fefefe;">
+    <div id="header">
+        <div style="background-color: #0093E9; height: 00px;
+            background-image: linear-gradient(160deg, #133950 0%, #309084 100%);"
+                     class="rect_2"></div>
+                        <div style="background: #309084;border-radius: 20px;margin: 0px 445px;" class="rect_3"></div>
+                    <h3 href="#"class="formheading">craTa&#160<i style="display:inline-block;
+                margin: 120px 5px; background-color: #309084;border-radius: 20px;color:
+             white;">&#160</i><span><i style="color: rgb(232, 56, 46);"></i>
+        </h3>
+    </div>
+<div class="contain">                  
+    <nav>
+        <ul>
+            <li><a style="position:absolute; margin: -300px 0px 0px -120px" href="/signup">Sign Up</a></li>
+            <li><a style="position:absolute; margin: -300px 0px 0px 0px" href="/supervisor">Admin</a></li>
+                </ul>  
+                    </nav>
+                        <div> 
+                            <% if (message) {%>
+                        <div class="alert_error"><%= message %></div>
+                    <% } %>
+                <% if (message_success) {%>
+            <div class="alert_success"><%= message_success %></div>
+        <% } %>
+    </div>      
+<form action="/dashboard" method="POST">     
+    <div class="loginform">              
+        <div class="container">
+            <div class="inputs">
+                <label for="Username">
+                    <input style="margin-top: 40px;" 
+                        type="email" id="email" name="email" maxlength="64" placeholder="Username" 
+                            pattern=".+@\__1" 
+                                onfocus="this.value = this.value=='username'?'':this.value;" 
+                            onblur="this.value = this.value==''?'username':this.value;">
+                        </label></div>
+                    <div>
+                <label for="pass"><b></b>
+            <input type="password" id="password" name="password" minlength="4" required="" 
+        placeholder="Password" minlenth="8" maxlength="20" 
+    onfocus="this.value = this.value=='Password'?'':this.value;" 
+onblur="this.value = this.value==''?'Password':this.value;">
+</label>
+    </div>
+        </div>
+            <div class="login_button">
+                <input class="button" style="
+                    padding: 15px 0px; background-color:  orange; border-radius: 20px;
+                         color: white; cursor: pointer;
+                            font-size: 18px; font-weight: 300" type="submit" value="Login">
+                                </div><br><br><br><br>
+                                <div style ="margin-top: -20px;
+                                font-size:85%; color: white">
+                                Dont have an account?&#160 Click Sign Up!
+                            </div>
+                        </div>
+                    </div>
+                <%- include('../partials/scripts'); %>
+            </div>
+        </form>
+        <script>
+            $(document).ready(function() {
+              setTimeout(function() {
+                $('.alert_error').fadeOut('slow');
+                $('.alert_success').fadeOut('slow');
+              }, 300000); // Adjust the time as needed
+            });
+          </script>
+    </body>
+</html>

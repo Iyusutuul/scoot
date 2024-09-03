@@ -100,8 +100,8 @@ header *{
   padding: 10px 10px;
   padding-left: 40px;
   margin-top: 60px;
-  margin-left: -600px;
-  background-color: red;
+  margin-left: -580px;
+  border-radius: 10px;
 }
 .alert_success{
   width: 1165%;
@@ -152,7 +152,7 @@ header *{
  nav ul li a{
   text-decoration: none;
   position: relative;
-  color: white;
+  color: whitesmoke;
   font-size: 15px;
   font-weight:500;
  }
@@ -175,18 +175,10 @@ header *{
  }
 
 /* Style the navigation bar */
-.button { 
-  text-decoration: none;
-  left: 1300px;
-  top: 15px;
-  right: 0px;
-  display: flex;
-  position: absolute;
-  text-align: center;
-  }
+
 
 body{
-  background-image: linear-gradient(160deg, #133950 50%, #060a0a 100%);
+  background-color: #133950;
       opacity: 0.9;
       align-items: center;
       justify-content: center;
@@ -218,12 +210,12 @@ body{
         width: 100%;
         margin-top: 30px;
         margin-bottom: -10px; 
-        border: 2px solid gray;
+        border: 1px solid orangered;
         border-radius: 5px;
         padding: 15px 20px;
         font-size: 15px;
         font-weight: 400;
-        color: white;
+        color: aqua;
         background-color: black;
         text-align: center;
         }
@@ -253,6 +245,7 @@ body{
 		
 		/* positions the login button on the inline-axis ****/
 		.login_button{
-		width: 100%;
+		width: 50%;
 		height: 20%;
+    margin-left: 80px;
     }

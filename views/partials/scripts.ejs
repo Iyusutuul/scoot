@@ -1,14 +1,13 @@
-<script src='https://code.jquery.com/jquery-3.1.0.min.js'></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
 <script src='https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js'></script>
-<script src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.0/jquery-ui.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.12.5/js/jquery.iframe-
-transport.js' type="text/javascript"></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.12.5/js/jquery.fileupload.js'
+<script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.19.2/js/vendor/jquery.ui.widget.min.js"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.19.2/js/jquery.iframe-
+transport.min.js' type="text/javascript"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.19.2/js/jquery.fileupload.min.js'
  type="text/javascript"></script>
-<srcipt src="https://cdn.jsdelivr.net/jquery.cloudinary/1.0.18/jquery.cloudinary.min.js"></srcipt>
-<script src="https://cdn.jsdelivr.net/jquery.cloudinary.min.js" type="text/javascript"></script>
-<script src="https://stackpath.bootstrap.cdn.com/bootstr/4.3.1/js/bootstrap.bundle.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cloudinary-jquery-file-upload/2.13.0/cloudinary-jquery-file-upload.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.cloudinary/1.0.18/jquery.cloudinary.min.js" type='text/javascript'></script>
 <script>
   $(document).ready(function() {
     let imagesPreview = function(input, placeToInsertImagePreview) {
@@ -30,3 +29,143 @@ imagesPreview(this, "div.preview-images");
 });
 });
 </script>  
+<script>
+  $(document).ready(function() {
+    setTimeout(function() {
+      $('.alert_success').fadeOut('slow');
+    }, 3000); // Adjust the time as needed
+  });
+</script>
+<script>
+  $(document).ready(function() {
+    setTimeout(function() {
+      $('.alert_error').fadeOut('slow');
+    }, 3000); // Adjust the time as needed
+  });
+</script>
+<script>
+  document.getElementById('uploadForm').addEventListener('submit', function(event) {
+      let isValid = true;
+      
+      // Clear previous errors
+      document.querySelectorAll('.error').forEach(function(errorElement) {
+          errorElement.textContent = '';
+      });
+
+      // Merchant Name validation
+      const merchantName = document.getElementById('merchant_name').value;
+      if (merchantName.trim() === '') {
+          document.getElementById('merchant_name_error').textContent = 'Merchant Name is required.';
+          isValid = false;
+      }
+
+      // Merchant Address validation
+      const merchantAddress = document.getElementById('merchant_address').value;
+      if (merchantAddress.trim() === '') {
+          document.getElementById('merchant_address_error').textContent = 'Merchant Address is required.';
+          isValid = false;
+      }
+
+      // Terminal ID validation
+      const terminalId = document.getElementById('terminal_id').value;
+      if (terminalId.trim() === '') {
+          document.getElementById('terminal_id_error').textContent = 'Terminal ID is required.';
+          isValid = false;
+      }
+
+      // Status validation
+      const status = document.getElementById('status').value;
+      if (status.trim() === '' || !['1', '2', '3', '4', '5'].includes(status.trim())) {
+          document.getElementById('status_error').textContent = 'Status must be one of 1, 2, 3, 4, 5.';
+          isValid = false;
+      }
+
+      // Reference validation
+      const reference = document.getElementById('reference').value;
+      if (reference.trim() === '') {
+          document.getElementById('reference_error').textContent = 'PDO Reference is required.';
+          isValid = false;
+      }
+
+      // Image file validation
+      const fileInput = document.getElementById('fileInput').files[0];
+      if (!fileInput) {
+          document.getElementById('fileInput_error').textContent = 'Image upload is required.';
+          isValid = false;
+      } else if (fileInput.size > 5 * 1024 * 1024) { // 5 MB limit
+          document.getElementById('fileInput_error').textContent = 'File size must be less than 5MB.';
+          isValid = false;
+      }
+
+      if (!isValid) {
+          event.preventDefault(); // Prevent form submission if validation fails
+      }
+  });
+</script>
+
+<!-- <script>
+  $(document).ready(function() {
+      // Initialize Cloudinary file upload
+      var uploadWidget = $('#fileInput').cloudinary_fileupload({
+          cloud_name: 'iyu', // replace with your Cloudinary cloud name
+          upload_preset: 'system_uploader', // replace with your Cloudinary upload preset
+          multiple: false,
+          maxFileSize: 5000000 // Example: 5MB max file size
+      });
+
+      $('#uploadForm').submit(function(event) {
+          event.preventDefault(); // Prevent the default form submission
+
+          // Perform validation checks (optional)
+          var isValid = true;
+          // Clear previous errors
+          $('.error').text('');
+
+          // Add your validation checks here...
+
+          // Check if the file is selected
+          var fileInput = document.getElementById('fileInput').files[0];
+          if (!fileInput) {
+              $('#fileInput_error').text('Image upload is required.');
+              isValid = false;
+          } else if (fileInput.size > 5 * 1024 * 1024) { // 5 MB limit
+              $('#fileInput_error').text('File size must be less than 5MB.');
+              isValid = false;
+          }
+
+          if (isValid) {
+              // Start the file upload
+              $('#fileInput').fileupload('send', {
+                  files: $('#fileInput').prop('files')
+              });
+          } else {
+              return;
+          }
+      });
+
+      // Bind to file upload progress events
+      $('#fileInput').bind('fileuploadprogressall', function(e, data) {
+          var progress = Math.round((data.loaded * 100.0) / data.total);
+          $('#progressBar div').css('width', progress + '%').text(progress + '%');
+      });
+
+      // Bind to upload success and failure events
+      $('#fileInput').bind('cloudinarydone', function(e, data) {
+          alert('File upload successful');
+          var img = $('<img>').attr('src', data.result.secure_url);
+          $('.preview-images').html(img);
+          $('#progressBar div').css('width', '0%').text('');
+      });
+
+      $('#fileInput').bind('fileuploadfail', function(e, data) {
+          alert('File upload failed');
+          $('#progressBar div').css('width', '0%').text('');
+      });
+
+      // Flash message fade out
+      setTimeout(function() {
+          $('.alert_success').fadeOut('slow');
+          $('.alert_error').fadeOut('slow');
+      }, 3000);
+  });
+</script> -->

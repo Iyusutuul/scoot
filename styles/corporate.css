@@ -1,0 +1,175 @@
+*{
+  margin: 0;
+  padding: 0;
+  font-family:"Myriad Pro";
+  box-sizing: border-box;
+}
+
+body{
+  margin:0;
+}
+.rect_1{
+  width: 80%;
+  height: 5px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 10;
+  
+}
+/************sets image width on mixed color navbar****/
+.rect_1 img{
+  width: 100%;
+}
+.rect_2{
+  width: 100%;
+  border: 0;
+    position:absolute;
+    top: 5px;
+    left: 50;
+    right: 0;
+}
+.rect_3{
+  position: absolute;
+  height: 5px;
+  top: 0;
+  right: 0;
+  left: 0;
+  width: 20%;
+  margin-left: 80%;
+  
+}
+/***targets both the logo and the links on the left***/
+#header{
+  margin: 10px 0px 0px 30px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.banner img {
+  height: 25px;
+  width:  50px;
+}
+/**targets just the links***/
+.contain{
+ margin: 3px 0px;
+}
+
+.formheading i{
+  color: orange;
+  font-size: 20px;
+}
+/*targets the links container behaviour*/
+ nav ul li{
+  display: inline-block;
+  list-style: none;
+  margin: -10px 10px;
+  text-align: center;
+  
+ }
+/**targets the link texts itself**/
+ nav ul li a{
+  text-decoration: none;
+  position: relative;
+  color: skyblue;
+  font-size: 15px;
+  font-weight:500;
+  padding: 5px 10px;
+ }
+
+ /* creates a dropdown effect on the navigation link*/
+ /* nav ul li a:after{
+  color: orange;
+  content: '';
+  width: 100;
+  top: -10px;
+  height: 3px;
+  position: absolute;
+  left: 0;
+  bottom: -30px;
+  box-shadow: 1px 1px 2px rgb(0 0 200 / 0.4);
+  border-radius: 2px;
+  transition: 0.s;
+ } */
+
+ nav ul li a:hover{
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: aliceblue;
+  background-color: orange; 
+ }
+
+/* Current/active navbar link */
+.active {
+  background-color: yellow;
+}
+
+/* Add responsiveness - will automatically display the navbar vertically instead of horizontally on screens less than 500 pixels */
+@media screen and (min-width: 57px) {
+  .navbar a {
+    float: none;
+    display: block;
+  }
+}
+
+/*this styles are gotten or combined from dashboard.css* it can be taken out at any time */
+.loginform{
+  width: 350px;
+  height: 200px;
+  align-items: center;
+  font-family: Lucida Sans Unicode;
+  text-align: left;
+  top: 110px;
+  position: fixed;
+  left: 35%;
+}
+
+ .loginform input{
+  width: 100%;
+  margin-bottom: 5px; 
+  border: 2px solid #042436;
+  border-radius: 5px;
+  padding: 5px 30px;
+  font-size: 12px;
+  font-weight: 400;
+  color: aqua;
+  text-align: left;
+  background-color: #023737;
+  }
+  /* targets the place holder texts ****/
+  input[type="text"]::placeholder {
+    text-align: left;
+    margin: -50px;
+    color: gainsboro;
+    font-size: 12px;
+    }
+    
+
+/* positions the login button on the inline-axis ****/
+input[type="submit"]{
+background-color: orangered;
+width: 100%;
+text-align: center;
+color: white;
+cursor: pointer;
+display: inline-block;
+border: 2px solid palevioletred;
+margin: 30px 0px -60px 0px;	
+font-size: 15px;
+font-weight: 600;
+cursor: pointer;
+padding: 10px 50px;
+border-radius: 10px;
+}
+/* Style the navigation bar */
+.button { 
+  text-decoration: none;
+  left: 1300px;
+  top: 15px;
+  right: 0px;
+  display: flex;
+  position: absolute;
+  text-align: center;
+  }
+

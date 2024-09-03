@@ -79,11 +79,34 @@ header *{
  margin-top: 50px;
  margin-left: 500px;
 }
+.alert_error{
+  width: 300px;
+  background-color: #e63819;
+  font-family:cursive;
+  color: white;
+  font-size: 16px;
+  padding: 7px 10px;
+  padding-left: 40px;
+  margin-top: -240px;
+  margin-left: -610px;
+  border-radius: 10px;
+}
+.alert_success{
+  width: 1165%;
+  background-color: aqua;
+  color: white;
+  font-size: 16px;
+  text-align: center;
+  padding: 7px 10px;
+  margin-top: -240px;
+  margin-left: -630px;
+  border-radius: 5px;
+}
 
 /***targets the logo text position***/
 .formheading{
-  background-color: orangered;
-  background-image: linear-gradient(45deg, #fefefe,#e63819);
+  background-color: orange;
+  background-image: #309084;
   background-size: 100%;
   -webkit-background-clip: text;
   -moz-background-clip: text;
@@ -117,18 +140,18 @@ header *{
  nav ul li a{
   text-decoration: none;
   position: relative;
-  color: white;
+  color: orange;
   font-size: 15px;
   font-weight:600;
  }
  nav ul li a:after{
   color: orange;
   content: '';
-  width: 100;
+  width: 60;
   height: 5px;
   position: absolute;
   left: 0;
-  bottom: -30px;
+  bottom: -10px;
   box-shadow: 1px 1px 2px rgb(0 0 200 / 0.4);
   border-radius: 2px;
   transition: 0.1s;
@@ -136,19 +159,8 @@ header *{
 
  nav ul li a:hover::after{
   width: 100%;
-  background-color: orangered; 
+  background-color: orange; 
  }
-
-/* Style the navigation bar */
-.button { 
-  text-decoration: none;
-  left: 1300px;
-  top: 15px;
-  right: 0px;
-  display: flex;
-  position: absolute;
-  text-align: center;
-  }
 
 body{
             background-image: linear-gradient(160deg, #133950 0%, #309084 100%);
@@ -216,7 +228,7 @@ body{
 		
 		/* positions the login button on the inline-axis ****/
 		.login_button{
-		width: 50%;
+		width: 100%;
 		height: 20%;
-		margin-left: 25%;	
-    </style>
+    margin-left: 0px;;	
+    }

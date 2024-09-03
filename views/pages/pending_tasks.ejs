@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width", initial-scale="1.0">
+    <title>Crata - User Profile</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" 
+    crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="styles/dashboard.css"  media="all">
+    <script src="js/jquery.js" defer></script>
+    <script src="https://kit.fontawesome.com/6bb208eccf.js" 
+    crossorigin="anonymous"></script>
+</head>
+<body>
+<header>
+    <%- include('../partials/header'); %>
+  </header>
+        <div id="header">  
+            <div class="contain">
+                <nav>
+                    <ul>
+                        <li><a href="#">Roadmap</a></li>
+                        <li style="border-bottom: 2px solid orange;" ><a style="color: white" href="/viewpending">Pending Tasks</a></li>
+                        <li><a href="/capture">Data Capture</a></li>
+                        <li><a href="/visits ">Task Submission</a></li>
+                        <li><a href="">Wallet</a></li>
+                        <li><a href="/profile">Profile</a></li>
+                        <li><a href="/logout">Logout</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>        
+    </body>
+</html>

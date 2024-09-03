@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <title>Crata-perfomancedash</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <canvas id="userChart" width="400" height="200"></canvas>
+  <script>
+    // WebSocket connection
+    const ws = new WebSocket('ws://localhost:3000');
+
+    // Chart.js setup
+    const ctx = document.getElementById('userChart').getContext('2d');
+    const userChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: [], // User IDs
+        datasets: [{
+          label: 'Visitation per PDO for current salary cycle',
+          data: [], // Record counts
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+
+    // Update chart with WebSocket data
+    ws.onmessage = event => {
+      const data = JSON.parse(event.data);
+      const labels = data.map(item => `User ${item.user_id}`);
+      const values = data.map(item => item.record_count);
+      
+      userChart.data.labels = labels;
+      userChart.data.datasets[0].data = values;
+      userChart.update();
+    };
+  </script>
+</body>
+</html>

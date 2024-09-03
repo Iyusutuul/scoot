@@ -5,54 +5,77 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width", initial-scale="1.0">
     <title>Crata - User Profile</title>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" 
-    crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="styles/profile.css"  media="all">
-    <script src="js/jquery.js" defer></script>
+    <link rel="stylesheet" href="styles/dashboard.css"  media="all">
     <script src="https://kit.fontawesome.com/6bb208eccf.js" 
     crossorigin="anonymous"></script>
 </head>
+<style>
+    #profileTable table {
+        border-collapse: collapse;
+    }
+    #profileTable th {
+        border: none;
+        background-color: orange;
+        color: white;
+        font-size: 13px;
+        padding: 10px 7px;
+    }
+    #profileTable td {
+        color: white;
+        border: 0px;
+        padding: 15px 8px;
+    }
+    #profileTable tr:nth-child(even){
+        border: 0px;
+     background-color: none;
+     color: white;
+     font-size: 14px;
+    }
+    #profileTable td{
+        background: none;
+    }
+    </style>
+<body>
 <header>
     <%- include('../partials/header'); %>
   </header>
-        <div id="header">  
-            <div class="contain">     
-                <span style="padding-top: 400px; color: whitesmoke;font-size: 14px;">Logged in as <%= data[0].dispatcher_id %></span>             
-                <nav>
-                    <ul>
-                        <li style="border-bottom: 2px solid orangered;">
-                            <a style="color: orangered;" href="/profile"># Profile</a></li>
-                            <!-- <li><a href="#">Roadmap</a></li> -->
-                        <!-- <li><a href="/capture">Data Capture</a></li>
-                    <li><a href="/visits ">Visitation</a></li>
-                <li><a href="">Wallet</a></li>                                   -->
-            <li><a href="/dashboard">Back to Dash</a></li>     
-        </div>
-    <div class = "panel-heading">
-<!-- <span class = "pull-right"><a href="/logout">Logout</a></span> -->
+  <div id="header">  
+    <div class="contain">
+        <nav>
+            <ul>
+                    <li><a href="#">Roadmap</a></li>
+                        <li><a href="/viewpending">Pending Tasks</a></li>
+                            <li><a href="/capture">Data Capture</a></li>
+                        <li ><a href="/visits ">Task Submission</a></li>
+                    <li><a href="">Wallet</a></li>
+                    <li style="border-bottom: 2px solid orange;">
+                        <a style="color: white" href="/profile">Profile</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </nav>
     </div>
-        <div style="margin: -100px 0px 0px -50px;"><img alt="User Img"  src="/public/Hue.jpg"></div>      
-            <table class="user_information">
-                <tbody style="margin: -100px 0px 0px 30px;width:400px; font-size:14px;
-                    padding: 20px 0px; border: 1px solid aqua; float:left;
-                        display: block; color: whitesmoke;" >
-                        <tr ><td  >&#160&#160&#160&#160PDO Name:&#160<br></td><td style="height:25px;padding-left: 10px;" ><%= data[0].firstname%> <%=data[0].lastname %></td></tr>
-                        <tr><td>&#160&#160&#160&#160Mobile:&#160<br></td><td style="height:25px;padding-left: 10px" ><%= data[0].mobile_num %></td></tr>
-                        <tr><td>&#160&#160&#160&#160Location:&#160<br></td><td style="height:25px;padding-left: 10px" ><%= data[0].location %></td></tr>
-                        <tr><td>&#160&#160&#160&#160Email:&#160<br></td><td style="height:25px;padding-left: 10px" ><%= data[0].email %></td></tr>
-                        <tr><td>&#160&#160&#160&#160National Identity:&#160<br></td><td style="height:25px;padding-left: 10px" ><%= data[0].dispatcher_id %></td></tr>
+    </div>   
+<div>
+   <div style="margin: -500px 0px 0px 380px; "><img alt="User Img"  src="/public/Hue.jpg"></div> 
+    <div style="margin: -120px 0px 0px 500px;" id="profileTable">   
+        <table style="border:0;">
+            <tbody >
+                    <tr>
+                        <th>PDO Name</th>
+                        <th>Mobile</th>
+                        <th>Location</th>
+                        <th>Email</th>
+                        <th>National Identity</th>
+                    </tr>
+                        <tr>
+                        <td><%= data[0].firstname%> <%=data[0].lastname %></td>
+                        <td><%= data[0].mobile_num %></td>
+                        <td><%= data[0].location %></td>
+                        <td><%= data[0].email %></td>
+                        <td><%= data[0].dispatcher_id %></td>
+                    </tr>
                         </tbody>
                     </table>
                 </div>
-            </div>
-      </div>
-    </div>
-</div>
-</form>
-</ul>  
-</nav>
-</div> 
-</div>    
-</body>
+    </body>
 </html>
