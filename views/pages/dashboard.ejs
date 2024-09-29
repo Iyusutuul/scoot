@@ -1,37 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width", initial-scale="1.0">
-        <title>Crata dashboard</title>
-        <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" 
-        crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="styles/dashboard.css" type="text/css" media="all">
-        <script src="js/jquery.js" defer></script>
-    <script src="https://kit.fontawesome.com/6bb208eccf.js" crossorigin="anonymous"></script>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crata Dashboard</title>
+    <link rel="stylesheet" href="styles/dashboard.css" type="text/css" media="all">
+    <script src="js/jquery.js" defer></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" 
+    crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <!-- <script src="https://product-gallery.cloudinary.com/latest/all.js" type="text/javascript"></script>
+    <script src="https://kit.fontawesome.com/6bb208eccf.js" crossorigin="anonymous"></script> -->
+    <style>
+.container {
+            display: grid;
+            height: 5vh;
+            grid-template-rows: 1fr auto;
+        }
+        /* Optional: Add some basic styling */
+        #myGallery {
+            width: 90%;
+            height: 300px;
+            grid-column: 3 / 3;
+          
+            background-color: gray;
+            border-radius: 5px;
+            margin-top: -450px;
+            margin-left: -400px;
+        }
+    </style>
 </head>
-
-</style>
-<body>
-<header>
-    <%- include('../partials/header'); %>
-  </header>
-            <div id="header">
-                <div class="contain">                  
-                    <nav>
-                        <ul>
-                        <li><a href="#">Roadmap</a></li>
-                        <li><a href="viewpending">Pending Tasks</a></li>
-                        <li><a href="/capture">Data Capture</a></li>
-                        <li><a href="/visits ">Task Submission</a></li>
-                        <li><a href="">Wallet</a></li>                                    
-                        <li><a href=" /profile">Profile</a></li>
-                        <li><a href="/logout">Logout</a></li>                    
-                    </ul>  
-                </nav>
-            </div> 
-        </div>          
-    </body>
+<body style="background-color: gray;">
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+    <div id="header">
+        <div class="contain">
+            <nav>
+                <ul>
+                    <li><i class="fa-solid fa-map"></i><a href="#">Roadmap</a></li>
+                    <li><i class="fa-solid fa-hourglass-start"></i><a href="viewpending">&#160Pending</a></li>
+                    <li><i class="fa-solid fa-camera"></i><a href="/capture">Capture</a></li>
+                    <li><i class="fa-solid fa-person-walking-luggage"></i><a href="/visits">Visit</a></li>
+                    <li><i class="fa-solid fa-wallet"></i><a href="#">Wallet</a></li>
+                    <li><i class="fa-solid fa-user"></i><a href="/profile">Profile</a></li>
+                    <li><i class="fa-solid fa-right-from-bracket"></i><a href="/logout">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+         <!-- Container for images -->
+          <div class="container">
+    <div id="myGallery" ></div></div>
+    <script type="text/javascript">  
+    const myGallery= cloudinary.galleryWidget({
+      container: "#myGallery",
+      cloudName: "iyu",
+      default: {    
+                    theme: 'default' // or 'minimal' based on your preference
+                },
+      mediaAssets: [ {tag: "cal_pdo001"} // by default mediaType: "image"
+]
+});
+    myGallery.render();
+    </script>
+    </div>
+</body>
 </html>

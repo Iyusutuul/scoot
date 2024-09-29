@@ -14,114 +14,30 @@
         crossorigin="anonymous"></script>
         <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
         <script src='https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js'></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.19.2/js/vendor/jquery.ui.widget.min.js"></script>
-        <script src='https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.19.2/js/jquery.iframe-
-        transport.min.js' type="text/javascript"></script>
-        <script src='https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.19.2/js/jquery.fileupload.min.js'
-         type="text/javascript"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/cloudinary-jquery-file-upload/2.13.0/cloudinary-jquery-file-upload.min.js"></script>
         <script src="https://cdn.jsdelivr.net/jquery.cloudinary/1.0.18/jquery.cloudinary.min.js" type='text/javascript'></script>
-
     </head>
     <style>
 </style>
     <body style="background-color: gray;" >
-        <div style="background: orange" class="rect_1"></div>
+        <div style="background:gray" class="rect_1"></div>
             <div style="background-color: #fff; height: 45px;" 
             class="rect_2"></div>
                 <div style="background:orange;" class="rect_3"></div>
                     <div id="header">
                         <div class="contain">
-                            <div style="height: 5px;" class="banner">
+                            <div style="height: 4px;" class="banner">
                                 <img src="public/Unified Payments logo.jpg" alt="spar logo design" style="float:left">
-                                  </div>                  
-                            <nav>
-                                <ul>
-                                    <li><a style="margin-left: 170px;" href="#">Roadmaps</a></li>
-                                    <li><a href=" ">Assign Task &#160</a></li>
-                                    <li><a href=" ">View Pending</a></li>
-                                    <li><a href="/pdoPerformance">PDO Performance</a></li>
-                                    <li><a href="">Submit Task &#160</a></li>
-                                    <li><a href="/indexAdmin">View Printout</a></li>
-                                    <li><a style="margin-left: 370px;display:none" href="#">                              &#160&#160&#160&#160&#160&#160&#160&#160&#160&#160&#160</a></li>            
-                            <li><a  class="sign_in" style="background-color: orange;
-                             margin-left: 1000px;padding: 5px 10px; border-radius: 2px; font-weight: 300;" 
-                            href="#">Logout</a></li>
-                        </ul>  
-                    </nav>
-                </div>
+                </div>                  
+                    <nav>
+                        <ul>
+                            <li><a style="margin-left: 100px;"href="#">Roadmaps</a></li>
+                            <li><a href=" ">Assign Task &#160</a></li>
+                            <li><a href="/pdoPerformance">PDO Performance</a></li>
+                            <li><a href="/indexAdmin">Image Search</a></li>
+                            <li><a href="/transGallery">Image Gallery</a></li>
+                    </ul>  
+                </nav>
             </div>
-        <div class="form">
-     <!-- FORM BEGINS HERE-->
-        <form id="uploadForm" action="/supervisor" method="POST" enctype="multipart/form-data">
-            <div class="loginform">
-                <div class="inputs">
-                    <div>
-                        <label for="merchant_name"></label>
-                        <input type="text" id="merchant_name" name="merchant_name" required maxlength="50" placeholder="Merchant Name">
-                        <div class="error" id="merchant_name_error"></div>
-                        </div>
-                    <div>
-                        <label for="merchant_address"></label>
-                        <input type="text" id="merchant_address" name="merchant_address" required minlength="15" maxlength="20" placeholder="Merchant Address">
-                        <div class="error" id="merchant_address_error"></div>
-                    </div>
-                    <div>
-                        <label for="terminal_id"></label>
-                        <input type="text" id="terminal_id" name="terminal_id" required maxlength="10" placeholder="Terminal ID">
-                        <div class="error" id="terminal_id_error"></div>
-                    </div>
-                   
-                    <div>
-                        <label for="reference"></label>
-                        <input type="text" id="reference" name="reference" required maxlength="11" placeholder="Tag">
-                        <div class="error" id="reference_error"></div>
-                    </div>
-                    <div class="field">
-                      <label></label>
-                                                             
-                      <section class="section">
-                        <div><br>
-                            <label style="color:white" for="image">Upload image here:</label>
-                            <input name="image" type="file" class="input-files" accept="image/*" data-cloudinary-field="image_id" id="fileInput">
-                            <div id="fancy-file-upload"></div>
-                            <div class="error" id="fileInput_error"></div>
-                            <progress id="progressBar" value="0" max="100" style="width: 100%;"></progress>
-                        </div><br>
-                    <button type="submit" class="upload" id="create-account" 
-                    style="background-color: orange; padding: 10px 13px; cursor: pointer;
-                     border: orange; border-radius: 5px;color: #fff;"
-                     >POST</button>
-                </div>
-            </div>
-        </form>
-    <div class="row">
-            <div class="col-sm-12">
-                <div class="preview-images"></div>
-            </div>
-        </div>
-    </div>
-</div>         
-<script>
-  $(document).ready(function() {
-    let imagesPreview = function(input, placeToInsertImagePreview) {
-      if (input.files) {
-        let filesAmount = input.files.length;
-        for (i = 0; i <= filesAmount; i++) {
-          let reader = new FileReader();
-            reader.onload = function(event) {
-            $($.parseHTML("<img>"))
-        .attr("src", event.target.result)
-      .appendTo(placeToInsertImagePreview);
-    };
-  reader.readAsDataURL(input.files[i]);
-}
-}
-};
-$(".input-files").on("change", function() {
-imagesPreview(this, "div.preview-images");
-});
-});
-</script>  
-</body>    
+        </div>  
+    </body>    
 </html>

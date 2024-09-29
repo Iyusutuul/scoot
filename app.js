@@ -3,7 +3,6 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
-
 const logger = require('morgan')
 const dotenv = require ('dotenv');
 const session = require('express-session');
@@ -20,7 +19,7 @@ const app = express(); //create express object
 // UPLOAD METHOD 2
 const { storage } = require('./storage/storage');
 const multer = require('multer');
-const { v4: uuidv4 } = require('uuid');
+// const { v4: uuidv4 } = require('uuid');
 const upload = multer({ storage });
 
 //.env configurations
@@ -29,7 +28,6 @@ dotenv.config({path: './.env'})
    // Database connection
 const db = require('./lib/dbconfig')
                
-
 //specify port number     
 app.set('port', process.env.PORT || 8080);
 
@@ -93,8 +91,12 @@ app.get("/", (req,res) =>{
         });
 
 app.get("/supervisor", (req,res) =>{
-        res.render("admin/supervisorDash")
-})
+        res.render("admin/supervisorDash");
+});
+
+app.get("/transGallery", (req,res)=>{
+    res.render("admin/transSlip");
+});
 
 app.get("/viewpending", (req,res) =>{
         res.render("pages/pending_tasks")
@@ -120,6 +122,7 @@ app.post("/dashboard", (req,res)=>{
                                 req.session.user = result[0];
                                 console.log(result[0])
                                 req.session.email = email;
+                                console.log(req.session.email);
                                 res.redirect('/dashboard');
                         } else {   
                                 message = 'Incorrect Email or Password!!'
@@ -137,20 +140,39 @@ app.get('/dashboard', isAuthenticated, (req,res)=>{
         message_success = '';
         res.render("pages/dashboard")
 });
-app.get('/capture', isAuthenticated, (req,res)=>{
-        const msg = req.query.msg || '';
-        res.render("pages/datacapture",{msg})
+app.get('/capture', isAuthenticated, (req, res) => {
+    const msg = req.query.msg || '';
+    
+    // Access user data directly from the session
+    const userId = req.session.userId;
+
+    if (!userId) {
+        return res.redirect('/login'); // Redirect to login if user ID is not in session
+    }
+
+    const query = 'SELECT * FROM users WHERE id = ?';
+    db.query(query, [userId], (err, results) => {
+        if (err || results.length === 0) {
+            return res.redirect('/login'); // Redirect if user not found
+        }
+
+        const user = results[0];
+        const profilePicUrl = user.profile_pic_url || 'default-profile.png'; // Fallback image
+        const firstname = user.firstname || 'User'; // Default name
+
+        res.render("pages/datacapture", { msg, profilePicUrl, firstname });
+    });
 });
 
 app.post('/capture', (req,res)=>{
-        let msg = 'Data Capture Successful';
+        let msg = 'Record Saved';
         
         if (req.method == "POST"){
-        const {application_type ,term_type,term_serial,sim_type,sim_serial,status,reference} = req.body
+        const {application_type ,term_type,term_serial,sim_type,sim_serial,status,reference,rrn} = req.body
 
         const query = 'INSERT IGNORE INTO datacapture SET ?';
         const values = { application_type, term_type, term_serial, sim_type,
-                         sim_serial, status, reference};
+                         sim_serial, status, reference,rrn};
 
                          db.query(query, values, (err, result) => {
                                 if (err) {
@@ -169,21 +191,40 @@ app.post('/capture', (req,res)=>{
 });
 
 //display profile page
-app.get('/profile', isAuthenticated, (req,res)=>{
-        message='';
-        message_success = '';
-        
-        var userId = req.session.userId;
-        if (userId == null){
-                res.render("pages/corporatelogin");
-                return
-        }
+app.get('/profile', isAuthenticated, (req, res) => {
+    const userId = req.session.userId;
+    console.log("User ID from session:", userId);
 
-        var sql="SELECT * FROM `users` WHERE `id` = '"+userId+"'";
-        db.query(sql, function(err,result){
-                res.render('pages/user_profile',{data:result});
-        });
+    if (userId == null) {
+        res.render("pages/corporatelogin");
+        return;
+    }
+    
+    const sql = "SELECT * FROM `users` WHERE `id` = ?";
+    console.log("SQL Query:", sql, [userId]);
+
+    db.query(sql, [userId], (err, result) => {
+        if (err) {
+            console.error("Database query error:", err);
+            res.status(500).send("Internal Server Error");
+            return;
+        }
+        
+        console.log("Query result:", result);
+
+        if (result.length > 0) {
+            const user = result[0];
+            res.render('pages/user_profile', { 
+                firstname: user.firstname,
+                profilePicUrl: user.profile_pic_url 
+            });
+        } else {
+            console.log("No user found for userId:", userId);
+            res.status(404).send("User not found");
+        }
+    });
 });
+
 
 //render sign-up page
 app.get("/signup",(req,res)=>{
@@ -236,7 +277,7 @@ app.post('/signup',(req,res)=>{
 });
 
 app.post('/visits', upload.single('image'), async (req, res) => {
-    const { merchant_name, merchant_address, terminal_id, status } = req.body;
+    const { merchant_name, merchant_address, terminal_id, rrn, status } = req.body;
     const file = req.file;
 
     if (!file) {
@@ -251,18 +292,10 @@ app.post('/visits', upload.single('image'), async (req, res) => {
         // Get the Cloudinary URL of the uploaded file
         const image_url = result.secure_url;
 
-     
-
-        // Insert data into the database
-        const query = 'INSERT IGNORE INTO dailyvisits SET ?';
-        const values = { 
-            merchant_name, 
-            merchant_address, 
-            terminal_id, 
-            status, 
-            image_url, 
-            tags: JSON.stringify(req.body.tags) 
-        };
+    // Insert data into the database
+    const query = 'INSERT IGNORE INTO dailyvisits SET ?';
+    const values = {merchant_name, merchant_address, terminal_id, rrn, status, image_url, 
+            tags: JSON.stringify(req.body.tags)};
 
         db.query(query, values, (error) => {
             if (error) {
@@ -302,7 +335,7 @@ app.get('/visits', isAuthenticated, (req,res)=>{
         };
     
         var options = {
-            max_results: 300 // Adjust this value based on desired page size
+            max_results: 50 // Adjust this value based on desired page size
         };
     
         if (q) {

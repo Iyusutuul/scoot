@@ -1,81 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
+<head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width", initial-scale="1.0">
-    <title>Crata - User Profile</title>
-    <link rel="stylesheet" href="styles/dashboard.css"  media="all">
-    <script src="https://kit.fontawesome.com/6bb208eccf.js" 
-    crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+    <!--  <script src="https://kit.fontawesome.com/6bb208eccf.js" crossorigin="anonymous"></script> -->
+    <title>Crata-Profile</title>
+    <link rel="stylesheet" href="styles/dashboard.css" type="text/css" media="all">
 </head>
-<style>
-    #profileTable table {
-        border-collapse: collapse;
-    }
-    #profileTable th {
-        border: none;
-        background-color: orange;
+    <style>
+        .error { color: red; }
+        div.preview-images > img {
+        width: 70%;
+        height: 60%;
+        margin-top: -450px;
+        margin-left: 450px;
+        position: relative;
+        }
+        .button {display: inline-block;
+        padding: 10px 10px;
         color: white;
-        font-size: 13px;
-        padding: 10px 7px;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: transform 0.2s ease;
     }
-    #profileTable td {
-        color: white;
-        border: 0px;
-        padding: 15px 8px;
+        .button:hover {
+        transform: scale(1.1);
+        }
+        .fa-solid{
+        float: center !important;
+        color: black;
+        }
+           
+        .ui.sidebar {
+        z-index: 1000; /* Ensure sidebar is above content */
+        height: calc(100% - 50px); /* Make sidebar height fill the remaining space */
+        flex-direction: center;
+        padding-top: 55px;
+        align-items: center;
+        justify-content: center;
     }
-    #profileTable tr:nth-child(even){
-        border: 0px;
-     background-color: none;
-     color: white;
-     font-size: 14px;
+    .profile-pic {
+        display: block;
+        border-radius: 50%;
+        width: 60px;  /* Adjust size as needed */
+        height: 60px; /* Adjust size as needed */
     }
-    #profileTable td{
-        background: none;
+    .profile-img {
+      margin: 0em auto;
     }
-    </style>
+    .pusher {
+        z-index: 1000; /* Ensure pusher content stays below the sidebar */
+        }
+    .profile_wrapper{
+        display: inline-flex; /* Use flexbox */
+        justify-content: flex-start; /* Center horizontally */
+        align-items: flex-start; /* Center vertically */
+    }
+    .ui.sidebar .item {
+    display: flex;
+    justify-content: center; /* Center items horizontally */
+    align-items: center;     /* Center items vertically */
+    padding: 10px;          /* Adjust padding as necessary */
+    color: gray;            /* Text color */
+    font-weight: bolder;    /* Font weight */
+    text-align: center;     /* Center text alignment */
+    width: 100%;            /* Ensure the item takes full width */
+}
+
+    .profile-img {
+      display: block;
+      margin: auto;
+    }
+    .profile-container {
+        display: flex;
+        text-align: center; /* Center text inside the container */
+        margin-top: 60px;
+        margin-left: 30px;
+    }
+        </style>
 <body>
-<header>
-    <%- include('../partials/header'); %>
-  </header>
-  <div id="header">  
-    <div class="contain">
-        <nav>
-            <ul>
-                    <li><a href="#">Roadmap</a></li>
-                        <li><a href="/viewpending">Pending Tasks</a></li>
-                            <li><a href="/capture">Data Capture</a></li>
-                        <li ><a href="/visits ">Task Submission</a></li>
-                    <li><a href="">Wallet</a></li>
-                    <li style="border-bottom: 2px solid orange;">
-                        <a style="color: white" href="/profile">Profile</a></li>
-                <li><a href="/logout">Logout</a></li>
-            </ul>
-        </nav>
+    <div id="header">
+        <div style="background-color: orange;" class="ui fixed menu">
+            <a style="color: white;" class="item" id="menu-toggle">
+                <i class="bars icon"></i>
+            </a>
+            <a href="/dashboard" style="font-size: 15px; font-weight: bold; color: white;" class="item">
+                <i class="fa-solid fa-house"></i></a>
+            <a style="font-size: 15px; font-weight: bold; color: white;" class="item">Crata</a>
+        </div>
     </div>
-    </div>   
-<div>
-   <div style="margin: -500px 0px 0px 380px; "><img alt="User Img"  src="/public/Hue.jpg"></div> 
-    <div style="margin: -120px 0px 0px 500px;" id="profileTable">   
-        <table style="border:0;">
-            <tbody >
-                    <tr>
-                        <th>PDO Name</th>
-                        <th>Mobile</th>
-                        <th>Location</th>
-                        <th>Email</th>
-                        <th>National Identity</th>
-                    </tr>
-                        <tr>
-                        <td><%= data[0].firstname%> <%=data[0].lastname %></td>
-                        <td><%= data[0].mobile_num %></td>
-                        <td><%= data[0].location %></td>
-                        <td><%= data[0].email %></td>
-                        <td><%= data[0].dispatcher_id %></td>
-                    </tr>
-                        </tbody>
-                    </table>
-                </div>
-    </body>
-</html>
+
+    <div style="margin: 0px auto;" class="ui sidebar vertical menu">
+        <div class="item">
+            <img src="<%= profilePicUrl %>" class="ui centered circular image profile-img" alt="Profile Picture" 
+            onerror="this.onerror=null;this.src='default-profile.png';" 
+            style=" height: 50px;margin-bottom: -15px;">
+            <h2 style="text-align: center;font-size: 15px;opacity: 0.5;">Welcome back</h2>
+            <h2 style="text-align: center;font-size: 15px;margin-top: -10px;margin-bottom: 20px;">Ubong Ema</h2>
+             <!-- <span><%= firstname %></span> -->
+         </div> 
+        <a class="item"><i class="fa-solid fa-map"></i>Roadmap</a>
+        <a href="/viewpending" class="item"><i class="fa-solid fa-hourglass-start"></i>Pending</a>
+        <a href="/capture" class="item"><i class="fa-solid fa-camera"></i>Data Capture</a>
+        <a href="/visits" class="item"><i class="fa-solid fa-person-walking-luggage"></i>Visitation</a>
+        <a class="item"><i class="fa-solid fa-wallet"></i>Wallet</a>
+        <a href="/profile" class="item"><i class="fa-solid fa-user"></i>Profile</a>
+        <a href="/logout" class="item"><i class="fa-solid fa-right-from-bracket"></i>Logout</a>
+    </div>
+
+    <div class="pusher">
+        <div class="profile_wrapper">
+            <div class="profile-container">
+                <img src="<%= profilePicUrl %>" class="profile-pic" alt="Profile Picture"
+                     onerror="this.onerror=null;this.src='default-profile.png';">
+            </div>
+            <div class="ui container">
+                <p style="margin-top: 80px; padding-left: 15px;
+                font-size: 15px; font-weight:bolder; color: rgb(102, 184, 216);">
+                    Welcome back <%= firstname %>!
+            </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            
+            $('#menu-toggle').click(function() {
+                $('.ui.sidebar').sidebar('toggle');
+            });
+        });
+    </script>
+    </div>
+</div>
+</body>

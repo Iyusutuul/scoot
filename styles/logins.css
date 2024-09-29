@@ -81,15 +81,15 @@ header *{
 }
 .alert_error{
   width: 300px;
-  background-color: #e63819;
+
   font-family:cursive;
-  color: white;
+  color: red;
   font-size: 16px;
   padding: 7px 10px;
   padding-left: 40px;
   margin-top: -240px;
   margin-left: -610px;
-  border-radius: 10px;
+  border-radius: 2px;
 }
 .alert_success{
   width: 1165%;

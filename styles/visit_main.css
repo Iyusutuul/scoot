@@ -29,7 +29,7 @@ body{
   /*top: 5px;*/
   left: 50;
   right: 0;
-  margin-top: -20px;
+  margin-top: 0px;
 }
 
 /***targets both the logo and the links on the left***/
@@ -68,8 +68,7 @@ border-radius: 5px;
   font-weight: bold;
   position: relative;
   display: flex;
-  margin-top: 5px;
-  padding-top: 1px;
+  padding-top: 10px;
   color: red;
 padding-left: 10px;
   
@@ -80,7 +79,7 @@ padding-left: 10px;
 }
 nav{
   margin-top: 0px;
-  padding-top: 63px;
+  padding-top: 60px;
 }
 /*targets the links in the contain */
 nav ul li{

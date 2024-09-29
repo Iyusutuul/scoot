@@ -22,7 +22,7 @@ const storage = new CloudinaryStorage({
             allowed_formats: ['jpeg', 'png', 'jpg', 'pdf'],
             moderation: "manual",
             overwrite: false,
-            public_id: `${originalName}-${uniqueId}`,
+            public_id: `${originalName}`,
             transformation: [{
                 width: 200,
                 height: 300,
@@ -37,4 +37,32 @@ const storage = new CloudinaryStorage({
     },
 });
 
-module.exports = { cloudinary, storage };
+const profilePicStorage = new CloudinaryStorage({
+    cloudinary,
+    params: (req, file) => {
+        const originalName = path.parse(file.originalname).name;
+        const uniqueId = uuidv4();
+        // Extract tags from the request body
+        const tagsArray = Array.isArray(req.body.tags) ? req.body.tags : [req.body.tags];  
+        return {
+            folder: 'UP',
+            invalidate: true,
+            allowed_formats: ['jpeg', 'png', 'jpg', 'pdf'],
+            moderation: "manual",
+            overwrite: false,
+            public_id: `${originalName}`,
+            transformation: [{
+                width: 200,
+                height: 300,
+                crop: 'fill',
+                gravity: 'auto',
+                quality: 'auto',
+                background: 'none',
+                color: 'none',
+            }],
+            tags: tagsArray, // Pass tags dynamically
+        };
+    },
+});
+
+module.exports = { cloudinary, storage, profilePicStorage};

@@ -6,41 +6,135 @@
     <meta name="viewport" content="width=device-width", initial-scale="1.0">
     <title>Crata - Data Capture</title>
     <link rel="stylesheet" href="styles/dashboard.css" type="text/css" media="all">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
     <script src="https://kit.fontawesome.com/6bb208eccf.js" 
     crossorigin="anonymous"></script>
 </head>
 <style>
-    .button {
-      display: inline-block;
-      color: white;
-      text-align: center;
-      text-decoration: none;
-      border-radius: 5px;
-      transition: transform 0.2s ease;
+    .error { color: red; }
+    div.preview-images > img {
+    width: 70%;
+    height: 60%;
+    margin-top: -450px;
+    margin-left: 450px;
+    position: relative;
     }
-    
+    .button {display: inline-block;
+    padding: 10px 10px;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: transform 0.2s ease;
+}
     .button:hover {
-      transform: scale(1.1);
+    transform: scale(1.1);
     }
+    .fa-solid{
+    float: right;
+    }
+       
+    .ui.sidebar {
+    z-index: 1000; /* Ensure sidebar is above content */
+    height: calc(100% - 50px); /* Make sidebar height fill the remaining space */
+    flex-direction: center;
+    padding-top: 45px;
+    align-items: center;
+    justify-content: center;
+}
+.profile-pic {
+    display: block;
+    border-radius: 50%;
+    width: 60px;  /* Adjust size as needed */
+    height: 60px; /* Adjust size as needed */
+}
+.profile-img {
+  margin: 0em auto;
+}
+.pusher {
+    z-index: 1000; /* Ensure pusher content stays below the sidebar */
+    }
+.profile_wrapper{
+    display: inline-flex; /* Use flexbox */
+    justify-content: flex-start; /* Center horizontally */
+    align-items: flex-start; /* Center vertically */
+}
+.ui.sidebar .item {
+            display: flex;
+            /* Use flexbox for better alignment */
+            padding: 10px;
+            /* Adjust padding as necessary */
+            align-items: center;
+            /* Center items vertically */
+            color: white;
+        }
+.profile-img {
+  display: block;
+  margin: auto;
+}
+.profile-container {
+    display: flex;
+    text-align: center; /* Center text inside the container */
+    margin-top: 60px;
+    margin-left: 30px;
+}
     </style>
 <body>
-<header>
-<%- include('../partials/header'); %>
-</header>
     <div id="header">
-        <div class="contain">                  
-            <nav>
-                <ul>
-                    <li><a href="#">Roadmap</a></li>
-                        <li><a href="/viewpending">Pending Tasks</a></li>
-                        <li style="border-bottom: 2px solid orange;">
-                    <a style="color: white;" href="/capture">Data Capture</a></li>
-                <li><a href="/visits ">Task Submission</a></li>
-            <li><a href="">Wallet</a></li>
-        <li><a href="/profile">Profile</a></li>                                
-        <li><a href="/logout">Logout</a></li>      
-    </ul> 
-</nav></div></div>
+        <div style="background-color: orange;" class="ui fixed menu">
+            <a style="color: white;" class="item" id="menu-toggle">
+                <i class="bars icon"></i>
+            </a>
+            <a href="/dashboard" style="font-size: 15px; font-weight: bold; color: white;" class="item">
+                <i class="fa-solid fa-house"></i></a>
+            <a style="font-size: 15px; font-weight: bold; color: white;" class="item">Crata</a>
+        </div>
+    </div>
+
+    <div style="background-color: orange;margin: 0px auto;" class="ui sidebar vertical menu">
+        <div class="item">
+            <img src="<%= profilePicUrl %>" class="ui centered circular image profile-img" alt="Profile Picture" 
+            onerror="this.onerror=null;this.src='default-profile.png';" 
+            style=" height: 50px;">
+             <!-- <span><%= firstname %></span> -->
+         </div> 
+        <a class="item">Roadmap<i class="fa-solid fa-map"></i></a>
+        <a href="/viewpending" class="item">Pending<i class="fa-solid fa-hourglass-start"></i></a>
+        <a href="/capture" class="item">Data Capture<i class="fa-solid fa-camera"></i></a>
+        <a href="/visits" class="item">Visitation<i class="fa-solid fa-person-walking-luggage"></i></a>
+        <a class="item">Wallet<i class="fa-solid fa-wallet"></i></a>
+        <a href="/profile" class="item">Profile<i class="fa-solid fa-user"></i></a>
+        <a href="/logout" class="item">Logout<i class="fa-solid fa-right-from-bracket"></i></a>
+    </div>
+
+    <div class="pusher">
+        <!-- <div class="profile_wrapper">
+            <div class="profile-container">
+                <img src="<%= profilePicUrl %>" class="profile-pic" alt="Profile Picture"
+                     onerror="this.onerror=null;this.src='default-profile.png';">
+            </div>
+            <div class="ui container">
+                <p style="margin-top: 80px; padding-left: 15px;
+                font-size: 15px; color: orange;">
+                    Welcome <%= firstname %>!
+            </p>
+            </div>
+        </div> -->
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            
+            $('#menu-toggle').click(function() {
+                $('.ui.sidebar').sidebar('toggle');
+            });
+        });
+    </script>
+    </div>
+</div>
+<div class="pusher">
     <form id="uploadForm" action="/capture" method="POST">    
         <div class="loginform">       
             <% if (msg) { %>
@@ -48,9 +142,9 @@
         <% } %>             
         <div class="inputs">
             <div>
-                <label for="application_type">
+                <label for="app_type">
                     <input style="margin-top: -50px;" type="text"
-                        id="application_type" name="application_type" required="" 
+                        id="app_type" name="application_type" required="" 
                             maxlength="6" placeholder="Application Type" >
                                 </label>
                             </div>
@@ -64,7 +158,7 @@
             <div>
                 <label for="term_serial">
                     <input style="margin-top: 0px;" type="text"
-                        id="term_serial" name="term_serial"  maxlength="11" placeholder="Terminal Serial Num" 
+                        id="term_serial" name="term_serial"  maxlength="11" placeholder="Terminal Serial" 
                             required>
                                 </label>
                             </div>
@@ -78,7 +172,7 @@
             <label for="sim_serial">
                 <input style="margin-top: 0px;" type="text"
                     id="sim_serial" name="sim_serial" maxlength="11"
-                     placeholder="Sim Serial Num" required>
+                     placeholder="Sim Serial" required>
                         </label>
                             </div>  
                             <div>
@@ -86,7 +180,22 @@
                             <input type="text" id="status" name="status" required maxlength="1" placeholder="Status(1- OK, 2- NOK, 3-RET, 4-DENIED, 5-NAL)">
                         <div class="error" id="status_error"></div>
                     </div>
-                <div>                         
+                <div>
+                    <div>
+                        <label for="trans_ref"></label>
+                        <input type="text" id="trans_ref" name="rrn" required maxlength="12" placeholder="trans_ref">
+                        <div class="error" id="trans_ref"></div>
+                    </div>
+<!--                     
+                        <label for="Tags"></label>
+                        <select name="tags" id="tags" required>
+                            <option value="1">1-OK</option>
+                            <option value="2">2-NOK</option>
+                            <option value="3">3-RET</option>
+                            <option value="4">4-DENIED</option>
+                            <option value="5">3-NAL</option>
+                        </select>
+                                             -->
             <label for="pdo_ref"><b></b>
         <input type="text" name="reference" id="pdo_ref" required
     maxlength="11" placeholder="PDO_Reference" minlength="10">
@@ -98,6 +207,7 @@
                             </div>
                         </div>
                     </form>
+                </div>
             <%- include('../partials/scripts'); %> 
         <script>
             document.getElementById('uploadForm').addEventListener('submit', function(event) {
@@ -107,20 +217,7 @@
                 document.querySelectorAll('.error').forEach(function(errorElement) {
                     errorElement.textContent = '';
                 });
-          
-                // Merchant Name validation
-                const merchantName = document.getElementById('merchant_name').value;
-                if (merchantName.trim() === '') {
-                    document.getElementById('merchant_name_error').textContent = 'Merchant Name is required.';
-                    isValid = false;
-                }
-          
-                // Merchant Address validation
-                const merchantAddress = document.getElementById('merchant_address').value;
-                if (merchantAddress.trim() === '') {
-                    document.getElementById('merchant_address_error').textContent = 'Merchant Address is required.';
-                    isValid = false;
-                }
+         
           
                 // Terminal ID validation
                 const terminalId = document.getElementById('terminal_id').value;
