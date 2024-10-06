@@ -135,11 +135,54 @@ app.post("/dashboard", (req,res)=>{
                         }    
         });
   
-app.get('/dashboard', isAuthenticated, (req,res)=>{
-        message = '';
-        message_success = '';
-        res.render("pages/dashboard")
-});
+        app.get('/dashboard', isAuthenticated, (req, res) => {
+            const userId = req.session.userId;
+        
+            // Fetch user tag and other necessary data
+            db.query('SELECT tags FROM users WHERE id = ?', [userId], (error, results) => {
+                if (error) {
+                    console.error('Database query error:', error);
+                    return res.status(500).send("Internal Server Error");
+                }
+        
+                const userTag = results.length > 0 ? results[0].tags : null;
+        
+                // Log the userTag
+                console.log('User tag:', userTag);
+        
+                // Fetch additional metrics
+                const queries = {
+                    totalUsers: 'SELECT COUNT(*) as count FROM dailyvisits',
+                    
+                };
+        
+                const promises = Object.entries(queries).map(([key, query]) => {
+                    return new Promise((resolve, reject) => {
+                        db.query(query, (error, results) => {
+                            if (error) {
+                                console.error(`Database query error for ${key}:`, error);
+                                return reject(error);
+                            }
+                            resolve(results[0].count);
+                        });
+                    });
+                });
+        
+                Promise.all(promises)
+                    .then(([totalUsers, pendingRequests, completedTasks]) => {
+                        // Render the dashboard and pass all data to the template
+                        res.render("pages/dashboard", { userTag, totalUsers, pendingRequests, completedTasks });
+                    })
+                    .catch(err => {
+                        console.error('Error fetching additional data:', err);
+                        res.status(500).send("Internal Server Error");
+                    });
+            });
+        });
+        
+        
+        
+
 app.get('/capture', isAuthenticated, (req, res) => {
     const msg = req.query.msg || '';
     
@@ -244,7 +287,7 @@ app.post('/signup',(req,res)=>{
         message = '';
         message_success = '';
         
-        db.query('SELECT email,dispatcher_id FROM users WHERE email= ?',[email,dispatcher_id],async(error,result)=>{
+        db.query('SELECT email,dispatcher_id FROM users WHERE email= ?',[email,dispatcher_id,],async(error,result)=>{
       
         if(result.length) {
                 message = 'Email is already in use';
@@ -275,7 +318,7 @@ app.post('/signup',(req,res)=>{
 })
          })
 });
-
+//
 app.post('/visits', upload.single('image'), async (req, res) => {
     const { merchant_name, merchant_address, terminal_id, rrn, status } = req.body;
     const file = req.file;
@@ -313,10 +356,38 @@ app.post('/visits', upload.single('image'), async (req, res) => {
     }
 });
 
-app.get('/visits', isAuthenticated, (req,res)=>{
-        const msg_success = req.query.msg_success || '';
-        res.render('pages/dailyvisits', {msg_success});
+app.get('/visits', isAuthenticated, async (req, res) => {
+    const userId = req.session.userId;
+    console.log("User ID from session:", userId);
+
+    const msg_success = req.query.msg_success || '';
+
+    try {
+        const user = await getUserById(userId);
+        if (!user) {
+            return res.status(404).send('User not found');
+        }
+
+        res.render('pages/dailyvisits', {
+            msg_success,
+            firstname: user.firstname,
+            profilePicUrl: user.profile_pic_url 
+        });
+    } catch (error) {
+        console.error('Error retrieving user:', error);
+        res.status(500).send('Internal Server Error');
+    }
+    async function getUserById(userId) {
+        return new Promise((resolve, reject) => {
+            db.query('SELECT firstname, profile_pic_url FROM users WHERE id = ?', [userId], (error, results) => {
+                if (error) return reject(error);
+                resolve(results[0]); // Assuming you want the first result
+            });
+        });
+    }
+    
 });
+
   
   app.get('/indexAdmin', (req, res) => {
         var q = req.query.q;

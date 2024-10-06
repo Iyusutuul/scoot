@@ -1,37 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
+<head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width", initial-scale="1.0">
-    <title>Crata - User Profile</title>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" 
-    crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="styles/dashboard.css"  media="all">
-    <script src="js/jquery.js" defer></script>
-    <script src="https://kit.fontawesome.com/6bb208eccf.js" 
-    crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+    <!-- <script src="https://kit.fontawesome.com/6bb208eccf.js" crossorigin="anonymous"></script> -->
+    <title>Crata-Profile</title>
+    <link rel="stylesheet" href="styles/dashboard.css" type="text/css" media="all">
 </head>
+    <style>
+        .error { color: red; }
+        div.preview-images > img {
+        width: 70%;
+        height: 60%;
+        margin-top: -450px;
+        margin-left: 450px;
+        position: relative;
+        }
+        .button {display: inline-block;
+        padding: 10px 10px;
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: transform 0.2s ease;
+    }
+        .button:hover {
+        transform: scale(1.1);
+        }
+        .fa-solid{
+        float: center !important;
+        align-items: center !important;
+        color: black;
+        }
+           
+        .ui.sidebar {
+        z-index: 1000; /* Ensure sidebar is above content */
+        height: calc(100% - 50px); /* Make sidebar height fill the remaining space */
+        flex-direction: center;
+        padding-top: 55px;
+        align-items: center;
+        justify-content: center;
+
+    }
+    .profile-pic {
+        display: block;
+        border-radius: 50%;
+        width: 60px;  /* Adjust size as needed */
+        height: 60px; /* Adjust size as needed */
+    }
+    .profile-img {
+      margin: 0em auto;
+    }
+    .pusher {
+        z-index: 1000; /* Ensure pusher content stays below the sidebar */
+        }
+    .profile_wrapper{
+        display: inline-flex; /* Use flexbox */
+        justify-content: flex-start; /* Center horizontally */
+        align-items: flex-start; /* Center vertically */
+    }
+    .ui.sidebar .item {
+    display: flex;
+    justify-content: center; /* Center items horizontally */
+    align-items: center;     /* Center items vertically */
+    padding: 10px;          /* Adjust padding as necessary */
+    color: gray;            /* Text color */
+    font-weight: bolder;    /* Font weight */
+    text-align: center;     /* Center text alignment */
+    width: 100%;            /* Ensure the item takes full width */
+}
+
+    .profile-img {
+      display: block;
+      margin: auto;
+    }
+    .profile-container {
+        display: flex;
+        text-align: center; /* Center text inside the container */
+        margin-top: 60px;
+        margin-left: 30px;
+    }
+        </style>
 <body>
-<header>
-    <%- include('../partials/header'); %>
-  </header>
-        <div id="header">  
-            <div class="contain">
-                <nav>
-                    <ul>
-                        <li><i class="fa-solid fa-map"></i><a href="#">Roadmap</a></li>
-                        <li style="border-bottom: 2px solid orange;" ><i class="fa-solid fa-hourglass-start"></i>
-                            <a style="color: white" href="/viewpending">Pending</a></li>
-                        <li><i class="fa-solid fa-camera"></i><a href="/capture">Capture</a></li>
-                        <li><i class="fa-solid fa-person-walking-luggage"></i><a href="/visits ">Visit</a></li>
-                        <li><i class="fa-solid fa-wallet"></i><a href="">Wallet</a></li>
-                        <li><i class="fa-solid fa-user"></i><a href="/profile">Profile</a></li>
-                        <li><i class="fa-solid fa-right-from-bracket"></i><a href="/logout">Logout</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </div>        
-    </body>
-</html>
+    <div id="header">
+        <div style="background-color: orange;" class="ui fixed menu">
+            <a style="font-size: 15px; font-weight: bold; color: white;" class="item">Crata</a>
+            <a style="color: white;" class="item" id="menu-toggle"><i class="bars icon"></i></a>
+            <a href="/dashboard" style="font-size: 15px; font-weight: bold; color: white;" class="item">
+            <i class="fa-solid fa-house"></i></a>
+        </div>
+    </div>
+<div style="margin: 0px auto; background-color: rgb(135, 212, 243);;" class="ui sidebar vertical menu">
+        <div class="item">
+            <h2 style="text-align: center;font-size: 15px;opacity: 0.5;">Welcome back</h2>
+            <!-- <h2 style="text-align: center;font-size: 15px;margin-top: -10px;margin-bottom: 20px;">Ubong Ema</h2> -->
+         </div> 
+         <!-- sidebar navigation -->
+        <a class="item"><i class="fa-solid fa-map"></i>Roadmap</a>
+        <a href="/viewpending" class="item"><i class="fa-solid fa-hourglass-start"></i>Pending</a>
+        <a href="/capture" class="item"><i class="fa-solid fa-camera"></i>Capture</a>
+        <a href="/visits" class="item"><i class="fa-solid fa-person-walking-luggage"></i>Visitation</a>
+        <a class="item"><i class="fa-solid fa-wallet"></i>Wallet</a>
+        <a href="/profile" class="item"><i class="fa-solid fa-user"></i>Profile</a>
+        <a href="/logout" class="item"><i class="fa-solid fa-right-from-bracket"></i>Logout</a>
+    </div>
+
+    <div class="pusher">
+       
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            
+            $('#menu-toggle').click(function() {
+                $('.ui.sidebar').sidebar('toggle');
+            });
+        });
+    </script>
+    </div>
+</div>
+</body>

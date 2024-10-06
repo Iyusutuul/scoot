@@ -7,106 +7,95 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
     <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
-    <!--  <script src="https://kit.fontawesome.com/6bb208eccf.js" crossorigin="anonymous"></script> -->
+     <script src="https://kit.fontawesome.com/6bb208eccf.js" crossorigin="anonymous"></script>
     <title>Crata-Profile</title>
     <link rel="stylesheet" href="styles/dashboard.css" type="text/css" media="all">
 </head>
-    <style>
-        .error { color: red; }
-        div.preview-images > img {
+<style>
+    .error { color: red; }
+    div.preview-images > img {
         width: 70%;
         height: 60%;
         margin-top: -450px;
         margin-left: 450px;
         position: relative;
-        }
-        .button {display: inline-block;
-        padding: 10px 10px;
-        color: white;
-        text-align: center;
-        text-decoration: none;
-        border-radius: 5px;
-        transition: transform 0.2s ease;
     }
-        .button:hover {
-        transform: scale(1.1);
-        }
-        .fa-solid{
-        float: center !important;
-        color: black;
-        }
-           
-        .ui.sidebar {
-        z-index: 1000; /* Ensure sidebar is above content */
-        height: calc(100% - 50px); /* Make sidebar height fill the remaining space */
-        flex-direction: center;
-        padding-top: 55px;
-        align-items: center;
-        justify-content: center;
+   
+    .button {display: inline-block;
+      padding: 10px 10px;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: transform 0.5s ease;
     }
-    .profile-pic {
-        display: block;
-        border-radius: 50%;
-        width: 60px;  /* Adjust size as needed */
-        height: 60px; /* Adjust size as needed */
+    
+    .button:hover {
+      transform: scale(1.1);
     }
-    .profile-img {
-      margin: 0em auto;
+   
+    .fa-solid{
+      float: right;
+
     }
-    .pusher {
-        z-index: 1000; /* Ensure pusher content stays below the sidebar */
-        }
-    .profile_wrapper{
-        display: inline-flex; /* Use flexbox */
-        justify-content: flex-start; /* Center horizontally */
-        align-items: flex-start; /* Center vertically */
-    }
-    .ui.sidebar .item {
-    display: flex;
-    justify-content: center; /* Center items horizontally */
-    align-items: center;     /* Center items vertically */
-    padding: 10px;          /* Adjust padding as necessary */
-    color: gray;            /* Text color */
-    font-weight: bolder;    /* Font weight */
-    text-align: center;     /* Center text alignment */
-    width: 100%;            /* Ensure the item takes full width */
+.ui.sidebar {
+z-index: 1000; /* Ensure sidebar is above content */
+height: calc(100% - 50px); /* Make sidebar height fill the remaining space */
+width: 200px !important;
+flex-direction: center;
+padding-top: 45px;
+align-items: center;
+justify-content: center;
 }
 
-    .profile-img {
-      display: block;
-      margin: auto;
-    }
-    .profile-container {
+    .ui.sidebar .item {
         display: flex;
-        text-align: center; /* Center text inside the container */
-        margin-top: 60px;
-        margin-left: 30px;
+        /* Use flexbox for better alignment */
+        padding: 10px;
+        /* Adjust padding as necessary */
+        align-items: center;
+        /* Center items vertically */
+        color: white;
+        font-weight: 100;
+        
     }
-        </style>
+    .profile-img {
+display: block;
+margin: auto;
+}
+    .ui.sidebar {
+        z-index: 1000; /* Ensure sidebar is above content */
+    }
+
+    .pusher {
+        z-index: 1; /* Ensure pusher content stays below the sidebar */
+    }
+</style>
 <body>
     <div id="header">
-        <div style="background-color: orange;" class="ui fixed menu">
+        <div style="background-color: gainsboro;" class="ui borderless fixed menu">
+            <a style="font-size: 15px; font-weight: bold; color: white;" class="item">Crata</a>
             <a style="color: white;" class="item" id="menu-toggle">
                 <i class="bars icon"></i>
             </a>
-            <a href="/dashboard" style="font-size: 15px; font-weight: bold; color: white;" class="item">
+            <a href="/dashboard" style="font-size: 15px; font-weight:100; color: white;" class="item">
                 <i class="fa-solid fa-house"></i></a>
-            <a style="font-size: 15px; font-weight: bold; color: white;" class="item">Crata</a>
         </div>
     </div>
 
-    <div style="margin: 0px auto;" class="ui sidebar vertical menu">
+    <div style="margin: 0px auto;background-color:gainsboro;" class="ui sidebar vertical menu">
         <div class="item">
             <img src="<%= profilePicUrl %>" class="ui centered circular image profile-img" alt="Profile Picture" 
             onerror="this.onerror=null;this.src='default-profile.png';" 
-            style=" height: 50px;margin-bottom: -15px;">
-            <h2 style="text-align: center;font-size: 15px;opacity: 0.5;">Welcome back</h2>
-            <h2 style="text-align: center;font-size: 15px;margin-top: -10px;margin-bottom: 20px;">Ubong Ema</h2>
+            style=" height: 50px;margin-bottom: 5px;">
+            <!-- <h2 style="text-align: center;font-size: 15px;opacity: 0.5;">Welcome back</h2> -->
+            <h2 style="text-align: center;font-size: 15px;margin-top: 0px;margin-bottom: 10px;opacity: 0.5;"></h2> 
              <!-- <span><%= firstname %></span> -->
          </div> 
+         <!-- sidebar navigation -->
         <a class="item"><i class="fa-solid fa-map"></i>Roadmap</a>
         <a href="/viewpending" class="item"><i class="fa-solid fa-hourglass-start"></i>Pending</a>
-        <a href="/capture" class="item"><i class="fa-solid fa-camera"></i>Data Capture</a>
+        <a href="/capture" class="item"><i class="fa-solid fa-camera"></i>Capture</a>
         <a href="/visits" class="item"><i class="fa-solid fa-person-walking-luggage"></i>Visitation</a>
         <a class="item"><i class="fa-solid fa-wallet"></i>Wallet</a>
         <a href="/profile" class="item"><i class="fa-solid fa-user"></i>Profile</a>
@@ -115,10 +104,10 @@
 
     <div class="pusher">
         <div class="profile_wrapper">
-            <div class="profile-container">
+            <!-- <div class="profile-container">
                 <img src="<%= profilePicUrl %>" class="profile-pic" alt="Profile Picture"
                      onerror="this.onerror=null;this.src='default-profile.png';">
-            </div>
+            </div> -->
             <div class="ui container">
                 <p style="margin-top: 80px; padding-left: 15px;
                 font-size: 15px; font-weight:bolder; color: rgb(102, 184, 216);">

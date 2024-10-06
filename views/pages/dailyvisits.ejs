@@ -8,75 +8,100 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
     <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
-    <script src="https://kit.fontawesome.com/6bb208eccf.js" -->
-    <!-- crossorigin="anonymous"></script>
+    <!-- <script src="https://kit.fontawesome.com/6bb208eccf.js" 
+crossorigin="anonymous"></script> -->
     <title>Crata-New Visit</title>
             <link rel="stylesheet" href="styles/dashboard.css" type="text/css" media="all">
     <style>
-        .error { color: red; }
-        div.preview-images > img {
-            width: 70%;
-            height: 60%;
-            margin-top: -450px;
-            margin-left: 450px;
-            position: relative;
-        }
-        #progressBar {
-            width: 100%;
-            height: 20px;
-            background-color: #f3f3f3;
-            margin-top: 20px;
-        }
-        #progressBar div {
-            height: 100%;
-            background-color: #fefeef;
-            text-align: center;
-            line-height: 20px;
-            color: white;
-        }
-        .button {display: inline-block;
-          padding: 10px 10px;
-          color: white;
-          text-align: center;
-          text-decoration: none;
-          border-radius: 2px;
-          transition: transform 0.5s ease;
-        }
-        
-        .button:hover {
-          transform: scale(1.1);
-        }
+       .error { color: red; }
+    div.preview-images > img {
+    width: 70%;
+    height: 60%;
+    margin-top: -450px;
+    margin-left: 450px;
+    position: relative;
+    }
+    .button {display: inline-block;
+    padding: 10px 10px;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: transform 0.2s ease;
+}
+    .button:hover {
+    transform: scale(1.1);
+    }
+    .fa-solid{
+    float: right;
+    line-height: 1rem;
+    }
        
-        .fa-solid{
-          float: right;
-
+    .ui.sidebar {
+   z-index: 1000; /* Ensure sidebar is above content */
+height: calc(100% - 50px); /* Make sidebar height fill the remaining space */
+width: 200px !important;
+flex-direction: center;
+padding-top: 45px;
+align-items: center;
+justify-content: center;
+}
+  
+.profile-pic {
+    display: block;
+    border-radius: 50%;
+    width: 60px;  /* Adjust size as needed */
+    height: 60px; /* Adjust size as needed */
+}
+.profile-img {
+  margin: 0em auto;
+}
+.pusher {
+    z-index: 1000; /* Ensure pusher content stays below the sidebar */
+    }
+.profile_wrapper{
+    display: inline-flex; /* Use flexbox */
+    justify-content: flex-start; /* Center horizontally */
+    align-items: flex-start; /* Center vertically */
+}
+.ui.sidebar .item {
+            display: flex;
+            /* Use flexbox for better alignment */
+            padding: 10px;
+            /* Adjust padding as necessary */
+            align-items: center;
+            /* Center items vertically */
+            color: #fff;
+            
         }
-        .ui.sidebar {
-            z-index: 1000; /* Ensure sidebar is above content */
-        }
-
-        .pusher {
-            z-index: 1; /* Ensure pusher content stays below the sidebar */
-        }
+.profile-img {
+  display: block;
+  margin: auto;
+}
+.profile-container {
+    display: flex;
+    text-align: center; /* Center text inside the container */
+    margin-top: 60px;
+    margin-left: 30px;
+}
     </style>
 </head>
 <body>
     <div id="header">
-        <div style="background-color: orange;" class="ui fixed menu">
-            <a style="color: white;" class="item" id="menu-toggle">
-                <i class="bars icon"></i>
-            </a>
-            <a href="/dashboard" style="font-size: 15px; font-weight: bold; color: white;" class="item">
-                <i class="fa-solid fa-house"></i></a>
+        <div style="background-color: gainsboro;" class="ui borderless fixed menu">
             <a style="font-size: 15px; font-weight: bold; color: white;" class="item">Crata</a>
+            <a style="color: white;" class="item" id="menu-toggle">
+                <i class="bars icon"></i></a>
+            <a href="/dashboard" style="font-size: 15px; font-weight: bold; color: white;" 
+            class="item"><i class="fa-solid fa-house"></i></a>
         </div>
     </div>
-
-    <div style="background-color: orange;" class="ui sidebar vertical menu">
-        <!-- <div class="item">
-            <img src="<%= profilePicUrl %>" class="profile-pic" alt="Profile Picture" onerror="this.onerror=null;this.src='default-profile.png';" style="border-radius: 50%; width: 40px; height: 40px; margin-right: 10px;">
-            <span><%= firstname %></span>
-        </div> -->
+<div style="background-color: gainsboro;" class="ui sidebar vertical menu">
+    <div class="item">
+        <img src="<%= profilePicUrl %>" class="profile-pic" alt="Profile Picture" onerror="this.onerror=null;this.src='default-profile.png';" 
+            style="border-radius: 50%; width: 40px; height: 40px; margin-right: 10px;margin-bottom: 20px;">
+            <span style="font-size: 13px;"><%= firstname %></span>
+        </div>
     <a class="item">Roadmap<i class="fa-solid fa-map"></i></a>
     <a href="/viewpending" class="item">Pending<i class="fa-solid fa-hourglass-start"></i></a>
     <a href="/capture" class="item">Data Capture<i class="fa-solid fa-camera"></i></a>
@@ -88,10 +113,6 @@
 
     <div class="pusher">
         <div class="profile_wrapper">
-            <div class="profile-container">
-                <img src="<%= profilePicUrl %>" class="profile-pic" alt="Profile Picture"
-                    onerror="this.onerror=null;this.src='default-profile.png';">
-            </div>
             <div class="ui container">
                 <p style="margin-top: 80px; padding-left: 15px;
                 font-size: 15px; color: orange;">
@@ -99,16 +120,123 @@
                 </p>
             </div>
         </div>
-    </div>
 
+  <!-- FORM BEGINS HERE-->
+  <form action="/visits" method="POST" enctype="multipart/form-data">
+    <% if (msg_success) { %>
+        <div class="alert_success">
+            <%= msg_success %>
+        </div>
+        <% } %>
+            <div class="loginform">
+                <div class="inputs">
+                    <div>
+                        <div class="field">
+                            <label></label>
+                            <input name="merchant_name" type="text" required maxlength="50"
+                                placeholder="Merchant Name" placeholder=Title" />
+                        </div>
+                        <!-- <label for="merchant_name"></label> -->
+                        <!-- <input type="text" id="merchant_name" name="merchant_name" required maxlength="50" placeholder="Merchant Name"> -->
+                        <!-- <div class="error" id="merchant_name_error"></div>
+                </div> -->
+                        <div>
+                            <label for="merchant_address"></label>
+                            <input type="text" id="merchant_address" name="merchant_address" required minlength="15"
+                                maxlength="40" placeholder="Merchant Address">
+                            <div class="error" id="merchant_address_error"></div>
+                        </div>
+                        <div>
+                            <label for="terminal_id"></label>
+                            <input type="text" id="terminal_id" name="terminal_id" required maxlength="10"
+                                placeholder="Terminal ID">
+                            <div class="error" id="terminal_id_error"></div>
+                        </div>
+                        <div>
+                            <label for="trans_ref"></label>
+                            <input type="text" id="trans_ref" name="rrn" required maxlength="12"
+                                placeholder="Trans_ref">
+                            <div class="error" id="trans_ref"></div>
+                        </div>
+                        <div>
+                            <label for="status"></label>
+                            <input type="text" id="status" name="status" required maxlength="1"
+                                placeholder="Status(1- OK, 2- NOK, 3-RET, 4-DENIED, 5-NAL)">
+                            <div class="error" id="status_error"></div>
+                        </div>
+                        <div>
+                            <!--  
+                    <label for="Tags"></label>
+                    <select name="tags" id="tags" required>
+                        <option value="cal_pdo1">cal_pdo1</option>
+                        <option value="phc_pdo1">phc_pdo1</option>
+                        <option value="lag_pdo1">cal_pdo1</option>
+                    </select>
+                    -->
+                            <div class="field">
+                                <div id="tag" class="ui fluid multiple search selection dropdown"
+                                    style="height: 10px !important;">
+                                    <input name="tags" type="hidden"> <i class="dropdown icon"></i>
+                                    <div style="color: black;" class="default text">Tags</div>
+                                    <div class="menu">
+                                        <div class="item" data-value=cal_pdo001>CAL_PDO001</div>
+                                        <div class="item" data-value=cal_pdo002>CAL_PDO02</div>
+                                        <div class="item" data-value=lag_pdo001>LAG_PDO001</div>
+                                        <div class="item" data-value=lag_pdo002>LAG_PDO002</div>
+                                        <div class="item" data-value=phc_pdo001>PHC_PDO001</div>
+                                        <div class="item" data-value=phc_pdo002>PHC_PDO02</div>
+                                        <div class="item" data-value=phc_pdo003>PHC_003</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <label></label>
+                                <input type="hidden" id="image_url" name="image_url" placeholder="PDO_Reference">
+                                <div class="image_url" id="image_url"></div>
+                            </div>
+                            <div class="field">
+                                <label></label>
+                                <section class="section">
+                                    <div>
+                                        <label style="color:white;">Upload image:</label>
+                                        <input type="file" name="image" class="input-files" accept="image/*"
+                                            id="fileInput" style="background-color: gray;">
+                                        <!-- <div class="error" id="fileInput_error"></div>
+                        <progress id="progressBar" value="0" max="100" style="width: 100%;"></progress>
+                    </div> -->
+                <button class="button" type="submit">Post</button>
+            <!-- <button class="ui primary button" type="submit">Post</button> -->
+        </div>
+    </div>
+</form>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="preview-images"></div>
+        </div>
+    </div>
+</div>
+<%- include('../partials/scripts'); %>
+    </div>
+    <script>
+$('#tag').dropdown({
+    allowAdditions: false
+});
+
+    // Flash message fade out
+    setTimeout(function() {
+        $('.alert_success').fadeOut('slow');
+        $('.alert_error').fadeOut('slow');
+    }, 3000); // Adjust the time as needed
+    </script>
     <script>
         $(document).ready(function() {
             $('#menu-toggle').click(function() {
                 $('.ui.sidebar').sidebar('toggle');
-            });
-        });
-    </script>
-    <!-- <div class="contain">
+                });
+                    });
+                    </script>
+                <!-- <div class="contain">
         <nav>
             <ul>
                 <li><i class="fa-solid fa-map"></i><a href="#">Roadmap</a></li>
@@ -120,116 +248,8 @@
                 <li><i class="fa-solid fa-right-from-bracket"></i><a href="/logout">Logout</a></li>
             </ul>
         </nav> -->
-    </div>
-    </div>
-    <!-- FORM BEGINS HERE-->
-    <form action="/visits" method="POST" enctype="multipart/form-data">
-        <% if (msg_success) { %>
-            <div class="alert_success">
-                <%= msg_success %>
             </div>
-            <% } %>
-                <div class="loginform">
-                    <div class="inputs">
-                        <div>
-                            <div class="field">
-                                <label></label>
-                                <input name="merchant_name" type="text" required maxlength="50"
-                                    placeholder="Merchant Name" placeholder=Title" />
-                            </div>
-                            <!-- <label for="merchant_name"></label> -->
-                            <!-- <input type="text" id="merchant_name" name="merchant_name" required maxlength="50" placeholder="Merchant Name"> -->
-                            <!-- <div class="error" id="merchant_name_error"></div>
-                    </div> -->
-                            <div>
-                                <label for="merchant_address"></label>
-                                <input type="text" id="merchant_address" name="merchant_address" required minlength="15"
-                                    maxlength="40" placeholder="Merchant Address">
-                                <div class="error" id="merchant_address_error"></div>
-                            </div>
-                            <div>
-                                <label for="terminal_id"></label>
-                                <input type="text" id="terminal_id" name="terminal_id" required maxlength="10"
-                                    placeholder="Terminal ID">
-                                <div class="error" id="terminal_id_error"></div>
-                            </div>
-                            <div>
-                                <label for="trans_ref"></label>
-                                <input type="text" id="trans_ref" name="rrn" required maxlength="12"
-                                    placeholder="Trans_ref">
-                                <div class="error" id="trans_ref"></div>
-                            </div>
-                            <div>
-                                <label for="status"></label>
-                                <input type="text" id="status" name="status" required maxlength="1"
-                                    placeholder="Status(1- OK, 2- NOK, 3-RET, 4-DENIED, 5-NAL)">
-                                <div class="error" id="status_error"></div>
-                            </div>
-                            <div>
-                                <!--  
-                        <label for="Tags"></label>
-                        <select name="tags" id="tags" required>
-                            <option value="cal_pdo1">cal_pdo1</option>
-                            <option value="phc_pdo1">phc_pdo1</option>
-                            <option value="lag_pdo1">cal_pdo1</option>
-                        </select>
-                        -->
-                                <div class="field">
-                                    <div id="tag" class="ui fluid multiple search selection dropdown"
-                                        style="height: 10px !important;">
-                                        <input name="tags" type="hidden"> <i class="dropdown icon"></i>
-                                        <div style="color: black;" class="default text">Tags</div>
-                                        <div class="menu">
-                                            <div class="item" data-value=cal_pdo001>CAL_PDO001</div>
-                                            <div class="item" data-value=cal_pdo002>CAL_PDO02</div>
-                                            <div class="item" data-value=lag_pdo001>LAG_PDO001</div>
-                                            <div class="item" data-value=lag_pdo002>LAG_PDO002</div>
-                                            <div class="item" data-value=phc_pdo001>PHC_PDO001</div>
-                                            <div class="item" data-value=phc_pdo002>PHC_PDO02</div>
-                                            <div class="item" data-value=phc_pdo003>PHC_003</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <label></label>
-                                    <input type="hidden" id="image_url" name="image_url" placeholder="PDO_Reference">
-                                    <div class="image_url" id="image_url"></div>
-                                </div>
-                                <div class="field">
-                                    <label></label>
-                                    <section class="section">
-                                        <div>
-                                            <label style="color:white;">Upload image:</label>
-                                            <input type="file" name="image" class="input-files" accept="image/*"
-                                                id="fileInput" style="background-color: gray;">
-                                            <!-- <div class="error" id="fileInput_error"></div>
-                            <progress id="progressBar" value="0" max="100" style="width: 100%;"></progress>
-                        </div> -->
-                                            <button class="button" type="submit">Post</button>
-                                            <!-- <button class="ui primary button" type="submit">Post</button> -->
-                                        </div>
-                                </div>
-    </form>
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="preview-images"></div>
         </div>
-    </div>
-    </div>
-    <%- include('../partials/scripts'); %>
-        </div>
-        <script>
-    $('#tag').dropdown({
-        allowAdditions: false
-    });
 
-        // Flash message fade out
-        setTimeout(function() {
-            $('.alert_success').fadeOut('slow');
-            $('.alert_error').fadeOut('slow');
-        }, 3000); // Adjust the time as needed
-
-        </script>
-        </body>
-
+    </body>
 </html>
