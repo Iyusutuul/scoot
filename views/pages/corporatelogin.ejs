@@ -1,103 +1,211 @@
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width">
-        <link rel="stylesheet" href="styles/logins.css">
-        <title>Crata-Login Page</title>
-    </head>
-     <style>
-        .button {
-          display: inline-block;
-          padding: 10px 10px;
-          color: white;
-          text-align: center;
-          text-decoration: none;
-          border-radius: 5px;
-          transition: transform 0.2s ease;
-        }
-        
-        .banner img {
-           margin-left: 425px;
-  height: 18px;
-  width:  40px;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Crata - Login Page</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f5f5;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
 
-        .button:hover {
-          transform: scale(1.1);
-          background-color: red;
-        }
-        </style>
-<body style=" background-image: linear-gradient(160deg, #fefefe 0%, #fefefe 100%);">
-    <div id="header">
-        <div style="background-color: #0093E9; height: 00px;
-            background-image: linear-gradient(160deg, #133950 0%, #309084 100%);"
-                     class="rect_2"></div>
-                        <div style="background: #fefefe;border-radius: 20px;margin: 0px 445px;" class="rect_3"></div>
-                        <div style="height: 4px;" class="banner">
-                            <img src="public/Unified Payments logo.jpg" alt="spar logo design" style="float:left">
-            </div>        
-                    <h3 href="#"class="formheading"><i style="display:inline-block;
-                margin: 120px 5px; background-color: #fefefe;border-radius: 20px;color:
-             white;">&#160Crata</i><span><i style="color: rgb(232, 56, 46);"></i>
-        </h3>
+    #header {
+      background: linear-gradient(160deg, #133950 0%, #19ddc6 100%);
+      padding: 40px 0;
+      text-align: center;
+      color: white;
+      font-weight: 700;
+      font-size: 2.8rem;
+      letter-spacing: 2px;
+      user-select: none;
+    }
+
+    nav {
+      margin: 20px auto;
+      text-align: center;
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    nav ul li {
+      display: inline-block;
+      margin: 0 15px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      font-weight: 600;
+      color: #19ddc6;
+      transition: color 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      color: #eb4810; /* orange hover */
+    }
+
+    .alert_error, .alert_success {
+      max-width: 400px;
+      margin: 0 auto 15px auto;
+      padding: 12px 20px;
+      border-radius: 5px;
+      font-weight: 600;
+      text-align: center;
+      width: 90%;
+    }
+
+    .alert_error {
+      background-color: #f8d7da;
+      color: #842029;
+      border: 1px solid #f5c2c7;
+    }
+
+    .alert_success {
+      background-color: #d1e7dd;
+      color: #0f5132;
+      border: 1px solid #badbcc;
+    }
+
+    form {
+      max-width: 400px;
+      background: white;
+      margin: 0 auto 50px auto;
+      padding: 40px 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 14px rgb(0 0 0 / 0.1);
+    }
+
+    form h3 {
+      margin-bottom: 30px;
+      color: #133950;
+      font-weight: 700;
+      font-size: 1.8rem;
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 12px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px 14px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+    }
+
+    input[type="email"]:focus,
+    input[type="password"]:focus {
+      border-color: #19ddc6;
+      outline: none;
+      box-shadow: 0 0 5px #19ddc6;
+    }
+
+    .login_button input[type="submit"] {
+      width: 100%;
+      padding: 15px 0;
+      background-color: #eb4810; /* orange */
+      border: none;
+      border-radius: 20px;
+      color: white;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .login_button input[type="submit"]:hover {
+      background-color: #d94e0a;
+      transform: scale(1.05);
+    }
+
+    .footer-text {
+      margin-top: -10px;
+      font-size: 85%;
+      color: #19ddc6;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    .footer-text a {
+      color: #eb4810;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .footer-text a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div id="header">
+    Crata
+  </div>
+  <nav>
+    <ul>
+      <li><a href="/signup">Sign Up</a></li>
+      <li><a href="/supervisor">Admin</a></li>
+    </ul>
+  </nav>
+
+  <div>
+    <% if (message) { %>
+      <div class="alert_error"><%= message %></div>
+    <% } %>
+  </div>
+
+  <form action="/dashboard" method="POST">
+    <h3>Login to your account</h3>
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" maxlength="64" placeholder="Email" required />
+
+    <label for="password">Password</label>
+    <input
+      type="password"
+      id="password"
+      name="password"
+      minlength="4"
+      maxlength="20"
+      placeholder="Password"
+      required
+    />
+
+    <div class="login_button">
+      <input type="submit" value="Login" />
     </div>
-<div class="contain">                  
-    <nav>
-        <ul>
-            <li><a style="position:absolute; margin: -300px 0px 0px -120px" href="/signup">Sign Up</a></li>
-            <li><a style="position:absolute; margin: -300px 0px 0px 0px" href="/supervisor">Admin</a></li>
-                </ul>  
-                    </nav>
-                        <div> 
-                            <% if (message) {%>
-                        <div class="alert_error"><%= message %></div>
-                    <% } %>
-                <% if (message_success) {%>
-            <div class="alert_success"><%= message_success %></div>
-        <% } %>
-    </div>      
-<form action="/dashboard" method="POST">     
-    <div class="loginform">              
-        <div class="container">
-            <div class="inputs">
-                <label for="Username">
-                    <input style="margin-top: 40px;" 
-                        type="email" id="email" name="email" maxlength="64" placeholder="Username" 
-                            pattern=".+@\__1" 
-                                onfocus="this.value = this.value=='Username'?'':this.value;" 
-                            onblur="this.value = this.value==''?'Username':this.value;">
-                        </label></div>
-                    <div>
-                <label for="pass"><b></b>
-            <input type="password" id="password" name="password" minlength="4" required="" 
-        placeholder="Password" minlenth="8" maxlength="20" 
-    onfocus="this.value = this.value=='Password'?'':this.value;" 
-onblur="this.value = this.value==''?'Password':this.value;">
-</label>
-    </div>
-        </div>
-            <div class="login_button">
-                <input class="button" style="
-                    padding: 15px 0px; background-color:  orange; border-radius: 20px;
-                         color: white; cursor: pointer;
-                            font-size: 18px; font-weight: 300" type="submit" value="Login">
-                                </div><br><br><br><br>
-                                <div style ="margin-top: -20px;
-                                font-size:85%; color: white">
-                                Dont have an account?&#160 Click Sign Up!
-                            </div>
-                        </div>
-                    </div>
-                <%- include('../partials/scripts'); %>
-            </div>
-        </form>
-        <script>
-            $(document).ready(function() {
-              setTimeout(function() {
-                $('.alert_error').fadeOut('slow');
-                $('.alert_success').fadeOut('slow');
-              }, 300000); // Adjust the time as needed
-            });
-          </script>
-    </body>
+  </form>
+
+  <div class="footer-text">
+    Don't have an account? <a href="/signup">Click Sign Up!</a>
+  </div>
+
+  <%- include('../partials/scripts'); %>
+
+  <script>
+    $(document).ready(function () {
+      setTimeout(function () {
+        $('.alert_error').fadeOut('slow');
+        $('.alert_success').fadeOut('slow');
+      }, 300000); // 5 minutes
+    });
+  </script>
+</body>
 </html>

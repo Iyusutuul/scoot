@@ -1,0 +1,500 @@
+/* *{
+  margin: 0;
+  padding: 0;
+  font-family:"Verdana, Geneva";
+  box-sizing: border-box;
+} */
+
+.slidein {
+  animation-duration: 10s;
+  animation-name: slidein;
+  animation-iteration-count: 3;
+  animation-direction: alternate;
+}
+
+@keyframes slidein {
+  from {
+    margin-left: 100%;
+    width: 300%;
+  }
+
+  to {
+    margin-left: 0%;
+    width: 100%;
+  }
+}
+
+body{
+  margin:0;
+ 
+}
+.rect_1{
+  width: 80%;
+  height: 5px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 10;
+  
+}
+/************sets image width on mixed color navbar****/
+.rect_1 img{
+  width: 100%;
+}
+.rect_2{
+  width: 80%;
+
+    position:absolute;
+    height: 5px;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+.rect_3{
+  position: absolute;
+  height: 5px;
+  top: 0;
+  right: 0;
+  left: 0;
+  width: 20%;
+  margin-left: 80%;
+  
+}
+/***targets both the logo and the links on the left***/
+#header{
+  margin-top: 5px;
+  position: relative;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  background-color: beige;
+}
+
+/**targets just the links***/
+.contain{
+ margin: 10px 20px;
+ bac
+}
+
+/***targets the logo text position***/
+.formheading{
+  background-color: orangered;
+  background-image: linear-gradient(45deg, #d8f1f5,#e63819);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont,
+   'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
+    'Helvetica Neue', sans-serif;
+  font-size: 25px;
+  font-weight: bold;
+  position: relative;
+  display: flex;
+  margin-left: 100px;
+  
+}
+.logo_container img{
+  position:absolute;
+  margin-top: 0px;;
+}
+/*targets the descriptive links container behaviour*/
+ nav ul li{
+  display: inline-block;
+  list-style: none;
+  margin: -10px 15px;
+  text-align: center;
+  
+ }
+/**targets the link texts itself**/
+ nav ul li a{
+  text-decoration: none;
+  position: relative;
+  color: grey;
+  font-size: 17px;
+  font-weight:500;
+ }
+ nav ul li a:after{
+  color: orange;
+  content: '';
+  width: 100;
+  top: 20px;
+  height: 5px;
+  position: absolute;
+  left: 0;
+  /* bottom: -20px; */
+  box-shadow: 1px 1px 2px rgb(0 0 200 / 0.4);
+  border-radius: 2px;
+  transition: 0.5s;
+ }
+
+ nav ul li a:hover::after{
+  width: 100%;
+  top: 30px;
+  background-color: orangered; 
+ }
+
+/* Style the navigation bar */
+.button { 
+  text-decoration: none;
+  left: 1300px;
+  top: 15px;
+  right: 0px;
+  display: flex;
+  position: absolute;
+  text-align: center;
+  }
+
+
+.vertical_text_1,
+.vertical_text_2 {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #fff;
+  text-align: center;
+  padding: 0 10px;
+  width: 1000px;
+
+  z-index: 2;
+}
+
+.vertical_text_1 {
+  top: 10%;
+  font-size: 60px;
+  font-weight: bold;
+}
+
+.vertical_text_2{
+  position: absolute;
+  text-align: center;
+  line-height: 2.0rem;
+  font-weight:100;
+  font-size: 17px;
+  top: 250px;
+  color:rgb(255, 255, 255);
+  font-family: 'myriad-pro';
+  opacity: .9;
+}
+.image-container {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+}
+
+.image_ctrl {
+  width: 100%;
+  display: block;
+}
+
+.image-container img {
+  width: 100%;
+  height: 650px;
+}
+.gradient-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.49)100%,
+    rgba(0, 0, 0, 0.3) 0%,
+    rgba(0, 0, 0, 0.1) 80%,
+    rgba(221, 115, 9, 0) 100%
+  );
+}
+input {
+    
+}
+.get_started {
+  margin-top: 20px;
+  padding: 12px 24px;
+  font-size: 16px;
+  background-color: #fff;
+  color: white;
+  border: 1px solid rgb(0 0 200/0.6);
+  background: #1DA1F2;
+  border-radius: 50px;
+  box-shadow: 1px 1px 2px rgb(0 0 200/0.4);
+  padding: 13px 27px;
+  cursor: pointer;
+}
+.get_started:hover{
+  background-color: orangered;
+  color: yellow;
+  }
+.sub-title{
+  text-align: center;
+  font-weight:bold;
+  margin: 0px 0px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  font-size: 35px; 
+  color: whitesmoke;
+}
+.projection-title{
+  text-align: center;
+  font-weight:bold;
+  margin: 0px 0px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  font-size: 40px; 
+}
+.sub-title p{
+  text-align: center;
+}
+.myDiv{
+  height: 470px;
+  padding-left: auto;
+  padding-right: auto
+}
+.myDiv p{
+  text-align: center;
+  width: 700px;
+  font-size: 25px;
+  font-weight: 300;
+  margin-left: auto;
+  margin-right: auto;
+  color: whitesmoke;
+}
+
+.projection h1 {
+  color: #fa8128;
+  padding: 10px 0;
+  text-align: center;
+  font: 400 1.125rem / 1.5rem;
+  font-weight: 600;
+  font-size: 30px; 
+}
+.projection {
+  display: flex;               /* Enable flexbox */
+  justify-content: space-between; /* Distribute circles evenly horizontally */
+  align-items: center;         /* Vertically align circles */
+  margin: 0 auto;              /* Center the container horizontally */
+}
+.circle {
+  width: 350px;
+  height: 200px;
+  line-height: 180px;
+  vertical-align: middle; 
+  display: inline-block;
+  border-radius: 50%;
+  color: #fff;
+  text-align: center;
+  background: orange;
+  margin: 5px 0px 5px 0;
+  margin-inline-start: 65px;
+  justify-content: space-between;
+  margin-inline-end: 60px;
+}
+.circle-text p{
+  font-size: 14px;
+  color: black
+}
+.circle span {
+  font-size: 70px;
+  font-weight: bolder;
+  letter-spacing: 1px;
+}
+.text-content {
+  position: absolute;
+  top: 20%;
+  left: 10%;
+  transform: translate(-50px,-50px);
+  color: burlywood; 
+  font-size: 1.5rem;
+}
+.impact-list{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-gap: 30px;
+}
+.impact-list div{
+  padding: 0px 25px 0 25px;
+  font-size: 16px;
+  font-weight: 300;
+  font-family: Lucida Sans Unicode;
+}
+.impact-list div i{
+  font-size: 20px;
+  margin-bottom: 20px;
+  transition: background 0.5s, transform 0.5s;
+}
+.impact-list div h2{
+font-size: 20px;
+font-weight: bold;
+margin-bottom: 20px;
+text-align: center;
+}
+.impact-list div a{
+  text-decoration: none;
+  color: #fff;
+  font-size: 12px;
+  margin-top: 10px;
+  display: inline-block;
+}
+  
+/*********Our Services********/
+.services-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-gap: 15px;
+}
+.services {
+  height: 300px;
+  width: 300PX;
+  position: relative;
+  overflow: hidden;
+  justify-content: center;
+  cursor: pointer;
+}
+.services img {
+  width: 300px;
+  height: 300px;
+  opacity: 0.9;
+  position: relative;
+  box-shadow:
+  inset 2px 2px 3px rgba(255, 255, 255, 0.6),
+  inset -2px -2px 3px rgba(0, 0, 2220, 0.6);
+}
+
+.across_text {
+  height: 40px;
+  width:300px;
+  bottom: 0;
+  background: rgba(150, 6, 28, 0.6);
+  position: absolute;
+  text-align: center;
+  align-items: center;
+  color: white;
+  font-weight: 600;
+  padding-top: 20px;
+  padding-bottom: 5px;
+}
+/***container for services***/
+.container {
+background: brown;  /* fallback for old browsers */
+padding: 30px 50px;
+height: auto;
+}
+
+/* Current/active navbar link */
+.active {
+  background-color: yellow;
+}
+/* Footer Styles */
+.footer {
+    background: #fef3b7;
+    color: black;
+    padding: 80px 0 30px;
+    font-size: 16px;
+}
+
+.footer .container {
+  background: #fef3b7;
+  color: black;
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 20px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 50px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.footer-brand {
+    flex: 1;
+    max-width: 350px;
+    text-align: left;
+}
+
+.footer-logo {
+    font-size: 24px;
+    font-weight: 700;
+    color: white;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.footer-brand p {
+    font-size: 14px;
+    color:black;
+    line-height: 1.6;
+}
+
+/* Middle: Navigation Links */
+.footer-links h4,
+.footer-socials h4 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: black;
+}
+
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links ul li {
+    margin-bottom: 10px;
+}
+
+.footer-links ul li a {
+    color: black;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.footer-links ul li a:hover {
+    color: #5D30F1;
+}
+
+/* Right: Social Icons */
+.footer-socials .social-icons {
+    display: flex;
+    gap: 15px;
+}
+
+.footer-socials .social-icons a {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+}
+
+.footer-socials .social-icons img {
+    width: 100%;
+    transition: transform 0.3s ease;
+}
+
+.footer-socials .social-icons a:hover img {
+    transform: scale(1.1);
+}
+
+/* Bottom Section: Copyright */
+.footer-bottom {
+    text-align: center;
+    padding-top: 20px;
+    font-size: 14px;
+    color:black;
+}
+
+
+/* Add responsiveness - will automatically display the navbar vertically instead of horizontally on screens less than 500 pixels */
+@media screen and (min-width: 57px) {
+  .navbar a {
+    float: none;
+    display: block;
+  }
+}

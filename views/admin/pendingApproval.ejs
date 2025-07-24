@@ -1,0 +1,229 @@
+<!Doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width", initial-scale="1.0">
+        <title>Crata- Approval and rejections</title>
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" 
+        crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="styles/corporate.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+        <script src="https://kit.fontawesome.com/6bb208eccf.js" crossorigin="anonymous"></script>
+
+</head>
+<body>
+      <style>
+          body {
+              font-family: 'Arial', sans-serif;
+              background-color: #f4f7fc;     
+          }
+          #submissionsTable {
+            justify-self: center;
+            border-radius: 5px;
+          }
+  
+          h1 {
+              text-align: center;
+              color: #3f4c6b;
+          }
+  
+          table {
+              width: 80%; /* Set width to 50% of the viewport */
+              border-collapse: collapse;
+              margin-top: 40px;
+              border-radius: 10px 10px 0 0; /* Rounded top corners */
+              overflow: hidden; /* Ensures the content stays within the rounded edges */
+          }
+          tbody tr:first-child {
+            background-color: white;
+        }
+  
+          th, td {
+              padding: 6px 15px; /* Reduced top and bottom padding */
+              text-align: left;
+              border: 0px solid #ddd;
+          }
+  
+          th {
+              background-color: rgba(0, 0, 0, 0.791);
+              color: white;
+              font-weight: lighter;
+          }
+  
+          tr:nth-child(even) {
+              background-color:rgb(229, 207, 151);
+          }
+  
+          tr:hover {
+              background-color: #f1f1f1;
+          }
+  
+          .approve-btn {
+              background-color: #4CAF50;
+              color: white;
+              padding: 4px 10px; /* Reduced top and bottom padding */
+              border: none;
+              cursor: pointer;
+              border-radius: 4px;
+              font-size: 12px;
+              transition: background-color 0.3s;
+          }
+  
+          .approve-btn:hover {
+              background-color: #45a049;
+          }
+  
+          .reject-btn {
+              background-color: #f44336;
+              color: white;
+              padding: 4px 10px; /* Reduced top and bottom padding */
+              border: none;
+              cursor: pointer;
+              border-radius: 4px;
+              font-size: 12px;
+              transition: background-color 0.3s;
+          }
+  
+          .reject-btn:hover {
+              background-color: #e53935;
+          }
+  
+          .button-container {
+              display: flex;
+              justify-content: space-evenly;
+          }
+  
+          .status {
+              text-transform: capitalize;
+          }
+  
+          .action-cell {
+              display: flex;
+              justify-content: space-evenly;
+          }
+          td.status {
+            word-wrap: break-word; /* This forces long URLs to wrap */
+            max-width: 200px; /* Limit the width of the cell */
+            overflow-wrap: break-word; /* Another property for breaking long words */
+            white-space: normal; /* Ensure text wraps instead of extending out */
+        }
+      </style>
+  </head>
+      <body style="background-color: gray;" >
+          <div style="background:gray" class="rect_1"></div>
+              <div style="background-color: black; height: 45px;" 
+              class="rect_2"></div>
+                  <div style="background:orange;" class="rect_3"></div>
+                      <div id="header">
+                          <div class="contain">
+                              <div style="height: 4px;" class="banner">
+                                  <!-- <img src="public/Unified Payments logo.jpg" alt="spar logo design" style="float:left"> -->
+                  </div>                  
+                      <nav>
+                          <ul>
+                              <li><a style="margin-left: 100px;"href="#">My Riders</a></li>
+                              <li><a href="/pendingReview">Pending Review</a></li>
+                              <li><a href="">Assign Task &#160</a></li>
+                              <li><a href="/pdoPerformance">PDO Performance</a></li>
+                              <li><a href="/indexAdmin">Image Search</a></li>
+                              <li><a href="/transGallery">Image Gallery</a></li>
+                      </ul>  
+                  </nav>
+              </div>
+          </div>  
+      <div>
+          <table id="submissionsTable">
+              <thead>
+                  <tr>
+                      <th>Merchant Name</th>
+                      <th>Merchant Address</th>
+                      <th>Terminal ID</th>
+                      <th>RRN</th>
+                      <th>Status</th>
+                      <th>Actions</th>
+                      <th>Proof</th>
+              </thead>
+              <tbody>
+                  <!-- Example row -->
+                  <tr id="row1">
+                      <td>ulu and bros curtain dealers</td>
+                      <td>goldie by bedwell</td>
+                      <td>9876543210</td>
+                      <td>112233445566</td>
+                      <td class="status">Pending</td>
+                      <td class="action-cell">
+                        <button class="approve-btn" onclick="approveSubmission(2)"><i class="fa-solid fa-check"></i></button>
+                        <button class="reject-btn" onclick="rejectSubmission(2)"><i class="fa-solid fa-xmark"></i></button>
+                      </td>
+                      <td class="status"><i class="fa-solid fa-camera"></i></td>
+                  </tr>
+                  <tr id="row2">
+                      <td>Kamel Pharmacy</td>
+                      <td>Marian hill close to security guard firm</td>
+                      <td>1234567890</td>
+                      <td>667788990011</td>
+                      <td class="status">Pending</td>
+                      <td class="action-cell">
+                          <button class="approve-btn" onclick="approveSubmission(2)"><i class="fa-solid fa-check"></i></button>
+                          <button class="reject-btn" onclick="rejectSubmission(2)"><i class="fa-solid fa-xmark"></i></button>
+                      </td>
+                      <td class="status"><i class="fa-solid fa-camera"></i></td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+    <script>
+        function approveSubmission(id) {
+            // Send request to the server to update the status and persist approval in DB
+            fetch(`/approve-submission/${id}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ approved: true })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Remove row from the front-end table
+                    document.getElementById(`row${id}`).remove();
+                    alert('Submission Approved!');
+                } else {
+                    alert('Error approving submission');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred');
+            });
+        }
+
+        function rejectSubmission(id) {
+            // Send request to the server to delete the record from DB
+            fetch(`/reject-submission/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Remove row from the front-end table
+                    document.getElementById(`row${id}`).remove();
+                    alert('Submission Rejected and Deleted!');
+                } else {
+                    alert('Error rejecting submission');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred');
+            });
+        }
+    </script>
+</body>
+</html>

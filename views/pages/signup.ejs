@@ -1,121 +1,141 @@
-<html>
-    <head>
-        <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width">
-            <link rel="stylesheet" href="styles/signup.css">
-        <title>Crata - Sign Up</title>
-    </head>
-    <style>
-        .button {
-          display: inline-block;
-          padding: 10px 10px;
-          color: white;
-          text-align: center;
-          text-decoration: none;
-          border-radius: 5px;
-          transition: transform 0.2s ease;
-        }
-        
-        .button:hover {
-          transform: scale(1.1);
-          background-color: rgb(235, 72, 13);
-        }
-        </style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Crata - Sign Up</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family:sans-serif; }
+    body { background:#f5f5f5; }
+    .wrapper {
+      display:flex;
+      min-height:100vh;
+    }
+    .left, .right {
+      flex:1;
+      padding:60px 40px;
+    }
+    .left {
+      background:#fff;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+    .right {
+      background:linear-gradient(160deg, #133950 0%, #19ddc6 100%);
+      color:#fff;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+    }
+    .right h2 { margin-bottom:10px; }
+    .right p { margin-bottom:30px; max-width:300px; }
+    .right a {
+      color:#fff;
+      font-weight:bold;
+      text-decoration:underline;
+    }
+    form {
+      max-width:400px;
+      margin:auto;
+    }
+    form h3 {
+      margin-bottom:20px;
+      font-size:24px;
+      color:#333;
+      text-align:center;
+    }
+    .alert_error { color:#d9534f; margin-bottom:10px; text-align:center; }
+    .alert_success { color:#5cb85c; margin-bottom:10px; text-align:center; }
+    .form-row {
+      display:flex;
+      gap:20px;
+    }
+    .form-group {
+      margin-bottom:15px;
+      width:100%;
+    }
+    .form-group input {
+      width:100%;
+      padding:10px;
+      border:1px solid #ccc;
+      border-radius:4px;
+    }
+    button {
+      width:100%;
+      padding:12px;
+      background:orangered;
+      color:#fff;
+      font-size:16px;
+      border:none;
+      border-radius:5px;
+      cursor:pointer;
+      transition:background 0.2s ease, transform 0.2s ease;
+    }
+    button:hover {
+      background:rgb(235, 72, 13);
+      transform:scale(1.02);
+    }
+    @media (max-width:768px) {
+      .wrapper { flex-direction:column; }
+      .right { padding:40px 20px; }
+    }
+  </style>
+</head>
 <body>
-    <div id="header">
-        <div style="background-color: #0093E9;
-        background-image: linear-gradient(160deg, #133950 0%, #19ddc6 100%);" class="rect_2"></div>
-                <div style="background: orangered; border-radius: 10px;" class="rect_3"></div>
-                <h3 href="#"class="formheading">&#160&#160&#160Crata&#160&#160&#160<i style="padding-bottom: -20px; margin-top:-100px; margin-left: -12px;;
-                background-color: orangered;border-radius: 10px;color:
-                 white;">&#160</i><span><i style="color: rgb(232, 56, 46);"></i>
-                </h3>
-            </div>
-    <div class="contain">                  
-        <nav>
-            <ul>
-                <!-- <li><a style="position:absolute; margin: -40px 0px 0px 50px" href="/login">Log In</a></li> -->
-            </ul>  
-        </nav>
-    </div> 
-<form action="/signup" method="POST">   
-    <h3 style="color: white;align-self: center;font-size: 25px;margin-left: -40px;
-    margin-top: -40px;">Create an account</h3>
-    <div> 
-        <% if (message) {%>
-            <div class="alert_error"><%= message %></div>
+  <div class="wrapper">
+    <!-- Left: Sign-Up Form -->
+    <div class="left">
+      <form action="/signup" method="POST">
+        <h3>Create Your Crata Account</h3>
+
+        <% if (message) { %>
+          <div class="alert_error"><%= message %></div>
         <% } %>
-        <% if (message_success) {%>
-            <div class="alert_success"><%= message_success %></div>
+        <% if (message_success) { %>
+          <div class="alert_success"><%= message_success %></div>
         <% } %>
-    </div> 
-    <div class="loginform">              
-        <div class="container">
-            <div class="inputs">
-                <div>
-                    <label for="firstname">
-                        <input style="margin-top: -50px;" type="text"
-                        id="firstname" name="firstname" required="" maxlength="20" placeholder="First Name" >
-                        </label>
-                            </div>
-                                <div>
-                            <label for="lastname">
-                        <input type="text" id="lastname" 
-                    name="lastname" required="" maxlength="20" placeholder="Last Name" >
-                </label>
-            </div>
-        <div>
-            <label for="location">
-                <input style="margin-top: 0px;" type="text" id="location" 
-                    name="location" required="" maxlength="25" placeholder="Location" >
-                        </label>
-                            </div>
-                                <div>
-                                <label for="mobile_num">
-                            <input type="tel"
-                        id="mobile_num" name="mobile_num" maxlength="11" placeholder="Mobile_Number" required>
-                    </label>
-                </div>
-            <div>
-                <label for="email">
-                    <input style="margin-top: 0px;" type="email"
-                        id="email" name="email" required="" maxlength="64" placeholder="Email">
-                            </label>
-                                </div>
-                                <div>
-                            <label for="dispatcher_id">
-                        <input type="text"
-                    id="dispatcher_id" name="dispatcher_id"  maxlength="11" placeholder="NIN Number" required>
-                </label>
-            </div>
-            <div>
-                <label></label>
-                <input type="hidden" id="image_url" name="image_url" placeholder="PDO_Reference">
-                <div class="image_url" id="image_url"></div>
-            </div>
-                <div>                                                  
-                    <label for="password"><b></b>
-                        <input type="password" name="password" id="password" required
-                            placeholder="Password" minlenth="4" 
-                                onfocus="this.value = this.value=='Password'?'':this.value;" 
-                                onblur="this.value = this.value==''?'Password':this.value;">
-                                </label>
-                            </div>                         
-                        <label for="confirm_password"><b></b>
-                    <input type="password" name="confirm_password" id="confirm_password" required
-                    placeholder="Confirm Password" placeholder="enter password again" minlenth="4">
-                </label>
-            </div>
-        <div>
-            <input class="button" type="submit" value="Begin your Journey">
-                </div><br><br>  <br>
-                    <!-- <div style ="
-                        font-size:85%; color: white"><br>
-                        Already have an account? Click Log In!
-                        </div> -->
-                    </div>
-                </div>
-            </div>
-        </form>
-    </body>
+
+        <div class="form-row">
+          <div class="form-group">
+            <input type="text" name="firstname" required placeholder="First Name" maxlength="20" />
+          </div>
+          <div class="form-group">
+            <input type="text" name="lastname" required placeholder="Last Name" maxlength="20" />
+          </div>
+        </div>
+        <div class="form-group">
+          <input type="text" name="location" required placeholder="Location" maxlength="25" />
+        </div>
+        <div class="form-group">
+          <input type="tel" name="mobile_num" required placeholder="Mobile Number" maxlength="11" />
+        </div>
+        <div class="form-group">
+          <input type="email" name="email" required placeholder="Email Address" maxlength="64" />
+        </div>
+        <div class="form-group">
+          <input type="text" name="dispatcher_id" required placeholder="NIN / ID Number" maxlength="11" />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <input type="password" name="password" required placeholder="Password" minlength="4" />
+          </div>
+          <div class="form-group">
+            <input type="password" name="confirm_password" required placeholder="Confirm Password" minlength="4" />
+          </div>
+        </div>
+        <button type="submit">Begin Your Journey</button>
+      </form>
+    </div>
+
+    <!-- Right: Branding / Info Panel -->
+    <div class="right">
+      <h2>Welcome to Crata</h2>
+      <p>Join thousands of users delivering with ease and confidence. Let's move forward together.</p>
+      <a href="/login">Already have an account? Log In</a>
+    </div>
+  </div>
+</body>
 </html>

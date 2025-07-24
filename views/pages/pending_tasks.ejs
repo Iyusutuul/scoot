@@ -2,125 +2,425 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pending Tasks</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
-    <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
-    <!-- <script src="https://kit.fontawesome.com/6bb208eccf.js" crossorigin="anonymous"></script> -->
-    <title>Crata-Profile</title>
-    <link rel="stylesheet" href="styles/dashboard.css" type="text/css" media="all">
-</head>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://product-gallery.cloudinary.com/latest/all.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui/dist/semantic.min.js"></script>
+    <script src="https://kit.fontawesome.com/6bb208eccf.js" crossorigin="anonymous"></script>
     <style>
-        .error { color: red; }
-        div.preview-images > img {
-        width: 70%;
-        height: 60%;
-        margin-top: -450px;
-        margin-left: 450px;
-        position: relative;
-        }
-        .button {display: inline-block;
-        padding: 10px 10px;
-        color: white;
-        text-align: center;
-        text-decoration: none;
-        border-radius: 5px;
-        transition: transform 0.2s ease;
-    }
-        .button:hover {
-        transform: scale(1.1);
-        }
-        .fa-solid{
-        float: center !important;
-        align-items: center !important;
-        color: black;
-        }
-           
-        .ui.sidebar {
-        z-index: 1000; /* Ensure sidebar is above content */
-        height: calc(100% - 50px); /* Make sidebar height fill the remaining space */
-        flex-direction: center;
-        padding-top: 55px;
-        align-items: center;
-        justify-content: center;
+          body {
+              font-family: 'Arial', sans-serif;
+              background-color: #f4f7fc;     
+          }
+          .approval-status{
+            position: relative;
+            width: 100%;
+          }
+          #submissionsTable {
+            table-layout: fixed;
+            justify-self: center;
+            border-radius: 5px;
+            overflow-x: auto;
+            overflow-y: auto;
+            border: 1px solid red;
 
-    }
-    .profile-pic {
-        display: block;
-        border-radius: 50%;
-        width: 60px;  /* Adjust size as needed */
-        height: 60px; /* Adjust size as needed */
-    }
-    .profile-img {
-      margin: 0em auto;
-    }
-    .pusher {
-        z-index: 1000; /* Ensure pusher content stays below the sidebar */
-        }
-    .profile_wrapper{
-        display: inline-flex; /* Use flexbox */
-        justify-content: flex-start; /* Center horizontally */
-        align-items: flex-start; /* Center vertically */
-    }
-    .ui.sidebar .item {
-    display: flex;
-    justify-content: center; /* Center items horizontally */
-    align-items: center;     /* Center items vertically */
-    padding: 10px;          /* Adjust padding as necessary */
-    color: gray;            /* Text color */
-    font-weight: bolder;    /* Font weight */
-    text-align: center;     /* Center text alignment */
-    width: 100%;            /* Ensure the item takes full width */
+          }
+          #submissionsTable tbody{
+            display: block;
+            max-height: 230px;
+            width: 100%;
+            overflow-x: scroll;
+            overflow-y: scroll;
+        
+          }
+          /* Style for the scrollbar handle */
+          #submissionsTable tbody::-webkit-scrollbar-thumb {
+    background-color: orange;  /* Color of the scrollbar thumb */
+    border-radius: 10px;
+}
+#submissionsTable tbody::-webkit-scrollbar {
+   width: 10px;
 }
 
-    .profile-img {
-      display: block;
-      margin: auto;
-    }
-    .profile-container {
+          #submissionsTable thead{
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+          h1 {
+              text-align: center;
+              color: #3f4c6b;
+          }
+          table {
+              max-height: auto;
+              width: 90%; /* Set width to 90% of the viewport */
+              /* border-collapse: collapse; */
+              margin-top: 10px;
+              border-radius: 10px 10px 0 0; /* Rounded top corners */
+              overflow-y: auto; /* Ensures the content stays within the rounded edges */
+          }
+          tbody tr:first-child {
+            background-color: ;
+            margin-top: 5px;
+        }
+  
+          th, td {
+              padding: 5px 10px; /* Reduced top and bottom padding */
+              text-align: left;
+              border: 1px solid #ddd;
+              font-size: 12px;
+              color: whitesmoke;
+              overflow: hidden;
+          }
+         
+          th {
+              background-color: rgba(220, 220, 220, 0.178);
+              color: white;
+              font-size: 14px;
+              font-weight: lighter;
+              white-space: nowrap;
+          }
+          
+          tr:nth-child(even) {
+              background-color:;
+              border-radius: 5px;
+          }
+  
+          tr:hover {
+              background-color: ;
+          }
+  
+          .approve-btn {
+              background-color: #4CAF50;
+              color: white;
+              padding: 4px 10px; /* Reduced top and bottom padding */
+              border: none;
+              cursor: pointer;
+              border-radius: 4px;
+              font-size: 12px;
+              transition: background-color 0.3s;
+          }
+  
+          .approve-btn:hover {
+              background-color: #45a049;
+          }
+  
+          .reject-btn {
+              background-color: #f44336;
+              color: white;
+              padding: 4px 10px; /* Reduced top and bottom padding */
+              border: none;
+              cursor: pointer;
+              border-radius: 4px;
+              font-size: 12px;
+              transition: background-color 0.3s;
+          }
+  
+          .reject-btn:hover {
+              background-color: #e53935;
+          }
+  
+          .button-container {
+              display: flex;
+              justify-content: space-evenly;
+          }
+  
+          .status {
+              text-transform: capitalize;
+          }
+  
+          .action-cell {
+              display: flex;
+              justify-content: space-evenly;
+          }
+          /* td.status { */
+            /* word-wrap: break-word; This forces long URLs to wrap */
+            /* max-width: 200px; Limit the width of the cell */
+            /* overflow-wrap: break-word; Another property for breaking long words */
+            /* white-space: normal; Ensure text wraps instead of extending out */
+        /* } */
+            body {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            background-color: white;
+            /* Added to stack elements */
+        }
+
+        /*controls the app main content area*/
+        .grid-wrapper {
+            position: absolute;
+            max-width: 1170px;
+            /* Updated to max-width */
+            height: 100vh;
+            width: 100%;
+            padding: 50px 0px;
+            /* Add padding */
+        }
+
+        .max-hw {
+            height: 100% !important;
+            width: 100% !important;
+        }
+
+       
+.pusher {  
+     display: flex;     
+     margin-left: -60px; /* Leave space for the fixed sidebar */    
+     border: 0px solid yellow;
+        }
+
+      
+.ui.sidebar {
+            z-index: 1;
+            /* Ensure sidebar is above content */
+            height: calc(100% - 50px);
+            /* Make sidebar height fill the remaining space */
+            width: 200px !important;
+            
+            flex-direction: center;
+            padding-top: 45px;
+            align-items: center;
+            justify-content: center;
+            background-color: #007bff; /* Background for visibility */
+        }
+       
+        #menu-toggle   {
+            display: none;
+        }
+        #text_color a{
+            color: #fff;
+        }
+       #text_color i{
+        color: #fff;
+       }
+       #text_color a:hover {
+        background-color: orange;
+       }
+       #centering{
         display: flex;
-        text-align: center; /* Center text inside the container */
-        margin-top: 60px;
-        margin-left: 30px;
-    }
-        </style>
+        justify-content: center;
+       }
+       .fa-solid {
+            float: right;
+        }
+        p{
+            margin-top: 25px;
+            margin-left: 25px;
+            font-size: 14px;
+        }
+     
+/**** beginning of media queries **********/
+
+        @media (max-width: 484px) {
+            body {
+                flex-direction: column;
+                width: 100%;
+                height: 100%;
+                font-size: 15px;
+          
+                /* Updated to max-width */
+            }
+            #menu-toggle{
+                display: block;
+            }
+            .ui.sidebar.visible{
+                overflow-y: hidden;
+                background: none;
+                left: 0;
+            }
+              .ui.sidebar{
+                overflow-y: hidden;
+                background: none;
+                left: 0;
+            }
+            .pusher{
+                left: -220px;
+            }
+            .grid-wrapper {
+                flex-direction: column;
+                width: 100%;
+                height: 100%;
+                border: 2px solid blue;
+            }
+            .gallery-wrapper {
+                display: block;
+                flex-direction: column;
+                width: 100% !important;
+                height: 200px;
+                background-color: gainsboro;
+                border-radius: 5px;
+                box-shadow: 0 4px 0px rgba(0, 0, 0, 0.1);
+            }
+            #myChart {
+                flex-direction: column;
+                width: 40% !important;
+                margin: 0px 77px;
+                border: 1px solid orange;
+                
+            }
+            .item:hover{
+                background-color: blue;
+            }
+            #myGallery {
+                flex-direction: column;
+                background-color: aqua;
+                border: 1px solid black;
+                margin: 0px auto;
+                width: 350px;
+               
+            }
+            #controller {
+                height: 90% !important;
+                width: 90% !important;
+            }
+            #controller_2 {
+                height: 90% !important;
+                width: 90% !important;
+            }
+
+            .ui.grid {
+                flex-direction: column;
+                margin: 10px auto;
+            
+                font-size: 12px;
+                padding: none;
+            }
+         
+            .metric {
+                flex-direction: column;
+                height: 30px;
+                width: 100%;
+                margin-left: 25px;
+                margin: 0px auto;
+                padding: 0px auto;
+                font-size: 14px;
+            }
+            .ui.menu {
+                font-size: 12px;
+                padding: none;
+            }
+            .eight.wide.column {
+                flex-direction: column;
+                align-self: center;
+            }
+            .ui.borderless.fixed.menu {
+                width: 100%;
+            }
+            
+        }
+    </style>
+</head>
 <body>
     <div id="header">
-        <div style="background-color: orange;" class="ui fixed menu">
-            <a style="font-size: 15px; font-weight: bold; color: white;" class="item">Crata</a>
-            <a style="color: white;" class="item" id="menu-toggle"><i class="bars icon"></i></a>
-            <a href="/dashboard" style="font-size: 15px; font-weight: bold; color: white;" class="item">
-            <i class="fa-solid fa-house"></i></a>
+        <div style="z-index: 2000;background-color: #007bff;" class="ui borderless fixed menu">
+            <a class="item" style="font-weight: bold; font-size: 15px; color: white;">Crata</a>
+            <a class="item" id="menu-toggle" style="color: #fff;display: none;"><i class="bars icon"></i></a>
+            <a href="/dashboard" class="item" style="font-weight: bold; color: white;">
+                <i class="fa-solid fa-house" style="color: #fff;"></i></a>
         </div>
     </div>
-<div style="margin: 0px auto; background-color: rgb(135, 212, 243);;" class="ui sidebar vertical menu">
-        <div class="item">
-            <h2 style="text-align: center;font-size: 15px;opacity: 0.5;">Welcome back</h2>
-            <!-- <h2 style="text-align: center;font-size: 15px;margin-top: -10px;margin-bottom: 20px;">Ubong Ema</h2> -->
-         </div> 
-         <!-- sidebar navigation -->
-        <a class="item"><i class="fa-solid fa-map"></i>Roadmap</a>
-        <a href="/viewpending" class="item"><i class="fa-solid fa-hourglass-start"></i>Pending</a>
+    <div style="margin: 0px auto;background-color: rgba(0, 0, 0, 0.647);" id="text_color" class="ui visible sidebar vertical menu">
+       
+        <!-- sidebar navigation -->
+        <a style="color: #fff;padding-top: 20px;" class="item"><i class="fa-solid fa-store"></i>Merchants</a>
+        <a href="/viewpending" class="item"><i class="fa-solid fa-hourglass-start"></i>Rejected</a>
         <a href="/capture" class="item"><i class="fa-solid fa-camera"></i>Capture</a>
         <a href="/visits" class="item"><i class="fa-solid fa-person-walking-luggage"></i>Visitation</a>
         <a class="item"><i class="fa-solid fa-wallet"></i>Wallet</a>
         <a href="/profile" class="item"><i class="fa-solid fa-user"></i>Profile</a>
         <a href="/logout" class="item"><i class="fa-solid fa-right-from-bracket"></i>Logout</a>
     </div>
-
-    <div class="pusher">
-       
-    </div>
-
     <script>
-        $(document).ready(function() {
-            
-            $('#menu-toggle').click(function() {
+        $(document).ready(function () {
+            $('.ui.sidebar').sidebar({
+                transition: 'overlay',
+                style: 'push'
+             
+            });
+            $('#menu-toggle').click(function () {
                 $('.ui.sidebar').sidebar('toggle');
             });
         });
     </script>
-    </div>
-</div>
-</body>
+    <div class="pusher">
+        <div style="background-color: black;" class="grid-wrapper">
+                <style>
+                    /* Your custom styles as already provided */
+                </style>
+                <div>
+                <div id="submissionsTableWrapper">
+                    <table id="submissionsTable">
+                        <thead>
+                            <tr>
+                                <th>S/N</th>
+                                <th>Terminal ID</th>
+                                <th>Merchant Name</th>
+                                <th>Phone</th>
+                                <th>Merchant Address</th>
+                                <th>Image_Url</th>
+                                <th>Status</th> <!-- Current Status Column -->
+                                <th>Upload</th>
+                                <th>Action</th>
+                                <th>Approval</th>  
+                            </tr>
+                        </thead>
+                    <tbody>
+                <% submissions.forEach((submission, index) => { %>
+            <form action="/update_roadmap" method="POST" enctype="multipart/form-data" id="form_<%= index %>">
+                <!-- Loop through the submissions passed from the backend -->
+                            
+                    <tr id="row_<%= index %>">
+                    <td> <%= index + 1 %> </td>
+                    <td style="display: none;" data-id="<%= submission.id %>"> <%= submission.id %> </td>
+                    <td> <%= submission.terminal_id %> </td>
+                    <td style="white-space: nowrap;"> <%= submission.merchant_name %> </td>
+                    <td> <%= submission.phone %> </td>
+                    <td style="white-space: nowrap;"> <%= submission.address %> </td>
+                    <!-- Current Status column -->
+                    <td class="status">
+                                        <%= submission.status %> <!-- Current status value -->
+                                    </td>
+                               
+                                    <td class="status"> <!-- Dropdown column for approval status -->
+                                        <select name="status" id="status_<%= index %>">
+                                            <option value="pending" <%= submission.status === 'Pending' ? 'selected' : '' %>>Pending</option>
+                                            <option value="ok" <%= submission.status === 'OK' ? 'selected' : '' %>>OK</option>
+                                            <option value="nok" <%= submission.status === 'NOK' ? 'selected' : '' %>>NOK</option>
+                                            <option value="ad" <%= submission.status === 'AD' ? 'selected' : '' %>>AD</option>
+                                            <option value="hf" <%= submission.status === 'HF' ? 'selected' : '' %>>HF</option>
+                                        </select>
+                                    </td>
+                                    <input type="hidden" name="id" id="idInput" value="<%= submission.id %>" />
+                            <td class="upload-cell">
+<input type="file" name="image" id="imageUpload_<%= index %>" class="input-files" accept="image/*" 
+                        />
+                        </td>
+                            <td class="submit-cell">
+                                <button type="submit" class="submit_btn" <%= submission.submitted ? 'disabled' : '' %>>Submit</button>
+                                    </td>
+                                </form>
+                                <td class="action-cell">
+                                    <div style="background-color: rgba(220, 220, 220, 0.178);"  class="pre_approval_icon" onclick="approveSubmission(2)">
+                                    <i style="color: #FFBF00;background: transparent;" class="fa-solid fa-circle"></i></div>
+                                    <div style="display: none" class="approve-btn" onclick="approveSubmission(2)"><i class="fa-solid fa-check"></i></div>
+                                    <div style="display: none;" class="reject-btn" onclick="rejectSubmission(2)"><i class="fa-solid fa-xmark"></i></div>
+                                </td>
+                                </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                </form>
+            <script>
+       
+       
+
+
+                </script>
+            </div>
+        </div>     
+    </body>
+</html>

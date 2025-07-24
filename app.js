@@ -1,15 +1,22 @@
-const cloudinary = require('cloudinary'); 
-require('dotenv').config();
-const express = require('express');
-const path = require('path');
-const cookieParser = require('cookie-parser');
-const logger = require('morgan')
-const dotenv = require ('dotenv');
-const session = require('express-session');
-const flash= require('req-flash');
-const bodyParser = require('body-parser');
-const bcrypt = require('bcryptjs');
-const ejs = require('ejs');
+import dotenv from 'dotenv';
+// Load environment variables
+dotenv.config();
+import cloudinary from 'cloudinary';
+import express from 'express';
+import path from 'path';
+import cookieParser from 'cookie-parser';
+import logger from 'morgan';
+import session from 'express-session';
+import flash from 'req-flash';
+import bodyParser from 'body-parser';
+import bcrypt from 'bcryptjs';
+
+// Initialize Cloudinary with your credentials
+cloudinary.config({
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_KEY,
+    api_secret: process.env.CLOUDINARY_SECRET
+});
 
 const app = express(); //create express object
 
@@ -17,23 +24,20 @@ const app = express(); //create express object
 // const upload = uploadMiddleware("UP/PDO");
 
 // UPLOAD METHOD 2
-const { storage } = require('./storage/storage');
-const multer = require('multer');
-// const { v4: uuidv4 } = require('uuid');
+import { storage } from './storage/storage.js';
+import multer from 'multer';
+// import { v4 as uuidv4 } from 'uuid';
 const upload = multer({ storage });
-
-//.env configurations
-dotenv.config({path: './.env'})  
   
-   // Database connection
-const db = require('./lib/dbconfig')
+// Database connection
+import db from './lib/dbconfig.js';
                
 //specify port number     
 app.set('port', process.env.PORT || 8080);
 
 //specify view engine
 app.set('view engine','ejs');
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(path.resolve(), 'views')); // Ensure to set the correct folder
 
 app.use(logger('dev'));
 //configure express to receive form values as json
@@ -41,8 +45,7 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true}));
 app.use(bodyParser.json())
 app.use(cookieParser());
-app.use('/styles', express.static(path.join(__dirname, 'styles'))); //Function to serve css files
-//function to render images like logo etc 
+app.use(express.static(path.join(process.cwd(), 'public'))); //Function to serve static files
 app.use('/public', express.static('public'));
 app.use (express.static('/views'));
 
@@ -81,15 +84,62 @@ const isAuthenticated = (req, res, next) => {
         });
     });
 
+ app.post('/signup', async (req, res) => {
+    const { firstname, lastname, location, mobile_num, email, dispatcher_id, password, confirm_password } = req.body;
+
+    let message = '';
+    let message_success = '';
+
+    db.query('SELECT email FROM users WHERE email = ?', [email], async (error, result) => {
+        if (result.length) {
+            message = 'Email is already in use';
+            return res.render('pages/signup', { message, message_success: '' });
+        } 
+
+        if (password !== confirm_password) {
+            message = 'Passwords do not match!';
+            return res.render('pages/signup', { message, message_success: '' });
+        }
+
+        const saltRounds = 10;
+        let hashedPassword = await bcrypt.hash(password, saltRounds);
+        console.log(hashedPassword);
+
+        db.query('INSERT INTO users SET ?', {
+            firstname,
+            lastname,
+            location,
+            mobile_num,
+            email,
+            dispatcher_id,
+            password: hashedPassword
+        }, (error, result) => {
+            if (error) {
+                console.log(error);
+                // Optionally render with error message
+                message = 'NIN/ID already in DB.';
+                return res.render('pages/signup', { message, message_success: '' });
+            } else {
+                req.flash('name', firstname);
+                message_success = 'Registration Successful, Please Login';
+                return res.render('pages/corporatelogin', { message: '', message_success });
+            }
+        });
+    });
+});
+
+
+
 
 //GET/display login page
 app.get("/", (req,res) =>{
         const message = req.query.message || '';
-        message_success= ''; 
+       
         
-        res.render("pages/corporatelogin",{message});
+        res.render("pages/teteofafrica",{message});
         });
 
+//supervisor dashboard
 app.get("/supervisor", (req,res) =>{
         res.render("admin/supervisorDash");
 });
@@ -98,16 +148,129 @@ app.get("/transGallery", (req,res)=>{
     res.render("admin/transSlip");
 });
 
+app.get("/pendingReview", (req,res)=>{
+    res.render("admin/pendingApproval");
+});
+
 app.get("/viewpending", (req,res) =>{
         res.render("pages/pending_tasks")
 })
 
+app.get('/roadmap', (req, res) => {
+    db.query('SELECT * FROM roadmap WHERE status = "Pending"', (err, results) => {
+        if (err) {
+            console.error('Error fetching rows:', err);
+            return res.status(500).send('Error fetching rows.');
+        }
+
+        // Render the "pending_tasks" page and pass the data
+        res.render('pages/pending_tasks', { submissions: results });
+    });
+});
+
+app.post('/update_roadmap', upload.single('image'), async (req, res) => {
+    const { status, id } = req.body;  // Get status and id from the request body
+    const file = req.file;  // File uploaded by the user
+
+    // Check if the file and required fields are present
+    if (!file) {
+        console.error('No file uploaded');
+        return res.status(400).send('No file uploaded');
+    }
+
+    if (!status || !id) {
+        return res.status(400).send('Status or ID is missing');
+    }
+
+    try {
+        // Step 1: Upload the file to Cloudinary
+        const cloudinaryResult = await cloudinary.uploader.upload(file.path);
+        const image_url = cloudinaryResult.secure_url;
+
+        // Step 2: Update the database with the new status and image URL, marking as pending = false after submission
+        const query = 'UPDATE roadmap SET status = ?, image_url = ?, pending = ? WHERE id = ?';
+        const values = [status, image_url, false, id];  // Mark as processed (pending = false)
+
+        db.query(query, values, (error) => {
+            if (error) {
+                console.error('Database error:', error);
+                return res.status(500).send('Error saving record');
+            }
+
+            console.log('File uploaded to Cloudinary:', image_url);
+
+            // Step 3: Respond back to frontend with updated row info
+            res.json({
+                message: 'Roadmap updated successfully',
+                updatedStatus: status,
+                updatedImageUrl: image_url,
+                updatedPending: false,  // Mark as processed (pending = false)
+            });
+        });
+    } catch (err) {
+        console.error('Cloudinary upload error:', err);
+        res.status(500).send('Error uploading file to Cloudinary');
+    }
+});
+
+
+app.get('/dashboard', isAuthenticated, (req, res) => {
+    const userId = req.session.userId;
+    const basePay = 309.09; // Set your fixed base pay here
+
+    // Fetch user tag and other necessary data
+    db.query('SELECT tags, profile_pic_url FROM users WHERE id = ?', [userId], (error, results) => {
+        if (error) {
+            console.error('Database query error:', error);
+            return res.status(500).send("Internal Server Error");
+        }
+    
+        const userTag = results.length > 0 ? results[0].tags : null;
+        const user = results[0]
+        const profilePicUrl = results.length > 0 ? results[0].profile_pic_url : null;
+    
+        // Log the values
+        console.log('User tag:', userTag);
+        console.log('Profile Picture URL:', profilePicUrl);
+
+        // Fetch additional metrics
+        const queries = {
+            totalInputs: 'SELECT COUNT(*) as count FROM dailyvisits WHERE tags = ?'
+        };
+
+        const promises = Object.entries(queries).map(([key, query]) => {
+            return new Promise((resolve, reject) => {
+                const queryParams = key === 'totalInputs' ? [userTag] : [];
+                console.log(`Running query for ${key}:`, query, queryParams);
+                db.query(query, queryParams, (error, results) => {
+                    if (error) {
+                        console.error(`Database query error for ${key}:`, error);
+                        return reject(error);
+                    }
+                    resolve(results[0] ? results[0].count : 0);
+                });
+            });
+        });
+
+        Promise.all(promises)
+            .then(([totalInputs]) => {
+                const totalEarnings = (basePay * totalInputs).toFixed(2); // Format to 2 decimal places
+                // Render the dashboard and pass all data to the template
+                res.render("pages/dashboard", { 
+                    basePay, userTag, totalInputs,totalEarnings,
+                    profilePicUrl: user.profile_pic_url });
+            })
+            .catch(err => {
+                console.error('Error fetching additional data:', err);
+                res.status(500).send("Internal Server Error");
+            });
+    });
+});
+
 //authenticate user     
 app.post("/dashboard", (req,res)=>{
         let message = '';
-        message_success = '';
         const { email,password } = req.body
-       
 
         if (email && password)
         {
@@ -135,52 +298,7 @@ app.post("/dashboard", (req,res)=>{
                         }    
         });
   
-        app.get('/dashboard', isAuthenticated, (req, res) => {
-            const userId = req.session.userId;
-        
-            // Fetch user tag and other necessary data
-            db.query('SELECT tags FROM users WHERE id = ?', [userId], (error, results) => {
-                if (error) {
-                    console.error('Database query error:', error);
-                    return res.status(500).send("Internal Server Error");
-                }
-        
-                const userTag = results.length > 0 ? results[0].tags : null;
-        
-                // Log the userTag
-                console.log('User tag:', userTag);
-        
-                // Fetch additional metrics
-                const queries = {
-                    totalUsers: 'SELECT COUNT(*) as count FROM dailyvisits',
-                    
-                };
-        
-                const promises = Object.entries(queries).map(([key, query]) => {
-                    return new Promise((resolve, reject) => {
-                        db.query(query, (error, results) => {
-                            if (error) {
-                                console.error(`Database query error for ${key}:`, error);
-                                return reject(error);
-                            }
-                            resolve(results[0].count);
-                        });
-                    });
-                });
-        
-                Promise.all(promises)
-                    .then(([totalUsers, pendingRequests, completedTasks]) => {
-                        // Render the dashboard and pass all data to the template
-                        res.render("pages/dashboard", { userTag, totalUsers, pendingRequests, completedTasks });
-                    })
-                    .catch(err => {
-                        console.error('Error fetching additional data:', err);
-                        res.status(500).send("Internal Server Error");
-                    });
-            });
-        });
-        
-        
+       
         
 
 app.get('/capture', isAuthenticated, (req, res) => {
@@ -233,6 +351,7 @@ app.post('/capture', (req,res)=>{
 };
 });
 
+
 //display profile page
 app.get('/profile', isAuthenticated, (req, res) => {
     const userId = req.session.userId;
@@ -270,55 +389,51 @@ app.get('/profile', isAuthenticated, (req, res) => {
 
 
 //render sign-up page
-app.get("/signup",(req,res)=>{
-        const reference = req.flash('ref')
-        
-        message = '';
-        message_success = '';
-        res.render('pages/signup', { reference })
+app.get("/signup", (req, res) => {
+    const reference = req.flash('ref');
+
+    const message = '';
+    const message_success = '';
+
+    res.render('pages/signup', { reference, message, message_success });
 });
 
 
-app.post('/signup',(req,res)=>{
 
-        const {firstname,lastname,location,mobile_num,
-                email,dispatcher_id,password, confirm_password} = req.body
-
-        message = '';
-        message_success = '';
-        
-        db.query('SELECT email,dispatcher_id FROM users WHERE email= ?',[email,dispatcher_id,],async(error,result)=>{
-      
-        if(result.length) {
-                message = 'Email is already in use';
-                return res.render('pages/signup',{message:message})      
-                }
-                
-                
-                else if (password !== confirm_password) {
-                message = 'Passwords do not match!';
-                return res.render('pages/signup',{message:message})
-        }
-         
-                const saltRounds = 10;
-                let hashedPassword =  await bcrypt.hash(password,saltRounds)
-                console.log(hashedPassword)
-
-        db.query('INSERT INTO users SET?',{firstname: firstname, lastname:lastname,
-                location:location,mobile_num:mobile_num,email:email,dispatcher_id:dispatcher_id,
-                password:hashedPassword},(error,result)=>{
-                if (error){
-                        console.log(error)
-                }
-                else {
-                req.flash('name', req.body.firstname)
-                message_success = 'Registration Successful, Please Login';
-                res.render('pages/corporatelogin',{message_success: message_success});
-        }
-})
-         })
-});
 //
+
+app.get('/visits', isAuthenticated, async (req, res) => {
+    const userId = req.session.userId;
+    console.log("User ID from session:", userId);
+
+    const msg_success = req.query.msg_success || '';
+
+    try {
+        const user = await getUserById(userId);
+        if (!user) {
+            return res.status(404).send('User not found');
+        }
+
+        res.render('pages/dailyvisits', {
+            msg_success,
+            firstname: user.firstname,
+            profilePicUrl: user.profile_pic_url 
+        });
+    } catch (error) {
+        console.error('Error retrieving user:', error);
+        res.status(500).send('Internal Server Error');
+    }
+    async function getUserById(userId) {
+        return new Promise((resolve, reject) => {
+            db.query('SELECT firstname, profile_pic_url FROM users WHERE id = ?', [userId], (error, results) => {
+                if (error) return reject(error);
+                resolve(results[0]); // Assuming you want the first result
+            });
+        });
+    }
+    
+});
+
 app.post('/visits', upload.single('image'), async (req, res) => {
     const { merchant_name, merchant_address, terminal_id, rrn, status } = req.body;
     const file = req.file;
@@ -356,39 +471,7 @@ app.post('/visits', upload.single('image'), async (req, res) => {
     }
 });
 
-app.get('/visits', isAuthenticated, async (req, res) => {
-    const userId = req.session.userId;
-    console.log("User ID from session:", userId);
-
-    const msg_success = req.query.msg_success || '';
-
-    try {
-        const user = await getUserById(userId);
-        if (!user) {
-            return res.status(404).send('User not found');
-        }
-
-        res.render('pages/dailyvisits', {
-            msg_success,
-            firstname: user.firstname,
-            profilePicUrl: user.profile_pic_url 
-        });
-    } catch (error) {
-        console.error('Error retrieving user:', error);
-        res.status(500).send('Internal Server Error');
-    }
-    async function getUserById(userId) {
-        return new Promise((resolve, reject) => {
-            db.query('SELECT firstname, profile_pic_url FROM users WHERE id = ?', [userId], (error, results) => {
-                if (error) return reject(error);
-                resolve(results[0]); // Assuming you want the first result
-            });
-        });
-    }
-    
-});
-
-  
+//displays the image gallery for admin to view cloudinary storage
   app.get('/indexAdmin', (req, res) => {
         var q = req.query.q;
         var nextCursor = req.query.next_cursor; // For pagination

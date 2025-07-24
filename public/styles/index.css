@@ -1,0 +1,61 @@
+/** Target the link texts itself **/
+nav ul li a {
+    text-decoration: none;
+    position: relative;
+    color: rgba(10, 4, 4, 0.768);
+    font-size: 15px;
+    font-weight:700 ;
+}
+
+/* Apply the hover effect and ::after pseudo-element to all links */
+nav ul li a:after {
+    color: orange;
+    content: '';
+    width: 100%;
+    top: 20px;
+    height: 5px;
+    position: absolute;
+    left: 0;
+    box-shadow: 1px 1px 2px rgb(0 0 200 / 0.4);
+    border-radius: 2px;
+    transition: 0.5s;
+}
+
+nav ul li a:hover::after {
+    width: 100%;
+    /* top: 30px;  introduces a moving effect */ 
+    background-color: orangered;
+}
+
+/* Exclude Login and Sign Up links from the hover animation */
+nav ul li a.no_animation::after {
+    content: none;  /* Remove the ::after pseudo-element */
+}
+
+.no_animation {
+    display: flex;
+    justify-self: center;
+    align-items: center;
+    border: 2px solid rgb(168, 210, 226);
+    border-radius: 15px;
+    padding: 5px 25px;
+    background-color: rgb(255, 252, 251);
+}
+/* Layout Adjustments for the Navbar */
+nav ul {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0;
+    margin: 10px;
+    list-style: none;
+    width: 100%;
+}
+
+nav ul li {
+    padding: 0 10px;
+}
+
+nav ul li:last-child {
+    margin-left: auto;  /* Push the last item to the far right */
+}

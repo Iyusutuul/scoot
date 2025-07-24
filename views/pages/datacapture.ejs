@@ -31,6 +31,7 @@
 }
     .button:hover {
     transform: scale(1.1);
+    
     }
     .fa-solid{
     float: right;
@@ -64,13 +65,17 @@ justify-content: center;
     justify-content: flex-start; /* Center horizontally */
     align-items: flex-start; /* Center vertically */
 }
-.ui.sidebar .item {
+.ui.sidebar.item {
             display: flex;
             /* Use flexbox for better alignment */
             padding: 10px;
             /* Adjust padding as necessary */
             align-items: center;
             /* Center items vertically */
+            color: black;
+            
+        }
+        .ui.sidebar.item:hover {
             color: #fff;
             
         }
@@ -87,15 +92,15 @@ justify-content: center;
     </style>
 <body>
     <div id="header">
-        <div style="background-color: gainsboro;" class="ui borderless fixed menu">
+        <div style="background-color: #007bff;" class="ui borderless fixed menu">
             <a style="font-size: 15px; font-weight: bold; color: white;" class="item">Crata</a>
+            <a style="color: white;border: none;" class="item" id="menu-toggle">
+            <i class="bars icon"></i></a>
             <a href="/dashboard" style="font-size: 15px; font-weight: bold; color: white;" 
             class="item"><i class="fa-solid fa-house"></i></a>
-            <a style="color: white;border: none;" class="item" id="menu-toggle">
-                <i class="bars icon"></i></a>
         </div>
     </div>
-    <div style="background-color: rgb(241, 166, 27);margin: 0px auto;" class="ui sidebar vertical menu">
+    <div style="background-color: gainsboro;margin: 0px auto;" class="ui sidebar vertical menu">
         <div class="item">
             <img src="<%= profilePicUrl %>" class="ui centered circular image profile-img" alt="Profile Picture" 
             onerror="this.onerror=null;this.src='default-profile.png';" 

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,12 +7,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
     <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
-    <!-- <script src="https://kit.fontawesome.com/6bb208eccf.js" 
-crossorigin="anonymous"></script> -->
+    <!-- <script src="https://kit.fontawesome.com/6bb208eccf.js" crossorigin="anonymous"></script> -->
     <title>Crata-New Visit</title>
-            <link rel="stylesheet" href="styles/dashboard.css" type="text/css" media="all">
+    <link rel="stylesheet" href="styles/dashboard.css" type="text/css" media="all">
     <style>
-       .error { color: red; }
+    .error { color: red; }
     div.preview-images > img {
     width: 70%;
     height: 60%;
@@ -37,8 +35,8 @@ crossorigin="anonymous"></script> -->
     line-height: 1rem;
     }
        
-    .ui.sidebar {
-   z-index: 1000; /* Ensure sidebar is above content */
+.ui.sidebar {
+z-index: 1000; /* Ensure sidebar is above content */
 height: calc(100% - 50px); /* Make sidebar height fill the remaining space */
 width: 200px !important;
 flex-direction: center;
@@ -71,7 +69,7 @@ justify-content: center;
             /* Adjust padding as necessary */
             align-items: center;
             /* Center items vertically */
-            color: #fff;
+            color: black;
             
         }
 .profile-img {
@@ -88,9 +86,9 @@ justify-content: center;
 </head>
 <body>
     <div id="header">
-        <div style="background-color: gainsboro;" class="ui borderless fixed menu">
+        <div style="background-color: #007bff;" class="ui borderless fixed menu">
             <a style="font-size: 15px; font-weight: bold; color: white;" class="item">Crata</a>
-            <a style="color: white;" class="item" id="menu-toggle">
+            <a style="color: black;" class="item" id="menu-toggle">
                 <i class="bars icon"></i></a>
             <a href="/dashboard" style="font-size: 15px; font-weight: bold; color: white;" 
             class="item"><i class="fa-solid fa-house"></i></a>
@@ -110,7 +108,6 @@ justify-content: center;
     <a href="/profile" class="item">Profile<i class="fa-solid fa-user"></i></a>
     <a href="/logout" class="item">Logout<i class="fa-solid fa-right-from-bracket"></i></a>
     </div>
-
     <div class="pusher">
         <div class="profile_wrapper">
             <div class="ui container">
@@ -136,17 +133,13 @@ justify-content: center;
                             <input name="merchant_name" type="text" required maxlength="50"
                                 placeholder="Merchant Name" placeholder=Title" />
                         </div>
-                        <!-- <label for="merchant_name"></label> -->
-                        <!-- <input type="text" id="merchant_name" name="merchant_name" required maxlength="50" placeholder="Merchant Name"> -->
-                        <!-- <div class="error" id="merchant_name_error"></div>
-                </div> -->
                         <div>
                             <label for="merchant_address"></label>
                             <input type="text" id="merchant_address" name="merchant_address" required minlength="15"
                                 maxlength="40" placeholder="Merchant Address">
                             <div class="error" id="merchant_address_error"></div>
                         </div>
-                        <div>
+                    <div>
                             <label for="terminal_id"></label>
                             <input type="text" id="terminal_id" name="terminal_id" required maxlength="10"
                                 placeholder="Terminal ID">
@@ -165,27 +158,17 @@ justify-content: center;
                             <div class="error" id="status_error"></div>
                         </div>
                         <div>
-                            <!--  
-                    <label for="Tags"></label>
-                    <select name="tags" id="tags" required>
-                        <option value="cal_pdo1">cal_pdo1</option>
-                        <option value="phc_pdo1">phc_pdo1</option>
-                        <option value="lag_pdo1">cal_pdo1</option>
-                    </select>
-                    -->
                             <div class="field">
                                 <div id="tag" class="ui fluid multiple search selection dropdown"
                                     style="height: 10px !important;">
                                     <input name="tags" type="hidden"> <i class="dropdown icon"></i>
                                     <div style="color: black;" class="default text">Tags</div>
                                     <div class="menu">
-                                        <div class="item" data-value=cal_pdo001>CAL_PDO001</div>
-                                        <div class="item" data-value=cal_pdo002>CAL_PDO02</div>
-                                        <div class="item" data-value=lag_pdo001>LAG_PDO001</div>
-                                        <div class="item" data-value=lag_pdo002>LAG_PDO002</div>
-                                        <div class="item" data-value=phc_pdo001>PHC_PDO001</div>
-                                        <div class="item" data-value=phc_pdo002>PHC_PDO02</div>
-                                        <div class="item" data-value=phc_pdo003>PHC_003</div>
+                                        <div class="item" data-value=cal_pdo001>Cal_pdo1-Ubong Ema</div>
+                                        <div class="item" data-value=cal_pdo002>Cal_pdo2-Bernard Iserom</div>
+                                        <div class="item" data-value=lag_pdo001>Lag_pdo1-Johnson Akogwu</div>
+                                        <div class="item" data-value=phc_pdo001>Phc_pdo1-Handsome Dumka</div>
+                                        <div class="item" data-value=phc_pdo002>Phc_pdo2-Ishmael Amadi</div>
                                     </div>
                                 </div>
                             </div>
@@ -235,21 +218,8 @@ $('#tag').dropdown({
                 $('.ui.sidebar').sidebar('toggle');
                 });
                     });
-                    </script>
-                <!-- <div class="contain">
-        <nav>
-            <ul>
-                <li><i class="fa-solid fa-map"></i><a href="#">Roadmap</a></li>
-                <li><i class="fa-solid fa-hourglass-start"></i><a href="/viewpending">&#160Pending</a></li>
-                <li><i class="fa-solid fa-camera"></i><a href="/capture">Capture</a></li>
-                <li style="border-bottom: 2px solid orange;"><i class="fa-solid fa-person-walking-luggage"></i><a style="color: white" href="/visits ">Visit</a></li>
-                <li><i class="fa-solid fa-wallet"></i><a href="">Wallet</a></li>
-                <li><i class="fa-solid fa-user"></i><a href=" /profile">Profile</a></li>
-                <li><i class="fa-solid fa-right-from-bracket"></i><a href="/logout">Logout</a></li>
-            </ul>
-        </nav> -->
+                </script>
             </div>
         </div>
-
     </body>
 </html>

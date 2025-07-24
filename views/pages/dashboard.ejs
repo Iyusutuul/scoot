@@ -2,87 +2,364 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Dashboard</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://product-gallery.cloudinary.com/latest/all.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <!-- In your views, e.g., views/index.html -->
+<link rel="stylesheet" href="/semantic/css/semantic.min.css">
+<script src="/semantic/js/semantic.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui/dist/semantic.min.css">
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui/dist/semantic.min.js"></script>
-    <script src="https://kit.fontawesome.com/6bb208eccf.js" crossorigin="anonymous"></script>
+    <!-- <script src="https://kit.fontawesome.com/6bb208eccf.js" crossorigin="anonymous"></script> -->
     <style>
-        body {
-            background: transparent;
+            body {
+                min-height: 100%;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            /* Added to stack elements */
         }
-        .ui.sidebar {
-            z-index: 1000;
-            height: 100%;
+/* controls the left-margin of the gallery */
+.ui.grid {
+    margin: 70px; /* Remove default margin */
+}
+.ui.grid .column {
+    display: flex;
+    width: 10%;
+    align-items: center;
+    background: none; /* controls bg color of the metrics */
+}
+/* background around the metrics */
+.ui.column{
+    width: 88%;
+    display: flex;
+    border-radius: 5px;
+    align-items: center;
+    margin: 10px 0px;
+    margin-left: 70px;
+    margin-right: 70px;
+    padding: 0px;
+    /* background-color: white; */
+}
+
+        /*controls the app main content area*/
+        .grid-wrapper {
+            position: absolute;
+            max-width: 1170px;
+            /* Updated to max-width */
+            height: 100vh;
+            width: 100%;
+            padding: 50px 0px;
+            background-color: rgba(0, 0, 0, 0.879);
+            /* Add padding */
+        }
+
+        .max-hw {
+            height: 100% !important;
+            width: 100% !important;
+        }
+
+       
+.pusher {  
+     display: flex;     
+     margin-left: -60px; /* Leave space for the fixed sidebar */    
+     border: 0px solid yellow;
+        }
+
+        .metric {
+            border-radius: 5px;
+            height: 30px;
+            width: 100%;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 17px;
+            transition: transform 0.2s;
+            /* Smooth hover effect */
+        }
+        /* controls the gallery container*/
+        #controller_2 {
+                align-items:center;
+                /* border: 5px solid red; */
+            }
+            /* semantic ui grid cotaining metrics and chart/gallery*/
+        .ui.grid {
+            border: 0px solid whitesmoke;    
+        }
+      .metric:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+.ui.sidebar {
+            z-index: 1;
+            /* Ensure sidebar is above content */
+            height: calc(100% - 50px);
+            /* Make sidebar height fill the remaining space */
             width: 200px !important;
+            
+            flex-direction: center;
             padding-top: 45px;
+            align-items: center;
+            justify-content: center;
+            background-color: #007bff; /* Background for visibility */
         }
-        .pusher {
-            margin-left: 200px; /* Ensure content pushes to the right of the sidebar */
+       
+        #menu-toggle   {
+            display: none;
         }
-        .gallery-wrapper {
-            max-width: 50%; /* Adjust width as needed */
-            margin: 100px auto; /* Center it horizontally */
-            background-color: gainsboro; /* Background color for the gallery */
-            padding: 5px; /* Add padding around the gallery */
-            border-radius: 10px; /* Optional: round the corners */
-            box-shadow: 0 4px 0px rgba(0, 0, 0, 0.1); /* Optional: add a subtle shadow */
+        #text_color a{
+            color: #fff;
         }
+       #text_color i{
+        color: #fff;
+       }
+       #text_color a:hover {
+        background-color: orange;
+       }
+       #centering{
+        display: flex;
+        justify-content: center;
+       }
+       .fa-solid {
+            float: right;
+        }
+        p{
+            margin-top: 25px;
+            margin-left: 25px;
+            font-size: 14px;
+        }
+        #myChart {
+        border: 2px solid orange;
+        background-color: white;
+        width: 480px;/* controls the chart width*/
+        margin: 10px auto;
+        margin-left: 0px;
+        border-radius: 5px;
+        }
+       
         #myGallery {
-            width: 60%; /* Take full width of the wrapper */
-            padding: 0; /* Remove padding */
-            margin: 0; /* Remove margin */
+           width: 420px;
+            margin: 5px -50px;
+            border: 2px solid whitesmoke;
         }
-        #myGallery img {
-            max-width: 100%; /* Make the image responsive */
-            height: auto; /* Maintain aspect ratio */
-            display: block; /* Remove any inline spacing */
-          
+        /* wrapper for gallery and positioning */
+        .gallery-wrapper {
+            width: 80%;
+            height: 370px;
+            margin: 0px auto; 
+            padding: 5px;
+            border-radius: 5px;
+            box-shadow: 0 4px 0px rgba(0, 0, 0, 0.1);
+        }
+        #menu-toggle   {
+            display: none;
+        }
+        #text_color a{
+            color: #fff;
+            border-radius: 50px;
+        }
+       #text_color i{
+        color: #fff;
+        border-radius: 50px;
+       }
+       
+       #text_color a:hover {
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+        background-color: rgba(218, 165, 32, 0.566);
+        border-radius: 50px;
+       }
+     
+        .profile-img {
+            display: block;
+            margin: auto;
+        }
+
+/**** beginning of media queries **********/
+        @media (max-width: 484px) {
+            body {
+            flex-direction: column;
+           
+            width: 100%;
+            font-size: 16px;
+            overflow-x: hidden;
+            }
+            .ui.grid {
+            border: none;    
+            width: 90%;
+        }
+/* container for metrics */
+.ui.three.column.grid{
+    display: flex;
+    flex-direction: column; /* Align items horizontally */
+    align-items: flex-start;/* Align items to the left */
+    gap: 0rem; /* Spacing between items */
+    margin: 0 5%; /* Margin around container */
+    width: 90%;
+}
+.ui.grid .metric {
+   width: 400px;
+    border: 5px solid gains;
+    left: auto;
+    right: 10%;
+    justify-content: center;
+    margin: 0px ;
+    margin-left: 5%;
+    margin-right: 10px;
+    background-color: orange;
+}
+
+        #menu-toggle{
+                display: block;
+            }
+            .ui.sidebar.visible{
+                overflow-y: hidden;
+                background: none;
+                left: 0;
+            }
+              .ui.sidebar{
+                overflow-y: hidden;
+                background: none;
+                left: 0;
+            }
+            .pusher{
+                left: -220px;
+            }
+            .ui.grid .column {
+            background: none;
+}
+            .grid-wrapper {
+                flex-direction: column;
+                width: 100%;
+                height: 100%;
+                border: 2px solid blue;
+            }
+            .gallery-wrapper {
+                display:none;
+                flex-direction: column;
+                width: 100% !important;
+                height: 200px;
+                border-radius: 5px;
+                box-shadow: 0 4px 0px rgba(0, 0, 0, 0.1);
+            }
+            #myChart {
+                flex-direction: column;
+                width: 40% !important;
+                margin: 0px 77px;
+                border: 1px solid orange;
+                
+            }
+            .item:hover{
+                background-color: blue;
+            }
+            #myGallery {
+                visibility: hidden;
+                flex-direction: column;
+                background-color: aqua;
+                border: 1px solid black;
+                margin: 0px auto;
+                width: 350px;
+               
+            }
+            /* #controller {
+                height: 100% !important;
+                width: 100% !important;
+            }
+            #controller_2 {
+                height: 100% !important;
+                width: 100% !important;
+            } */
+
+            .ui.grid {
+                display: flex;
+                flex-direction: column;
+                margin: 0;
+                font-size: 12px;
+                padding: none;
+            }
+            .ui.menu {
+                font-size: 12px;
+                padding: none;
+            }
+        
+            span{
+                display: block;
+                
+            }
+            p{
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
     <div id="header">
-        <div class="ui borderless fixed menu" style="background-color: gainsboro;">
-            <a class="item" style="font-weight: bold; color: black;">Crata</a>
-            <a class="item" id="menu-toggle"><i class="bars icon"></i></a>
-            <a href="/dashboard" class="item" style="font-weight: bold; color: black;">
-                <i class="fa-solid fa-house"></i> Dashboard
-            </a>
+        <div style="z-index: 2000;background-color: #007bff;" class="ui borderless fixed menu">
+            <a class="item" style="font-weight: bold; font-size: 15px; color: white;">Crata</a>
+            <a class="item" id="menu-toggle" style="color: #fff;display: none;"><i class="bars icon"></i></a>
+            <a href="/dashboard" class="item" style="font-weight: bold; color: white;">
+                <i class="fa-solid fa-house" style="color: #fff;"></i></a>
         </div>
     </div>
-
-    <div class="ui sidebar vertical menu" style="background-color: gainsboro;">
-        <a class="item">Roadmap</a>
-        <a href="/viewpending" class="item">Pending</a>
-        <a href="/capture" class="item">Data Capture</a>
-        <a href="/visits" class="item">Visitation</a>
-        <a class="item">Wallet</a>
-        <a href="/profile" class="item">Profile</a>
-        <a href="/logout" class="item">Logout</a>
+    <div style="margin: 0px auto;background-color: gray;" id="text_color" class="ui visible sidebar vertical menu">
+       
+        <!-- sidebar navigation -->
+        <a href="/roadmap" style="color: #fff;padding-top: 20px;" class="item"><i class="fa-solid fa-store"></i>My Merchants</a>
+        <a href="/viewpending" class="item"><i class="fa-solid fa-hourglass-start"></i>Rejected</a>
+        <a href="/capture" class="item"><i class="fa-solid fa-camera"></i>Capture</a>
+        <a href="/visits" class="item"><i class="fa-solid fa-person-walking-luggage"></i>Visitation</a>
+        <a class="item"><i class="fa-solid fa-wallet"></i>Wallet</a>
+        <a href="/profile" class="item"><i class="fa-solid fa-user"></i>Profile</a>
+        <a href="/logout" class="item"><i class="fa-solid fa-right-from-bracket"></i>Logout</a>
     </div>
-
     <script>
-        $(document).ready(function() {
-            // Initialize the sidebar
+        $(document).ready(function () {
             $('.ui.sidebar').sidebar({
                 transition: 'overlay',
                 style: 'push'
+             
             });
-
-            // Toggle sidebar on menu button click
-            $('#menu-toggle').click(function() {
+            $('#menu-toggle').click(function () {
                 $('.ui.sidebar').sidebar('toggle');
             });
         });
     </script>
-
     <div class="pusher">
-        <h1>Welcome to your Dashboard</h1>
-        <p>Welcome <%= userTag ? userTag : 'No tag found' %></p>
-        <div class="gallery-wrapper">
-            <div id="myGallery"></div>
+        <div class="grid-wrapper">
+            <!--  metrics  -->
+            <div class="ui three column grid">
+                <div class="column">
+                    <div style="background-color: rgba(255, 166, 0, 0.973); opacity: 0.7; ;" class="metric"><span>
+                        Visits: <%= totalInputs %>
+                    </span>
+                    </div>
+                </div>
+                <div class="column">
+                    <div style="background-color: green;opacity: 0.7;" class="metric">Approved: 4</div>
+                </div>
+                <div class="column">
+                    <div style="color: whitesmoke;" class="metric">Wallet: N<%= totalEarnings %>
+                    </div>
+                </div>
+            </div>
+
+    <div class="ui grid">
+        <div id="controller_2" class="eight wide column">
+            <div class="gallery-wrapper">
+        <div id="myGallery"></div>
+    </div>
+</div>
+        <div style="border: 0px solid rgb(239, 184, 81); 
+            width: 100%; display: block;" id="controller" class="eight wide column">
+                    <div id="myChart"></div>
+                        </div>
+                           
+            </div>
         </div>
         <script type="text/javascript">
             $(document).ready(function() {
@@ -91,15 +368,50 @@
                     const myGallery = cloudinary.galleryWidget({
                         container: "#myGallery",
                         cloudName: "iyu",
-                        default: {
-                            theme: 'default'
-                        },
+                        default: { theme: 'default' },
                         mediaAssets: [{ tag: userTag }]
                     });
                     myGallery.render();
                 } else {
                     console.error('No tag found for user.');
                 }
+
+const options = {
+        chart: {
+        type: 'bar',
+        height: '340', // or 'auto' for flexible height
+        width: '100%',
+    },
+    title: {
+    text: 'Monthly Visits', // Set your header text here
+    align: 'left', // Optional: align the title (left, center, right)
+    style: {
+      fontSize: '16px', // Optional: customize the font size
+      backGround: '#444',
+      fontWeight: 'thin',
+      color: '#333' // Optional: customize the font color
+    }
+  },
+    responsive: [{
+        breakpoint: 455,
+        options: {
+            chart: {
+                height: '200', // adjust height for smaller screens
+                width: '300'
+            },
+        },
+    }],
+                    series: [{
+                        name: 'Total Visits',
+                        data: [10, 15, 25, 50, 100, 101, 19, 180, 180, 154, 79, 126] // Sample data
+                    }],
+                    xaxis: { categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun','Jul', 'Aug','Sep', 'Oct', 'Nov', 'Dec',  ] },
+                    grid: {
+    show: true // This removes the grid lines
+  },
+                };
+                const chart = new ApexCharts(document.querySelector("#myChart"), options);
+                chart.render();
             });
         </script>
     </div>

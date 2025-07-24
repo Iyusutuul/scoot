@@ -2,98 +2,277 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
-    <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
-     <script src="https://kit.fontawesome.com/6bb208eccf.js" crossorigin="anonymous"></script>
-    <title>Crata-Profile</title>
-    <link rel="stylesheet" href="styles/dashboard.css" type="text/css" media="all">
-</head>
-<style>
-    .error { color: red; }
-    div.preview-images > img {
-        width: 70%;
-        height: 60%;
-        margin-top: -450px;
-        margin-left: 450px;
-        position: relative;
-    }
-   
-    .button {display: inline-block;
-      padding: 10px 10px;
-      color: white;
-      text-align: center;
-      text-decoration: none;
-      border-radius: 2px;
-      transition: transform 0.5s ease;
-    }
-    
-    .button:hover {
-      transform: scale(1.1);
-    }
-   
-    .fa-solid{
-      float: right;
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://product-gallery.cloudinary.com/latest/all.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui/dist/semantic.min.js"></script>
+    <script src="https://kit.fontawesome.com/6bb208eccf.js" crossorigin="anonymous"></script>
+    <style>
+        *{
+           
+        } 
+            body {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            background-color: white;
+            /* Added to stack elements */
+        }
+                .ui.grid {
+    margin: 0; /* Remove default margin */
+}
+.ui.grid .column {
+    display: flex;
+    align-items: center;
+}
+/* background around the metrics */
+.ui.column{
+    width: 90%;
+    display: flex;
+    border-radius: 5px;
+    align-items: center;
+    margin: 20px 0px;
+    margin-left: 70px;
+    margin-right: 70px;
+    padding: 0px;
+    background-color: white;
+}
 
-    }
+        /*controls the app main content area*/
+        .grid-wrapper {
+            position: absolute;
+            max-width: 1170px;
+            /* Updated to max-width */
+            height: 100vh;
+            width: 100%;
+            padding: 50px 0px;
+            /* Add padding */
+        }
+
+        .max-hw {
+            height: 100% !important;
+            width: 100% !important;
+        }
+
+       
+.pusher {  
+     display: flex;     
+     margin-left: -60px; /* Leave space for the fixed sidebar */    
+     border: 0px solid yellow;
+        }
+
+        .metric {
+
+            height: 50px;
+            width: 80%;
+            background-color: rgb(247, 190, 35);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 17px;
+            border-radius: 5px;
+            transition: transform 0.2s;
+            /* Smooth hover effect */
+        }
+        /* controls the gallery container*/
+        #controller_2 {
+                align-items:center;
+                /* border: 5px solid red; */
+            }
+            /* semantic ui grid cotaining metrics and chart/gallery*/
+        .ui.grid {
+            border: 0px solid whitesmoke;    
+        }
+      .metric:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
 .ui.sidebar {
-z-index: 1000; /* Ensure sidebar is above content */
-height: calc(100% - 50px); /* Make sidebar height fill the remaining space */
-width: 200px !important;
-flex-direction: center;
-padding-top: 45px;
-align-items: center;
-justify-content: center;
-}
-
-    .ui.sidebar .item {
+            z-index: 1;
+            /* Ensure sidebar is above content */
+            height: calc(100% - 50px);
+            /* Make sidebar height fill the remaining space */
+            width: 200px !important;
+            
+            flex-direction: center;
+            padding-top: 45px;
+            align-items: center;
+            justify-content: center;
+            background-color: #007bff; /* Background for visibility */
+        }
+        #myChart {
+        border: 2px solid orange;
+        background-color: white;
+        width: 520px;
+        margin: 10px auto;
+        margin-left: 0px;
+        border-radius: 5px;
+        }
+       
+        #myGallery {
+            max-width: 97%;
+            margin: 0px 0;
+            background-color: gainsboro;
+            border: 2px solid whitesmoke;
+        }
+        /* wrapper for gallery and positioning */
+        .gallery-wrapper {
+            width: 80%;
+            height: 370px;
+            margin: 0px auto; 
+            padding: 5px;
+            border-radius: 5px;
+            box-shadow: 0 4px 0px rgba(0, 0, 0, 0.1);
+        }
+        #menu-toggle   {
+            display: none;
+        }
+        #text_color a{
+            color: #fff;
+        }
+       #text_color i{
+        color: #fff;
+       }
+       #text_color a:hover {
+        background-color: orange;
+       }
+       #centering{
         display: flex;
-        /* Use flexbox for better alignment */
-        padding: 10px;
-        /* Adjust padding as necessary */
-        align-items: center;
-        /* Center items vertically */
-        color: white;
-        font-weight: 100;
-        
-    }
-    .profile-img {
-display: block;
-margin: auto;
-}
-    .ui.sidebar {
-        z-index: 1000; /* Ensure sidebar is above content */
-    }
+        justify-content: center;
+       }
+       .fa-solid {
+            float: right;
+        }
+        p{
+            margin-top: 25px;
+            margin-left: 25px;
+            font-size: 14px;
+        }
+     
+        .profile-img {
+            display: block;
+            margin: auto;
+        }
+/**** beginning of media queries **********/
 
-    .pusher {
-        z-index: 1; /* Ensure pusher content stays below the sidebar */
-    }
-</style>
+        @media (max-width: 484px) {
+            body {
+                flex-direction: column;
+                width: 100%;
+                height: 100%;
+                font-size: 15px;
+          
+                /* Updated to max-width */
+            }
+            #menu-toggle{
+                display: block;
+            }
+            .ui.sidebar.visible{
+                overflow-y: hidden;
+                background: none;
+                left: 0;
+            }
+              .ui.sidebar{
+                overflow-y: hidden;
+                background: none;
+                left: 0;
+            }
+            .pusher{
+                left: -220px;
+            }
+            .grid-wrapper {
+                flex-direction: column;
+                width: 100%;
+                height: 100%;
+                border: 2px solid blue;
+            }
+            .gallery-wrapper {
+                display: block;
+                flex-direction: column;
+                width: 100% !important;
+                height: 200px;
+                background-color: gainsboro;
+                border-radius: 5px;
+                box-shadow: 0 4px 0px rgba(0, 0, 0, 0.1);
+            }
+            #myChart {
+                flex-direction: column;
+                width: 40% !important;
+                margin: 0px 77px;
+                border: 1px solid orange;
+                
+            }
+            .item:hover{
+                background-color: blue;
+            }
+            #myGallery {
+                flex-direction: column;
+                background-color: aqua;
+                border: 1px solid black;
+                margin: 0px auto;
+                width: 350px;
+               
+            }
+            #controller {
+                height: 90% !important;
+                width: 90% !important;
+            }
+            #controller_2 {
+                height: 90% !important;
+                width: 90% !important;
+            }
+
+            .ui.grid {
+                flex-direction: column;
+                margin: 10px auto;
+            
+                font-size: 12px;
+                padding: none;
+            }
+         
+            .metric {
+                flex-direction: column;
+                height: 30px;
+                width: 100%;
+                margin-left: 25px;
+                margin: 0px auto;
+                padding: 0px auto;
+                font-size: 14px;
+            }
+            .ui.menu {
+                font-size: 12px;
+                padding: none;
+            }
+            .eight.wide.column {
+                flex-direction: column;
+                align-self: center;
+            }
+            .ui.borderless.fixed.menu {
+                width: 100%;
+            }
+            
+        }
+    </style>
+</head>
+
 <body>
     <div id="header">
-        <div style="background-color: gainsboro;" class="ui borderless fixed menu">
-            <a style="font-size: 15px; font-weight: bold; color: white;" class="item">Crata</a>
-            <a style="color: white;" class="item" id="menu-toggle">
-                <i class="bars icon"></i>
-            </a>
-            <a href="/dashboard" style="font-size: 15px; font-weight:100; color: white;" class="item">
-                <i class="fa-solid fa-house"></i></a>
+        <div style="z-index: 2000;background-color: #007bff;" class="ui borderless fixed menu">
+            <a class="item" style="font-weight: bold; font-size: 17px; color: white;">Crata</a>
+            <a class="item" id="menu-toggle" style="color: #fff;display: none;"><i class="bars icon"></i></a>
+            <a href="/dashboard" class="item" style="font-weight: bold; color: white;">
+                <i class="fa-solid fa-house" style="color: #fff;"></i></a>
         </div>
     </div>
-
-    <div style="margin: 0px auto;background-color:gainsboro;" class="ui sidebar vertical menu">
-        <div class="item">
-            <img src="<%= profilePicUrl %>" class="ui centered circular image profile-img" alt="Profile Picture" 
-            onerror="this.onerror=null;this.src='default-profile.png';" 
-            style=" height: 50px;margin-bottom: 5px;">
-            <!-- <h2 style="text-align: center;font-size: 15px;opacity: 0.5;">Welcome back</h2> -->
-            <h2 style="text-align: center;font-size: 15px;margin-top: 0px;margin-bottom: 10px;opacity: 0.5;"></h2> 
-             <!-- <span><%= firstname %></span> -->
-         </div> 
-         <!-- sidebar navigation -->
-        <a class="item"><i class="fa-solid fa-map"></i>Roadmap</a>
+    <div style="margin: 0px auto;background-color: gray;" id="text_color" class="ui visible sidebar vertical menu">
+       
+        <!-- sidebar navigation -->
+        <a style="color: #fff;" class="item"><i class="fa-solid fa-map"></i>Roadmap</a>
         <a href="/viewpending" class="item"><i class="fa-solid fa-hourglass-start"></i>Pending</a>
         <a href="/capture" class="item"><i class="fa-solid fa-camera"></i>Capture</a>
         <a href="/visits" class="item"><i class="fa-solid fa-person-walking-luggage"></i>Visitation</a>
@@ -101,30 +280,22 @@ margin: auto;
         <a href="/profile" class="item"><i class="fa-solid fa-user"></i>Profile</a>
         <a href="/logout" class="item"><i class="fa-solid fa-right-from-bracket"></i>Logout</a>
     </div>
-
-    <div class="pusher">
-        <div class="profile_wrapper">
-            <!-- <div class="profile-container">
-                <img src="<%= profilePicUrl %>" class="profile-pic" alt="Profile Picture"
-                     onerror="this.onerror=null;this.src='default-profile.png';">
-            </div> -->
-            <div class="ui container">
-                <p style="margin-top: 80px; padding-left: 15px;
-                font-size: 15px; font-weight:bolder; color: rgb(102, 184, 216);">
-                    Welcome back <%= firstname %>!
-            </p>
-            </div>
-        </div>
-    </div>
-
     <script>
-        $(document).ready(function() {
-            
-            $('#menu-toggle').click(function() {
+        $(document).ready(function () {
+            $('.ui.sidebar').sidebar({
+                transition: 'overlay',
+                style: 'push'
+             
+            });
+            $('#menu-toggle').click(function () {
                 $('.ui.sidebar').sidebar('toggle');
             });
         });
     </script>
-    </div>
-</div>
+    <div class="pusher">
+        <div style="background-color: gainsboro;" class="grid-wrapper">
+         
+          
+      
 </body>
+</html>

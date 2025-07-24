@@ -96,22 +96,3 @@ imagesPreview(this, "div.preview-images");
       }
   });
 </script>
-<!-- <script>
-  // Fetch images by tag using Cloudinary API
-  function fetchImagesByTag(tag) {
-    fetch(`https://api.cloudinary.com/v1_1/your-cloud-name/resources/image?tags=${tag}`, {
-      headers: {
-        'Authorization': 'Basic ' + btoa('your-api-key:your-api-secret')
-      }
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log('Images with tag:', tag, data);
-      // Process and display the images here
-    })
-    .catch(error => console.error('Error:', error));
-  }
-
-  // Example usage
-  fetchImagesByTag('example-tag');
-</script> -->
