@@ -139,6 +139,14 @@ app.get("/", (req,res) =>{
         res.render("pages/teteofafrica",{message});
         });
 
+        //GET/display login page
+app.get("/login", (req,res) =>{
+        const message = req.query.message || '';
+       
+        
+        res.render("pages/corporatelogin",{message});
+        });
+
 //supervisor dashboard
 app.get("/supervisor", (req,res) =>{
         res.render("admin/supervisorDash");
