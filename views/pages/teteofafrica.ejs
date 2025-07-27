@@ -14,29 +14,60 @@
         crossorigin="anonymous"></script>
     </head>
   <style>
-    /* body *{border: 2px solid blue;
-      }  */
+    
  /* Media Query for screens between 312px and 480px */
 @media screen and (max-width: 480px) {
 
-/* Reset body margin and padding */
+/* Reset body margin and padding
 body {
   margin: 0;
   padding: 0;
-}
+} */
 
 /* Header adjustments */
 #header {
-  margin: 10px 15px;
-  display: flex;
-  flex-direction: column; /* Stack elements vertically */
-  align-items: center;
+  border: 2px solid blue;
+  margin: 0px 0px;
+  
 }
 
-.formheading {
-  font-size: 18px; /* Smaller font size for mobile */
-  margin-left: 0;
-  padding-left: 0;
+.mobile-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 5px;
+  margin-left: 50%;
+  border-bottom: 1px solid #ccc;
+}
+
+.hamburger {
+  font-size: 28px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.mobile-menu {
+  display: none;
+  flex-direction: column;
+  background-color: #f9f9f9;
+  padding: 10px 20px;
+}
+
+.mobile-menu.show {
+  display: flex;
+}
+
+.mobile-menu a {
+  padding: 10px 0;
+  color: #333;
+  text-decoration: none;
+  border-bottom: 1px solid #ddd;
+}
+
+.mobile-menu a:last-child {
+  border-bottom: none;
 }
 
 .contain {
@@ -181,8 +212,8 @@ height: auto;
 
 /* Adjust .sub-title for better visibility */
 .sub-title {
-  font-size: 30px;
-  font-weight: 400;
+  font-size: 32px!important;
+  font-weight: 500!important;
 }
 
 /* Adjust projection heading */
@@ -210,10 +241,20 @@ height: auto;
 
 </style>
     <body style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
-      <div style="background-color: gainsboro;" class="rect_2"></div>
-        <div style="background: rgb(232, 56, 46);" class="rect_3"></div>
+      <!-- <div style="background-color: gainsboro;" class="rect_2"></div>
+        <div style="background: rgb(232, 56, 46);" class="rect_3"></div> -->
           <div id="header">
-            <h3 href="#"class="formheading" style="font-family: helvetica system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,'Helvetica Neue';">TeteofAfrica</h3>
+            <h3 href="#"class="formheading">TeteofAfrica</h3>
+              <div class="mobile-nav">
+              <button class="hamburger" onclick="toggleMenu()">☰</button>
+              <div id="mobileMenu" class="mobile-menu">
+              <a href="#">Search Tasks</a>
+              <a href="#">Refer</a>
+        <a href="#">Earnings</a>
+      <a href="/login">Login</a>
+    <a href="/signup">Sign Up</a>
+  </div>
+</div>
                 <div class="contain">                  
                     <nav>
                         <ul>
@@ -229,7 +270,7 @@ height: auto;
                 </div>
             </div>
              <div class="image-container">
-  <img class="image_ctrl" src="public/medium-shot-woman-holding-little-girl.edit.jpg" alt="elderly-farmer">
+  <img class="image_ctrl" src="public/medium-shot-woman-holding-little-girl.edit.jpg" alt="young lady and infant child">
   <div class="gradient-overlay"></div>
 
   <div class="vertical_text_1">
@@ -253,16 +294,14 @@ height: auto;
 <div class="myDiv" style="background-color: orangered;">                   
     <h1 class="sub-title">Our mission and vision</h1>  
         <p>
-          Our vision create a safe and thriving Africa where crime 
+          Our vision is to  create a safe and thriving Africa where discrimination 
           is significantly reduced for a better future.</p>
           <p style="padding-top: 15px;">
-            Our mission is to uplift Africa’s destitute and elderly by empowering 
-            destitute youths and elderly to create lasting, positive change through
-            paid, community-based tasks.
+         Our mission is to uplift Africa’s destitute and elderly by empowering
+          them to create lasting, positive change via paid tasks.
           </p>
         </div>   
       </div>
-    <section>
 <!-------------------projection--------------------->
 <div id="projection"> 
   <h1 class="projection-title" style="color:crimson;">Projection for the year 2025/26</h1>
@@ -321,8 +360,8 @@ height: auto;
         <div class="footer-content">
             <!-- Left Section: Brand & Description -->
             <div class="footer-brand">
-                <a href="#" class="footer-logo"> <img src="/images/ekkonow_logo.png" /></a>
-                <p>Empowering youths through vetted curated tasks.</p>
+                <a href="#" class="footer-logo"> <img src="public/cover.png" style="width: 300px;"/></a>
+                <p style="margin-top: 20px;">Empowering youths through vetted curated tasks.</p>
             </div>
           <!-- Middle Section: Navigation Links -->
             <div class="footer-links">
@@ -339,11 +378,11 @@ height: auto;
               <h4>Follow Us</h4>
                 <div class="social-icons">
                     <a href="https://web.facebook.com/profile.php?id=61571902079351"><i class="fa-brands fa-facebook"></i></a>
-                    <a href="https://x.com/ekko_now"><i class="fa-brands fa-x-twitter"></i></a>
-                    <a href="https://www.linkedin.com/company/ekko-now"><i class="fa-brands fa-linkedin"></i></a>
-                    <a href="https://www.instagram.com/ekkonow/"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="https://www.tiktok.com/@ekko.now"><i class="fa-brands fa-tiktok"></i></a>
-                    <a href="https://youtube.com/@ekkonow?si=y6_hRuPGTagMSv9X"><i class="fa-brands fa-youtube"></i></a>
+                    <a href=""><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href=""><i class="fa-brands fa-linkedin"></i></a>
+                    <a href=""><i class="fa-brands fa-instagram"></i></a>
+                    <a href=""><i class="fa-brands fa-tiktok"></i></a>
+                    <a href=""><i class="fa-brands fa-youtube"></i></a>
                     </div>
                     </div>
                   </div>

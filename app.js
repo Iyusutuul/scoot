@@ -1,4 +1,8 @@
 import dotenv from 'dotenv';
+import mysql from 'mysql2/promise'; 
+// or if using CommonJS:
+// const mysql = require('mysql2/promise');
+
 // Load environment variables
 dotenv.config();
 import cloudinary from 'cloudinary';
@@ -10,6 +14,19 @@ import session from 'express-session';
 import flash from 'req-flash';
 import bodyParser from 'body-parser';
 import bcrypt from 'bcryptjs';
+
+const pool = mysql.createPool({
+  host: process.env.TIDB_HOST,
+  user: process.env.TIDB_USER,
+  password: process.env.TIDB_PASSWORD,
+  database: process.env.TIDB_DATABASE,
+  port: process.env.TIDB_PORT || 4000,
+  ssl: {
+    // TiDB Cloud typically requires SSL
+    rejectUnauthorized: true
+  }
+});
+
 
 // Initialize Cloudinary with your credentials
 cloudinary.config({
@@ -29,8 +46,8 @@ import multer from 'multer';
 // import { v4 as uuidv4 } from 'uuid';
 const upload = multer({ storage });
   
-// Database connection
-import db from './lib/dbconfig.js';
+// // Database connection
+// import pool from './lib/dbconfig.js';
                
 //specify port number     
 app.set('port', process.env.PORT || 8080);
@@ -60,6 +77,7 @@ app.use(session({
 app.use(flash());
 
 //! Routes start //htttp://localhost:8080/
+
 
 // Middleware to check if the user is authenticated
 const isAuthenticated = (req, res, next) => {
@@ -127,8 +145,6 @@ const isAuthenticated = (req, res, next) => {
         });
     });
 });
-
-
 
 
 //GET/display login page
@@ -282,7 +298,7 @@ app.post("/dashboard", (req,res)=>{
 
         if (email && password)
         {
-                db.query('SELECT * FROM users WHERE email = ? AND password = ?', [email, password],
+                pool.query('SELECT * FROM users WHERE email = ? AND password = ?', [email, password],
                 function(error, result, fields) {
                 if (error) throw (error);
                         if(result.length > 0)

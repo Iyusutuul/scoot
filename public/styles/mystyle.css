@@ -62,21 +62,22 @@ body{
 }
 /***targets both the logo and the links on the left***/
 #header{
-  margin-top: 5px;
+  /* margin-top: 5px; */
   position: relative;
   top: 0;
   left: 0;
   right: 0;
   display: flex;
   align-items: center;
-  background-color: beige;
+  background-color: rgb(255, 255, 255);
 }
-
+.mobile-nav {
+  display: none;
+}
 /**targets just the links***/
-.contain{
+/* .contain{
  margin: 10px 20px;
- bac
-}
+} */
 
 /***targets the logo text position***/
 .formheading{
@@ -94,9 +95,10 @@ body{
   font-weight: bold;
   position: relative;
   display: flex;
-  margin-left: 100px;
-  
+  margin-left: 70px;
+
 }
+
 .logo_container img{
   position:absolute;
   margin-top: 0px;;
@@ -163,18 +165,18 @@ body{
 }
 
 .vertical_text_1 {
-  top: 10%;
+  top: 15%;
   font-size: 60px;
   font-weight: bold;
 }
 
 .vertical_text_2{
+  top: 40%;
   position: absolute;
   text-align: center;
   line-height: 2.0rem;
   font-weight:100;
   font-size: 17px;
-  top: 250px;
   color:rgb(255, 255, 255);
   font-family: 'myriad-pro';
   opacity: .9;
@@ -182,17 +184,12 @@ body{
 .image-container {
   position: relative;
   width: 100%;
-  max-width: 100%;
-}
-
-.image_ctrl {
-  width: 100%;
-  display: block;
+  height: 700px;
 }
 
 .image-container img {
   width: 100%;
-  height: 650px;
+  height: 700px;
 }
 .gradient-overlay {
   position: absolute;
@@ -209,17 +206,15 @@ body{
     rgba(221, 115, 9, 0) 100%
   );
 }
-input {
-    
-}
+
 .get_started {
-  margin-top: 20px;
+  margin-top: 60px;
   padding: 12px 24px;
   font-size: 16px;
   background-color: #fff;
   color: white;
-  border: 1px solid rgb(0 0 200/0.6);
-  background: #1DA1F2;
+  border: 2px solid rgb(255, 255, 255);
+  background: transparent;
   border-radius: 50px;
   box-shadow: 1px 1px 2px rgb(0 0 200/0.4);
   padding: 13px 27px;
@@ -231,34 +226,33 @@ input {
   }
 .sub-title{
   text-align: center;
-  font-weight:bold;
+  font-weight: 600;
   margin: 0px 0px;
-  padding-top: 30px;
-  padding-bottom: 30px;
+  padding-top: 80px;
+  padding-bottom: 10px;
   font-size: 35px; 
   color: whitesmoke;
 }
 .projection-title{
   text-align: center;
-  font-weight:bold;
   margin: 0px 0px;
   padding-top: 30px;
   padding-bottom: 30px;
-  font-size: 40px; 
+  font-size: 35px; 
 }
 .sub-title p{
   text-align: center;
 }
 .myDiv{
-  height: 470px;
+  height: 430px;
   padding-left: auto;
   padding-right: auto
 }
 .myDiv p{
   text-align: center;
   width: 700px;
-  font-size: 25px;
-  font-weight: 300;
+  font-size: 20px;
+  font-weight: 500;
   margin-left: auto;
   margin-right: auto;
   color: whitesmoke;
@@ -269,37 +263,34 @@ input {
   padding: 10px 0;
   text-align: center;
   font: 400 1.125rem / 1.5rem;
-  font-weight: 600;
-  font-size: 30px; 
+  font-weight: 500;
+  font-size: 35px; 
 }
 .projection {
-  display: flex;               /* Enable flexbox */
-  justify-content: space-between; /* Distribute circles evenly horizontally */
-  align-items: center;         /* Vertically align circles */
-  margin: 0 auto;              /* Center the container horizontally */
+   display: flex;
+  justify-content: center;  /* Center the circles */
+  flex-wrap: wrap;          /* Allow wrapping on smaller screens */
+  gap: 20px;                /* Space between circles */
+  margin: 0 auto;
 }
 .circle {
-  width: 350px;
+  width: 200px;
   height: 200px;
   line-height: 180px;
-  vertical-align: middle; 
-  display: inline-block;
+  display: flex;                    /* Use flex for better centering */
+  align-items: center;
+  justify-content: center;
   border-radius: 50%;
   color: #fff;
   text-align: center;
   background: orange;
-  margin: 5px 0px 5px 0;
-  margin-inline-start: 65px;
-  justify-content: space-between;
-  margin-inline-end: 60px;
+  padding: 10px;
+  margin: 5px 40px;
 }
-.circle-text p{
-  font-size: 14px;
-  color: black
-}
+
 .circle span {
-  font-size: 70px;
-  font-weight: bolder;
+  font-size: 60px;
+  font-weight:bold;
   letter-spacing: 1px;
 }
 .text-content {
@@ -314,10 +305,14 @@ input {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   grid-gap: 30px;
+   justify-items: center;   /* centers content horizontally in each grid cell */
+  text-align: center;
+  margin: 0 40px;
+  padding: 20px 10px;
 }
 .impact-list div{
   padding: 0px 25px 0 25px;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 300;
   font-family: Lucida Sans Unicode;
 }
@@ -327,10 +322,11 @@ input {
   transition: background 0.5s, transform 0.5s;
 }
 .impact-list div h2{
-font-size: 20px;
-font-weight: bold;
+font-size: 18px;
+font-weight: 600;
 margin-bottom: 20px;
 text-align: center;
+color: rgba(0, 0, 0, 0.79);
 }
 .impact-list div a{
   text-decoration: none;
@@ -420,12 +416,7 @@ height: auto;
 }
 
 .footer-logo {
-    font-size: 24px;
-    font-weight: 700;
-    color: white;
-    text-decoration: none;
     display: block;
-    margin-bottom: 10px;
 }
 
 .footer-brand p {
@@ -482,7 +473,7 @@ height: auto;
     transform: scale(1.1);
 }
 
-/* Bottom Section: Copyright */
+
 .footer-bottom {
     text-align: center;
     padding-top: 20px;
@@ -490,11 +481,179 @@ height: auto;
     color:black;
 }
 
+@media screen and (max-width: 768px) {
+  /* Header and nav */
+  body {
+  overflow-x: hidden;
+}
+  #header {
+    align-items: flex-start;
+    padding: 0px;
+    margin-top: 0px;
+  }
+.mobile-nav {
+  flex-direction: row;
+    display: flex;
+    padding: 10px 20px;
+    background-color: white;
+    position: relative;
+  }
 
-/* Add responsiveness - will automatically display the navbar vertically instead of horizontally on screens less than 500 pixels */
-@media screen and (min-width: 57px) {
-  .navbar a {
-    float: none;
+  .hamburger {
+    font-size: 28px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    float: right;
+  }
+
+  .mobile-menu {
+    display: none;
+    flex-direction: column;
+    background-color: #f9f9f9;
+    padding: 10px 15px;
+    margin-top: 10px;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .mobile-menu a {
+    text-decoration: none;
+    color: #333;
+    padding: 8px 0;
+    font-weight: 500;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .mobile-menu a:last-child {
+    border-bottom: none;
+  }
+
+  .mobile-menu.show {
+    display: flex;
+  }
+
+  nav ul {
+    padding: 0;
+    width: 100%;
+    text-align: center;
+  }
+
+  nav ul li {
     display: block;
+    margin: 10px 0;
+  }
+
+  .formheading {
+    margin-left: 20px !important;
+    font-size: 20px;
+  }
+
+  .button {
+    position: static;
+    margin: 10px auto;
+    display: block;
+    text-align: center;
+  }
+
+  /* Text over image */
+  .vertical_text_1 {
+    font-size: 32px;
+    top: 20%;
+  }
+
+  .vertical_text_2 {
+    font-size: 14px;
+    top: 40%;
+    padding: 0 20px;
+  }
+
+  /* Image */
+  .image-container {
+    height: 300px!important;
+  }
+
+  /* Image */
+  .image-container img {
+    height: 300px!important;
+  }
+
+  /* Circles layout (projections) */
+  .projection {
+    flex-direction: column;
+    gap: 20px;
+    padding: 0 20px;
+  }
+
+  .circle {
+    margin: 10px auto;
+    width: 200px;
+    height: 200px;
+    line-height: 180px;
+  }
+
+  .circle span {
+    font-size: 40px;
+  }
+
+  /* Div content */
+   .myDiv {
+    background-color: orangered; /* Keep your background */
+    padding: 20px 10px;          /* Add some padding for small screens */
+    padding-bottom: 50px;
+  }
+  
+  .myDiv p {
+    font-size: 22px !important;
+    font-weight: 400 !important;
+    width: 100%;
+    padding: 0 15px!important;
+    box-sizing: border-box;  /* Ensure padding doesn't break layout */
+    color: white !important;
+  }
+  .sub-title{
+  text-align: center;
+  font-weight: 600;
+  margin: 0px 0px;
+  margin-bottom: 15px;
+  padding-top: 20px;
+  padding-bottom: 10px;
+  font-size: 24px; 
+}
+
+  /* Services */
+  .services {
+    width: 100%;
+    height: auto;
+  }
+
+  .services img {
+    width: 100%;
+    height: auto;
+  }
+
+  .across_text {
+    width: 100%;
+    font-size: 14px;
+    padding: 10px 0;
+  }
+
+  /* Footer */
+  .footer-content {
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+  }
+
+  .footer-brand,
+  .footer-links,
+  .footer-socials {
+    width: 100%;
+    text-align: center;
+  }
+
+  .footer-socials .social-icons {
+    justify-content: center;
   }
 }
