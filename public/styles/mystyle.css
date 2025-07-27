@@ -585,6 +585,14 @@ height: auto;
     gap: 20px;
     padding: 0 20px;
   }
+  .projection-title{
+  text-align: center;
+  margin: 0px 0px;
+  padding: 0px 30px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  font-size: 30px; 
+}
 
   .circle {
     margin: 10px auto;
