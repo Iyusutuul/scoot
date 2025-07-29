@@ -31,9 +31,10 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 10px 5px;
-  margin-left: 50%;
+  margin-left: 48%;
   border-bottom: 1px solid #ccc;
 }
+
 
 .hamburger {
   font-size: 28px;
@@ -41,29 +42,8 @@ body {
   border: none;
   cursor: pointer;
   padding: 8px;
-}
+} 
 
-.mobile-menu {
-  display: none;
-  flex-direction: column;
-  background-color: #f9f9f9;
-  padding: 10px 20px;
-}
-
-.mobile-menu.show {
-  display: flex;
-}
-
-.mobile-menu a {
-  padding: 10px 0;
-  color: #333;
-  text-decoration: none;
-  border-bottom: 1px solid #ddd;
-}
-
-.mobile-menu a:last-child {
-  border-bottom: none;
-}
 
 .contain {
   display: none;
@@ -102,26 +82,12 @@ nav ul li a:after {
   height: 300px;
   max-width: 100%;
 }
-/* MyDiv section adjustments */
-.myDiv {
-  text-align: center;
-  height: 425px; /* Allow height to adjust based on content */
-  background-color: #8D6E63
-}
 
 .myDiv h1{
   font-size: 30px;
   font-weight: 500;
 }
-/*styles the missio and vision text **/
-.myDiv p{
-  text-align: center;
-  padding-left: 10px;
-  padding-right: 10px;
-  font-size: 20px;
-  font-weight: 100;
-  color: pink;
-}
+
 
 .vertical_text_1 {
   visibility: hidden;
@@ -137,10 +103,7 @@ nav ul li a:after {
   left: 50px;
 }
 
-.image-container img {
-  max-width: 100%;
-  height: auto; /* Maintain aspect ratio for smaller screens */
-}
+
 
 .get_started {
   visibility: hidden;
@@ -173,37 +136,8 @@ nav ul li a:after {
   padding: 20px 0;
 }
 
-/***container for services***/
-.container {
-background: rgb(252, 168, 13);  /* fallback for old browsers */
-padding: 10px 50px;
-height: auto;
-}
-
-/* Services section adjustments */
-.services-list {
-  grid-template-columns: 1fr; /* Single column layout */
-  grid-gap: 15px;
-}
-
-.services {
-  width: 100%;
-  height: 300px; /* Adjust service height */
-}
-
-.services img {
-  width: 100%;
-  height: auto;
-}
-
-.across_text {
-  padding: 10px;
-  font-size: 14px;
-}
-
 .container {
   padding: 10px 15px;
-  
 }
 
 /* Adjust .sub-title for better visibility */
@@ -232,15 +166,13 @@ height: auto;
 .impact-list div h2 {
   font-size: 16px;
 }
-
 }
-
 </style>
     <body style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
       <!-- <div style="background-color: gainsboro;" class="rect_2"></div>
         <div style="background: rgb(232, 56, 46);" class="rect_3"></div> -->
           <div id="header">
-            <h3 href="#"class="formheading">TeteofAfrica</h3>
+            <h3 style="height: 40px;" href="#"class="formheading">TeteofAfrica</h3>
               <div class="mobile-nav">
               <button class="hamburger" onclick="toggleMenu()">☰</button>
               <div id="mobileMenu" class="mobile-menu">
@@ -266,7 +198,7 @@ height: auto;
                 </div>
             </div>
              <div class="image-container">
-  <img class="image_ctrl" src="public/medium-shot-woman-holding-little-girl.edit.jpg" alt="young lady and infant child">
+  <img class="image_ctrl" src="public/orphan_girl.jpg" alt="young lady and infant child">
   <div class="gradient-overlay"></div>
 
   <div class="vertical_text_1">
@@ -276,16 +208,14 @@ height: auto;
   <div class="vertical_text_2">
     <blockquote>
       At TêteofAfrica, we don’t just respond to challenges — we rethink them.
-      Our work supports local leaders, grassroots organizations, and youth innovators who are reshaping Africa’s future.
-      We bridge data with tradition, vision with action, and potential with purpose.
-      Our mission: to build an Africa led by informed minds and inspired hearts.
-    </blockquote>
-    <input class="get_started" type="button" value="Sign Up for Free">
-  </div>
-</div>
-          
-       
+        Our work supports local leaders, grassroots organizations, and youth innovators who are reshaping Africa’s future.
+            We bridge data with tradition, vision with action, and potential with purpose.
+            Our mission: to build an Africa led by informed minds and inspired hearts.
+          </blockquote>
+                <input class="get_started" type="button" value="Sign Up for Free">
         </div>
+    </div>
+</div>
 <!----------------------mission----------------------->
 <div class="myDiv" style="background-color: orangered;">                   
     <h1 class="sub-title">Our mission and vision</h1>  
@@ -329,24 +259,24 @@ height: auto;
         </div>
 <!-------------------services--------------->          
     <div class= "container">
-        <h1 class="sub-title">What we do</h1>
+        <h1 class="service sub-title">What we do</h1>
                      <div class="services-list">
                 <div class="services"> 
                     <img src="public/orphan_girl.jpg">
-                        <div class="across_text">Au-pair</div>                     
+                        <div class="across_text">Nanny/Au-pair Services</div>                     
                         </div>
                        
                             <div class="services">
                             <img src="public/young-african-guy-motorbike-holding-boxes.jpg">
-                            <div class="across_text">Dispatch Service</div>                       
+                            <div class="across_text">Dispatch services</div>                       
                             </div>
                             <div class="services">
                             <img src="public/a_senior_farmer.jpg">
-                            <div class="across_text">SME LOANS</div>        
+                            <div class="across_text">SME loans</div>        
                         </div>
                          <div class="services">
                             <img src="public/close-up-image-programer-working-his-desk-office.jpg">
-                            <div class="across_text">Web Development</div>                   
+                            <div class="across_text">Web development</div>                   
                             </div>
                     </div>
               </div>
@@ -414,9 +344,14 @@ height: auto;
       });
     </script>
 <script>
-    $(document).ready(function(){
-        $('.services').hover(function(){
-            $('.across_text').slideToggle('slow');                  
-    });
-});
+  $(document).ready(function(){
+    $('.services').hover(
+      function() {
+        $(this).find('.across_text').stop(true, true).slideDown(800);  // Show with 800ms duration
+      },
+      function() {
+        $(this).find('.across_text').stop(true, true).slideUp(200000);    // Hide with 800ms duration
+      }
+    );
+  });
 </script>
