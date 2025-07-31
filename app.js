@@ -1,19 +1,23 @@
 import dotenv from 'dotenv';
-import mysql from 'mysql2/promise'; 
-// or if using CommonJS:
-// const mysql = require('mysql2/promise');
-
-// Load environment variables
-dotenv.config();
+import mysql from 'mysql2/promise';
 import cloudinary from 'cloudinary';
 import express from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import session from 'express-session';
+import Sequelize from 'sequelize';
+import connectSessionSequelize from 'connect-session-sequelize';
 import flash from 'req-flash';
 import bodyParser from 'body-parser';
 import bcrypt from 'bcryptjs';
+
+// Load environment variables
+dotenv.config();
+
+// Initialize SequelizeStore
+const SequelizeStore = connectSessionSequelize(session.Store);
+
 
 const pool = mysql.createPool({
   host: process.env.TIDB_HOST,
@@ -26,6 +30,27 @@ const pool = mysql.createPool({
     rejectUnauthorized: true
   }
 });
+
+const sequelize = new Sequelize(
+  process.env.TIDB_DATABASE,
+  process.env.TIDB_USER,
+  process.env.TIDB_PASSWORD,
+  {
+    host: process.env.TIDB_HOST,
+    port: process.env.TIDB_PORT || 4000,
+    dialect: 'mysql',
+    dialectOptions: {
+      ssl: { rejectUnauthorized: true }
+    },
+    logging: false
+  }
+);
+const store = new SequelizeStore({
+  db: sequelize,
+});
+
+store.sync(); // Make sure the session table exists
+
 
 
 // Initialize Cloudinary with your credentials
@@ -66,19 +91,24 @@ app.use(express.static(path.join(process.cwd(), 'public'))); //Function to serve
 app.use('/public', express.static('public'));
 app.use (express.static('/views'));
 
+
+app.set('trust proxy', 1); // Required on Render for secure cookies
+
 app.use(session({
-        secret: 'secret',
-        secure: 'true',
-        resave: false,
-        saveUninitialized: false,
-        cookie: {maxAge: 1000000}
+  secret: process.env.SESSION_SECRET || 'secret123',
+  store: store,
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    maxAge: 30 * 60 * 1000, // ✅ 30 minutes
+    secure: false, // ✅ Ensures cookie only sent over HTTPS (Render uses HTTPS)
+    sameSite: 'lax' // Good default for security
+  }
 }));
 
 app.use(flash());
 
 //! Routes start //htttp://localhost:8080/
-
-
 // Middleware to check if the user is authenticated
 const isAuthenticated = (req, res, next) => {
         if (req.session.loggedin) {
@@ -108,7 +138,7 @@ const isAuthenticated = (req, res, next) => {
     let message = '';
     let message_success = '';
 
-    db.query('SELECT email FROM users WHERE email = ?', [email], async (error, result) => {
+    pool.query('SELECT email FROM users WHERE email = ?', [email], async (error, result) => {
         if (result.length) {
             message = 'Email is already in use';
             return res.render('pages/signup', { message, message_success: '' });
@@ -146,7 +176,6 @@ const isAuthenticated = (req, res, next) => {
     });
 });
 
-
 //GET/display login page
 app.get("/", (req,res) =>{
         const message = req.query.message || '';
@@ -181,7 +210,7 @@ app.get("/viewpending", (req,res) =>{
 })
 
 app.get('/roadmap', (req, res) => {
-    db.query('SELECT * FROM roadmap WHERE status = "Pending"', (err, results) => {
+    pool.query('SELECT * FROM roadmap WHERE status = "Pending"', (err, results) => {
         if (err) {
             console.error('Error fetching rows:', err);
             return res.status(500).send('Error fetching rows.');
@@ -215,7 +244,7 @@ app.post('/update_roadmap', upload.single('image'), async (req, res) => {
         const query = 'UPDATE roadmap SET status = ?, image_url = ?, pending = ? WHERE id = ?';
         const values = [status, image_url, false, id];  // Mark as processed (pending = false)
 
-        db.query(query, values, (error) => {
+        pool.query(query, values, (error) => {
             if (error) {
                 console.error('Database error:', error);
                 return res.status(500).send('Error saving record');
@@ -243,7 +272,7 @@ app.get('/dashboard', isAuthenticated, (req, res) => {
     const basePay = 309.09; // Set your fixed base pay here
 
     // Fetch user tag and other necessary data
-    db.query('SELECT tags, profile_pic_url FROM users WHERE id = ?', [userId], (error, results) => {
+    pool.query('SELECT tags, profile_pic_url FROM users WHERE id = ?', [userId], (error, results) => {
         if (error) {
             console.error('Database query error:', error);
             return res.status(500).send("Internal Server Error");
@@ -266,7 +295,7 @@ app.get('/dashboard', isAuthenticated, (req, res) => {
             return new Promise((resolve, reject) => {
                 const queryParams = key === 'totalInputs' ? [userTag] : [];
                 console.log(`Running query for ${key}:`, query, queryParams);
-                db.query(query, queryParams, (error, results) => {
+                pool.query(query, queryParams, (error, results) => {
                     if (error) {
                         console.error(`Database query error for ${key}:`, error);
                         return reject(error);
@@ -336,7 +365,7 @@ app.get('/capture', isAuthenticated, (req, res) => {
     }
 
     const query = 'SELECT * FROM users WHERE id = ?';
-    db.query(query, [userId], (err, results) => {
+    pool.query(query, [userId], (err, results) => {
         if (err || results.length === 0) {
             return res.redirect('/login'); // Redirect if user not found
         }
@@ -359,7 +388,7 @@ app.post('/capture', (req,res)=>{
         const values = { application_type, term_type, term_serial, sim_type,
                          sim_serial, status, reference,rrn};
 
-                         db.query(query, values, (err, result) => {
+                         pool.query(query, values, (err, result) => {
                                 if (err) {
                                   console.error('Database error:', err);
                                   return res.status(500).send('Error saving record');
@@ -389,7 +418,7 @@ app.get('/profile', isAuthenticated, (req, res) => {
     const sql = "SELECT * FROM `users` WHERE `id` = ?";
     console.log("SQL Query:", sql, [userId]);
 
-    db.query(sql, [userId], (err, result) => {
+    pool.query(sql, [userId], (err, result) => {
         if (err) {
             console.error("Database query error:", err);
             res.status(500).send("Internal Server Error");
@@ -449,7 +478,7 @@ app.get('/visits', isAuthenticated, async (req, res) => {
     }
     async function getUserById(userId) {
         return new Promise((resolve, reject) => {
-            db.query('SELECT firstname, profile_pic_url FROM users WHERE id = ?', [userId], (error, results) => {
+            pool.query('SELECT firstname, profile_pic_url FROM users WHERE id = ?', [userId], (error, results) => {
                 if (error) return reject(error);
                 resolve(results[0]); // Assuming you want the first result
             });
@@ -479,7 +508,7 @@ app.post('/visits', upload.single('image'), async (req, res) => {
     const values = {merchant_name, merchant_address, terminal_id, rrn, status, image_url, 
             tags: JSON.stringify(req.body.tags)};
 
-        db.query(query, values, (error) => {
+        pool.query(query, values, (error) => {
             if (error) {
                 console.error('Database error:', error);
                 return res.status(500).send('Error saving record');
